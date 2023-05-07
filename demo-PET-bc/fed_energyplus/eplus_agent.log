@@ -73,5 +73,3 @@ new price 0.01 at HELICS time 3000.00
 ## delta, delta_price, delta_offer =      -0.25     -0.25      0.00
 new price 0.01 at HELICS time 3300.00
 ## delta, delta_price, delta_offer =      -0.23     -0.23      0.00
-new price 0.01 at HELICS time 3600.00
-## delta, delta_price, delta_offer =      -0.24     -0.24      0.00
