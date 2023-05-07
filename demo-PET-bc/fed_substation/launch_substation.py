@@ -47,7 +47,7 @@ def application_caller(application, js_application_path, args):
 
 
 # fabric javascript application path
-js_application_path = '../fabric_samples/double-auction/application-javascript/'
+js_application_path = '../fabric/double-auction/application-javascript/'
 # to make sure whether the blockchain is running
 res = application_caller('queryAuction.js', js_application_path, args=['org1', 'auctioneer', '000'])
 if '"closed": false' in res:

@@ -9,8 +9,4 @@ HELICS subscription key 3 _input_5 target sub1/responsive_c1
 HELICS subscription key 4 _input_6 target sub1/responsive_c2
 HELICS subscription key 5 _input_7 target sub1/responsive_deg
   Keeping SWING Bus 2 (Gen 2) at 0 and 65.09 MW
-  Keeping SWING Bus 2 (Gen 2) at 285 and 69.49 MW
-  Keeping SWING Bus 2 (Gen 2) at 585 and 70.93 MW
-  Keeping SWING Bus 2 (Gen 2) at 885 and 70.46 MW
-  Keeping SWING Bus 2 (Gen 2) at 1185 and 70.34 MW
 SIGINT: Interrupted by Ctrl-C.
