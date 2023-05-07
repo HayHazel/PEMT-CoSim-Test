@@ -1,0 +1,1 @@
+{"Metadata":{"battery_SOC_avg":{"index":5,"units":"%"},"battery_SOC_max":{"index":4,"units":"%"},"battery_SOC_min":{"index":3,"units":"%"},"charge_rate_avg":{"index":2,"units":"W"},"charge_rate_max":{"index":1,"units":"W"},"charge_rate_min":{"index":0,"units":"W"}},"StartTime":"2013-07-01 00:00:00 PDT"}

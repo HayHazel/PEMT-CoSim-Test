@@ -1,0 +1,25 @@
+unit   2 off from 108000 to 154800
+unit   2 off from 280800 to 327600
+HELICS publication key 0 pypower/three_phase_voltage_B7
+HELICS publication key 1 pypower/LMP_B7
+HELICS subscription key 0 _input_2 target gld1/distribution_load
+HELICS subscription key 1 _input_3 target sub1/unresponsive_mw
+HELICS subscription key 2 _input_4 target sub1/responsive_max_mw
+HELICS subscription key 3 _input_5 target sub1/responsive_c1
+HELICS subscription key 4 _input_6 target sub1/responsive_c2
+HELICS subscription key 5 _input_7 target sub1/responsive_deg
+  Keeping SWING Bus 2 (Gen 2) at 0 and 65.09 MW
+  Keeping SWING Bus 2 (Gen 2) at 285 and 69.49 MW
+  Keeping SWING Bus 2 (Gen 2) at 585 and 70.93 MW
+  Keeping SWING Bus 2 (Gen 2) at 885 and 70.46 MW
+  Keeping SWING Bus 2 (Gen 2) at 1185 and 70.34 MW
+  Keeping SWING Bus 2 (Gen 2) at 1485 and 70.94 MW
+  Keeping SWING Bus 2 (Gen 2) at 1785 and 70.46 MW
+  Keeping SWING Bus 2 (Gen 2) at 2085 and 70.01 MW
+  Keeping SWING Bus 2 (Gen 2) at 2385 and 70.30 MW
+  Keeping SWING Bus 2 (Gen 2) at 2685 and 70.12 MW
+  Keeping SWING Bus 2 (Gen 2) at 2985 and 70.25 MW
+  Keeping SWING Bus 2 (Gen 2) at 3285 and 70.09 MW
+  Keeping SWING Bus 2 (Gen 2) at 3585 and 70.07 MW
+  Keeping SWING Bus 2 (Gen 2) at 3885 and 70.20 MW
+SIGINT: Interrupted by Ctrl-C.

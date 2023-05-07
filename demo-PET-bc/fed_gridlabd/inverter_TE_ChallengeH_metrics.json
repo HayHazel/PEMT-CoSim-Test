@@ -1,0 +1,1 @@
+{"Metadata":{"reactive_power_avg":{"index":5,"units":"VAR"},"reactive_power_max":{"index":4,"units":"VAR"},"reactive_power_min":{"index":3,"units":"VAR"},"real_power_avg":{"index":2,"units":"W"},"real_power_max":{"index":1,"units":"W"},"real_power_min":{"index":0,"units":"W"}},"StartTime":"2013-07-01 00:00:00 PDT"}
