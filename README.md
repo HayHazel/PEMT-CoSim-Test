@@ -17,7 +17,7 @@ Substation is main federate which implements the PEM and PET using developed API
 
 
 ## 2. Installation
-PEMT-CoSim runs natively on Linux. However, for better deployment of this project,  it is suggested to run this project in a docker container. Therefore, PEMT-CoSim can also run in Windows and MacOS via docker. In addition, the PEMT-CoSim integrated with Fabric blockchain cannot run in a Docker container, for the detailed instructions, please refer to the document in the demo-PET-bc folder.
+PEMT-CoSim runs natively on Linux. However, for better deployment of this project,  it is suggested to run this project in a docker container. Therefore, PEMT-CoSim can also run in Windows and MacOS via docker. In addition, the PEMT-CoSim integrated with Fabric blockchain cannot run in a Docker container, for the detailed instructions, please refer to the document in the demo-PET-BC folder.
 
 ### 2.1 Installation via Docker 
 Before the installation, the [Docker or Docker Desktop](https://www.docker.com/products/docker-desktop), and [Git](https://git-scm.com/) should be installed. 

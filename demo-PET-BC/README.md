@@ -1,52 +1,76 @@
-# PEMT-CoSim
+# PEMT-CoSim-Blockchain-Enabled
 
-A Co-Simulation Platform For Packetized Energy Management and Trading
+A Co-Simulation Platform For Packetized Energy Management and Trading with Blockchain Integrated with Blockchain
 
 ## 1. Description
-PEMT-CoSim is a co-simulation platform for packetized energy management (PEM) and trading (PET) in smart grids. It is developed based on the open-source [Transactive Energy Simulation Platform (TESP, v1.0.0)](https://tesp.readthedocs.io/en/latest/TESP_Overview.html#). 
+This sub-project is characterized by implementing an Energy Trading Market using Fabric Blockchain, which interacts with the blockchain during the program's execution to make the transaction process more transparent and fair. Due to the need for Fabric Blockchain to run separately in Docker, we cannot integrate it into the Docker of PEMT-CoSim (running Docker in Docker would increase development difficulty). Therefore, PEMT-CoSim runs locally in this project, while Fabric runs in Docker. We will enable PEMT-CoSim to interact with the smart contracts on Fabric through the provided JavaScript program.
 
 
-Packetized Energy (PE) is a gird management technology which breaks the power into fixed-duration/fixed power "energy packet" with a "request-reply" scheme. Prosumers (both suppler and consumer) can request a packet for their load/generator to consume/provide. A central coordinator will accept/reject the request based on grid condition. There are two types of PE, Packetized Energy Management (PEM) and Packetized Energy Trading (PET). Packetized Energy Management (PEM) is a load dispatch program which uses a PEM controller to have houses' flexible load to request a packet with a probability, and the central coordinator will accept/reject the request by comparing the the request load with a balancing signal. PET allows prosumers to bid for a packet in a double-auction market. The cleared price and quantity determine whether bids are accepted or rejected for prosumers. 
 
-PEMT-CoSim utilizes the TESP's HELICS co-simulation framework to enable coordination between a number of dedicated simulators/programs (named "federate" under the HECLIS framework): GridLAB-D federate (distribution system simulator),  PyPower federate (transmission system simulator), EnergyPlus federate(building simulator), Wether federate (weather data generator), Substation federate (Implemented the processes for PET and PEM). 
 
-![image](./doc_images/co-simulation-platform.png)
+
+![image](../doc_images/co-simulation-platform.png)
 <center>PEMT-CoSim Architecture</center>
 
 Substation is main federate which implements the PEM and PET using developed API, including PEM-related modules (PEM Controllers, PEM Coordinator), PET-related modules (PET Prosumer, PEM Market). Moreover, the AI modules implemented the reinforcement learning algorithm that can be used to optimize the biding strategies for prosumers.
 
 
 ## 2. Installation
-PEMT-CoSim runs natively on Linux. However, for better deployment of this project,  it is suggested to run this project in a docker container. Therefore, PEMT-CoSim can also run in Windows and MacOS via docker. In addition, the PEMT-CoSim integrated with Fabric blockchain cannot run in a Docker container, for the detailed instructions, please refer to the document in the demo-PET-bc folder.
+PEMT-CoSim runs natively on Linux and Fabric Blockchain runs inside multiple docker containers in this subproject.
 
-### 2.1 Installation via Docker 
+We need to install Docker, TESP and python packages to enable the operation.
+
+### 2.1 OS Environment
+
+Please make sure using Ubuntu 20.04 LTS. The latest version of Ubuntu may not install the 1.0.0 version TESP.
+
 Before the installation, the [Docker or Docker Desktop](https://www.docker.com/products/docker-desktop), and [Git](https://git-scm.com/) should be installed. 
 
-- Clone the PEMT-CoSim Project from Github (https://github.com/Yuanliang-Li/PEMT-CoSim)
-    > git clone https://github.com/Yuanliang-Li/PEMT-CoSim.git
-    >
+### 2.1 Installation of TESP
+
+- Please run the command line below in sequence to install the TESP (https://github.com/pnnl/tesp)
+    ```
+    curl -L https://github.com/pnnl/tesp/releases/download/v1.0.0/tesp-1.0.0-linux-x64-installer.run -o tesp-1.0.0-linux-x64-installer.run
+    chmod +x tesp-1.0.0-linux-x64-installer.run
+    sudo ./tesp-1.0.0-linux-x64-installer.run
+    ```
+
+
+### 2.1 Python Environment
+
+- Please run the command line below in sequence to install the TESP (https://github.com/pnnl/tesp)
+    ```
+    cd ./demo-PET-BC
+    pip install -r requirements.txt
+    ```
+  
 - Open a command prompt in Linux/Windows/MacOS, and cd into the "docker" directory of the PEMT-CoSim project.
     > cd docker
     >
-- Build docker image
-    > docker build . -t ubuntu-vnc
-    >
-- Build ubuntu docker container
-    > docker run -it --privileged -p 2222:22 -p 5951:5901 --mount type=bind,source= /YOURDIRECTORY/To/PEMT-CoSim,destination=/PEMT-CoSim --name ubuntu-pemt ubuntu-vnc
-    >
-    When the 'docker run' command runs, the container starts and executes a startup .sh script that will set up the environment for development. \
-    The "--mount" option can make a file or directory on the host machine mounted into the container. So, after the installation you can make development/edition/post-processing on your project in your host machine, and run the co-simulation in the container.
-- Install TESP by typing when building the container
-    > /root/startup/tesp-1.0.0-linux-x64-installer.run
-    >
-    After this step, you have now installed the PEMT-CoSim.
 
-The following steps show how you start and connect to your running container
-- Start the container (the container will run)
-    > docker start ubuntu-pemt
-- Connect to a running docker container
-    > docker exec --privileged -it ubuntu-pemt /bin/bash
+## 2. Run Cases
 
+- Set up the Fabric Blockchain Instance.
+    ```
+    cd ./demo-PET-BC/fabric/double-auction/application-javascript/test
+    sudo ./reset.sh
+    sudo ./start.sh
+    ```
+  The scripts will set up the blockchain with 9 dockers. You can visualize it using the VS code extension. Please try to use ./reset.sh to reset all docker instances if you encountered any unknown errors.
+
+- Generate a study case of simulation.
+    ```
+    cd ./PEMT-CoSim/demo-PET-BC
+    python3 generate_case.py 
+    ```
+  This python script will generate a study case based on user configuration
+
+  - Start the Blockchain-based energy trading market.
+    ```
+    cd /PEMT-CoSim/demo-PET/fed_substation/
+    python3 launch_substation.py
+    ```
+    If executed successfully, the console will print out the bidding information and process.
 
 ## 3. File Directory 
 Denote "(c)" as configuration file, "(o)" as output file.
@@ -143,8 +167,8 @@ To visualize the experimental results after the simulation
 cd /PEMT-CoSim/
 python3 plotFig.py
 ```
-![image](./doc_images/result-PET.png)
-![image](./doc_images/result-PET2.png)
+![image](../doc_images/result-PET.png)
+![image](../doc_images/result-PET2.png)
 <center>PET results</center>
 
 ### 4.3 Run PET-RL example (with RL) via prompt
@@ -162,6 +186,4 @@ To visualize the experimental results after the simulation
 cd /PEMT-CoSim/
 python3 plotFig.py
 ```
-![image](./doc_images/result-PET-RL.png)
-![image](./doc_images/result-PET-RL-2.png)
 <center>PET-RL results</center>
