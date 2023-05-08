@@ -26,7 +26,7 @@ Please make sure using Ubuntu 20.04 LTS. The latest version of Ubuntu may not in
 
 Before the installation, the [Docker or Docker Desktop](https://www.docker.com/products/docker-desktop), and [Git](https://git-scm.com/) should be installed. 
 
-### 2.1 Installation of TESP
+### 2.2 Installation of TESP
 
 - Please run the command line below in sequence to install the TESP (https://github.com/pnnl/tesp)
     ```
@@ -36,19 +36,16 @@ Before the installation, the [Docker or Docker Desktop](https://www.docker.com/p
     ```
 
 
-### 2.1 Python Environment
+### 2.3 Python Environment
 
 - Please run the command line below in sequence to install the TESP (https://github.com/pnnl/tesp)
     ```
     cd ./demo-PET-BC
     pip install -r requirements.txt
     ```
-  
-- Open a command prompt in Linux/Windows/MacOS, and cd into the "docker" directory of the PEMT-CoSim project.
-    > cd docker
-    >
 
-## 2. Run Cases
+
+## 3. Run Cases
 
 - Set up the Fabric Blockchain Instance.
     ```
@@ -65,14 +62,14 @@ Before the installation, the [Docker or Docker Desktop](https://www.docker.com/p
     ```
   This python script will generate a study case based on user configuration
 
-  - Start the Blockchain-based energy trading market.
+- Start the Blockchain-based energy trading market.
     ```
     cd /PEMT-CoSim/demo-PET/fed_substation/
     python3 launch_substation.py
     ```
-    If executed successfully, the console will print out the bidding information and process.
+  If executed successfully, the console will print out the bidding information and process.
 
-## 3. File Directory 
+## 4. File Directory 
 Denote "(c)" as configuration file, "(o)" as output file.
 * _generate_case.py_ : a python script to generate a study case based on user configuration
 * _glmhelper.py_ : a class including functions to generate the .glm file
@@ -131,59 +128,3 @@ Denote "(c)" as configuration file, "(o)" as output file.
    * (o) _weather.log_
 
 * my_tesp_support_api: include the modified version of TESP support API
-
-
-
-
-
-## 4. Run Cases
-### 4.1 Run PEM example via prompt
-In the docker container, type:
-```
-cd /PEMT-CoSim/demo-PEM
-python3 generate_case.py 
-cd ./fed_substation/
-python3 launch_substation.py
-```
-To visualize the experimental results after the simulation
-```
-cd /PEMT-CoSim/
-python3 plotFig.py
-```
-![image](./doc_images/result-PEM.png)
-<center>PEM results</center>
-
-
-### 4.2 Run PET example (without RL) via prompt
-In the docker container, type:
-```
-cd /PEMT-CoSim/demo-PET
-python3 generate_case.py 
-cd ./fed_substation/
-python3 launch_substation.py
-```
-To visualize the experimental results after the simulation
-```
-cd /PEMT-CoSim/
-python3 plotFig.py
-```
-![image](../doc_images/result-PET.png)
-![image](../doc_images/result-PET2.png)
-<center>PET results</center>
-
-### 4.3 Run PET-RL example (with RL) via prompt
-In this case, we apply RL to optimize the biding price for prosumers including the biding prices for seller and buyer, respectively. The first 48 hours are used to train the RL agents. After 48 hours, prsoumers use the trained policy to generate biding prices. 
-
-In the docker container, type:
-```
-cd /PEMT-CoSim/demo-PET-RL
-python3 generate_case.py 
-cd ./fed_substation/
-python3 launch_substation.py
-```
-To visualize the experimental results after the simulation
-```
-cd /PEMT-CoSim/
-python3 plotFig.py
-```
-<center>PET-RL results</center>
