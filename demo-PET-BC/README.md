@@ -27,8 +27,8 @@ Please make sure using Ubuntu 20.04 LTS. The latest version of Ubuntu may not in
 Before the installation, the [Docker or Docker Desktop](https://www.docker.com/products/docker-desktop), and [Git](https://git-scm.com/) should be installed. 
 
 ### 2.2 Installation of TESP
+Please run the command line below in sequence to install the TESP (https://github.com/pnnl/tesp)
 
-- Please run the command line below in sequence to install the TESP (https://github.com/pnnl/tesp)
     ```
     curl -L https://github.com/pnnl/tesp/releases/download/v1.0.0/tesp-1.0.0-linux-x64-installer.run -o tesp-1.0.0-linux-x64-installer.run
     chmod +x tesp-1.0.0-linux-x64-installer.run
@@ -38,13 +38,19 @@ Before the installation, the [Docker or Docker Desktop](https://www.docker.com/p
 
 ### 2.3 Python Environment
 
-- Please run the command line below in sequence to install the TESP (https://github.com/pnnl/tesp)
     ```
     cd ./demo-PET-BC
     pip install -r requirements.txt
+  
     ```
-
-
+### 2.4 Javascript Environment
+    ```
+    npm init
+    npm install
+    npm install fabric-ca-client && npm install fabric-network && npm install perf_hooks
+    npm audit fix
+  
+    ```
 ## 3. Run Cases
 
 - Set up the Fabric Blockchain Instance.
