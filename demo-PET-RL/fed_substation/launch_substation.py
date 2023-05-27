@@ -3,7 +3,7 @@
 Function:
         start running substation federate (main federate) as well as other federates
 last update time: 2022-6-15
-modified by Yuanliang Li
+modified by Ye Chen, PeiLin Wu, YuanLiang Li
 """
 
 import sys
@@ -133,7 +133,7 @@ while (time_granted < StopTime):
   hour_of_day = dt_now.hour # get the hour of the day
 
 
-  """ 2. houses update state/measurements for all devices, 
+  """ 2. houses update state/measurements for all devices,
          update schedule and determine the power needed for hvac,
          make power predictions for solar,
          make power predictions for house load"""
