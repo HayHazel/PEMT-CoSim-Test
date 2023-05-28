@@ -71,3 +71,31 @@ new price 0.01 at HELICS time 2700.00
 ## delta, delta_price, delta_offer =      -0.25     -0.25      0.00
 new price 0.01 at HELICS time 3000.00
 ## delta, delta_price, delta_offer =      -0.25     -0.25      0.00
+new price 0.01 at HELICS time 3300.00
+## delta, delta_price, delta_offer =      -0.23     -0.23      0.00
+new price 0.01 at HELICS time 3600.00
+## delta, delta_price, delta_offer =      -0.24     -0.24      0.00
+new price 0.01 at HELICS time 3900.00
+## delta, delta_price, delta_offer =      -0.23     -0.23      0.00
+new price 0.01 at HELICS time 4200.00
+## delta, delta_price, delta_offer =      -0.25     -0.25      0.00
+new price 0.01 at HELICS time 4500.00
+## delta, delta_price, delta_offer =      -0.25     -0.25      0.00
+new price 0.01 at HELICS time 4800.00
+## delta, delta_price, delta_offer =      -0.24     -0.24      0.00
+new price 0.01 at HELICS time 5100.00
+## delta, delta_price, delta_offer =      -0.22     -0.22      0.00
+new price 0.01 at HELICS time 5400.00
+## delta, delta_price, delta_offer =      -0.24     -0.24      0.00
+new price 0.01 at HELICS time 5700.00
+## delta, delta_price, delta_offer =      -0.23     -0.23      0.00
+new price 0.01 at HELICS time 6000.00
+## delta, delta_price, delta_offer =      -0.23     -0.23      0.00
+new price 0.01 at HELICS time 6300.00
+## delta, delta_price, delta_offer =      -0.22     -0.22      0.00
+new price 0.01 at HELICS time 6600.00
+## delta, delta_price, delta_offer =      -0.23     -0.23      0.00
+new price 0.01 at HELICS time 6900.00
+## delta, delta_price, delta_offer =      -0.23     -0.23      0.00
+new price 0.01 at HELICS time 7200.00
+## delta, delta_price, delta_offer =      -0.24     -0.24      0.00
