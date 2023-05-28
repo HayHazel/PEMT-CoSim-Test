@@ -1,6 +1,5 @@
 set -euo pipefail
 
-FABRIC_VERSION=${FABRIC_VERSION:-2.2}
 CHAINCODE_LANGUAGE=${CHAINCODE_LANGUAGE:-go}
 CHAINCODE_NAME=${CHAINCODE_NAME:-secured}
 CHAINCODE_PATH=${CHAINCODE_PATH:-../asset-transfer-secured-agreement}
@@ -35,3 +34,15 @@ popd
 stopNetwork
 print "Remove wallet storage"
 rm -R ../asset-transfer-secured-agreement/application-javascript/wallet
+
+# Run Typescript Gateway application
+createNetwork
+print "Initializing typescript application"
+pushd ../asset-transfer-secured-agreement/application-gateway-typescript
+npm install
+print "Build app"
+npm run build
+print "Executing dist/app.js"
+npm start
+popd
+stopNetwork

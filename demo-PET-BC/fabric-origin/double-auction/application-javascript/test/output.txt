@@ -1,0 +1,42 @@
+Script started on 2023-03-03 20:53:24+08:00 [TERM="xterm-256color" TTY="/dev/pts/5" COLUMNS="124" LINES="47"]
+]0;tom@tom-virtual-machine: ~/go/src/github.com/hyperledger/fabric/scripts/fabric-samples/double-auction/application-javascript/test[01;32mtom@tom-virtual-machine[00m:[01;34m~/go/src/github.com/hyperledger/fabric/scripts/fabric-samples/double-auction/application-javascript/test[00m$ python3 launch_substation.py[C[C[C[C[C[C[11Pcd fed_substation[C[C[C[C[C[Cpython3 generate_case.py[C[C[C[C[C[Cls[Kcd ..python3 launch_substation.py[C[C[C[C[C[Cls[Kcd fed_substation[C[C[C[C[C[Cpython3 generate_case.py[C[C[C[C[C[C[9Pvim res_3-3.txt[C[C[C[C[C[Cpython3 launch_substation.py[C[C[C[C[C[C[11Pcd fed_substation[C[C[C[C[C[Cpython3 generate_case.py[C[C[C[C[C[C[C[C[C[C[C[C[C[Claunch_substation.py[C[C[C[C[C[C[11Pcd fed_substation[C[C[C[C[C[Cpython3 generate_case.py[C[C[C[C[C[C[C[C[C[C[C[C[C[Claunch_substation.py[C[C[C[C[C[C[11Pcd fed_substation[C[C[C[C[C[Cpython3 generate_case.pyeate_case.py[C[C[C[C[C[C[C[C[C[C[C[C[C[Claunch_substation.py[C[C[C[C[C[Cls[Kcd fed_substation[C[C[C[C[C[Cpython3 generate_case.py[C[C[C[C[C[C[7Pcd fed_substation[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kbash rest[Ket.sh
+rm: cannot remove 'measure_bid.txt': No such file or directory
+rm: cannot remove 'measure_withdraw.txt': No such file or directory
+rm: cannot remove 'measure_score.txt': No such file or directory
+[0;34mStopping network[0m
+Stopping cli                    ... 
+Stopping peer0.org2.example.com ... 
+Stopping peer0.org1.example.com ... 
+Stopping orderer.example.com    ... 
+Stopping ca_orderer             ... 
+Stopping ca_org2                ... 
+Stopping ca_org1                ... 
+[4A[2KStopping orderer.example.com    ... [32mdone[0m[4B[2A[2KStopping ca_org2                ... [32mdone[0m[2B[1A[2KStopping ca_org1                ... [32mdone[0m[1B[3A[2KStopping ca_orderer             ... [32mdone[0m[3B[7A[2KStopping cli                    ... [32mdone[0m[7B[5A[2KStopping peer0.org1.example.com ... [32mdone[0m[5B[6A[2KStopping peer0.org2.example.com ... [32mdone[0m[6BRemoving cli                    ... 
+Removing peer0.org2.example.com ... 
+Removing peer0.org1.example.com ... 
+Removing orderer.example.com    ... 
+Removing ca_orderer             ... 
+Removing ca_org2                ... 
+Removing ca_org1                ... 
+[6A[2KRemoving peer0.org2.example.com ... [32mdone[0m[6B[7A[2KRemoving cli                    ... [32mdone[0m[7B[4A[2KRemoving orderer.example.com    ... [32mdone[0m[4B[3A[2KRemoving ca_orderer             ... [32mdone[0m[3B[1A[2KRemoving ca_org1                ... [32mdone[0m[1B[2A[2KRemoving ca_org2                ... [32mdone[0m[2B[5A[2KRemoving peer0.org1.example.com ... [32mdone[0m[5BRemoving network fabric_test
+Removing volume docker_orderer.example.com
+Removing volume docker_peer0.org1.example.com
+Removing volume docker_peer0.org2.example.com
+Removing network fabric_test
+[33mWARNING[0m: Network fabric_test not found.
+Removing volume docker_peer0.org3.example.com
+[33mWARNING[0m: Volume docker_peer0.org3.example.com not found.
+[0;34mNo containers available for deletion[0m
+Untagged: dev-peer0.org2.example.com-auction_1.0-5079eb924a8c482a2669e45b68afc8a90dfd1a26412976ad5f2b8368890fc312-e03f9a9898f846a2408db7a13205acc30dbf3934b6d105a65550432892567e8f:latest
+Deleted: sha256:524656ce08b109abcc5c7ce9056a5ea247058a0b8c48b5a1d24fccfbb8fc99f3
+Deleted: sha256:776f606bd37765c88194a7f6adbfb7671f20226ab285b7357d6ff8486a0ad441
+Deleted: sha256:4c889676d475c1a5c9ca618779d203c738f38a4b1baddaaf20285145b135675d
+Deleted: sha256:f61f874653832b30c409efd176125379456717f72fd60ba0d448ec851975e58e
+Untagged: dev-peer0.org1.example.com-auction_1.0-5079eb924a8c482a2669e45b68afc8a90dfd1a26412976ad5f2b8368890fc312-028d359cb9473ed4d7d1892f1ade09466cd83767b913958797095f6ed964829b:latest
+Deleted: sha256:c37febcd65b67a60789359caf54b9a9265327c6aa05d8039cb1fb43c65c3295a
+Deleted: sha256:55b8d011d2a7185c5e601da20411d80ed416e5fc8ea9762aea62ca64c176d57a
+Deleted: sha256:9fd427f8951e1cf1e8cf89166b6196657bac6846087739796fe2db95c3998dac
+Deleted: sha256:ef2f45d1fcc38057e227dc91121fcf5b1598e655af6195c81f10a5c750ff7b98
+]0;tom@tom-virtual-machine: ~/go/src/github.com/hyperledger/fabric/scripts/fabric-samples/double-auction/application-javascript/test[01;32mtom@tom-virtual-machine[00m:[01;34m~/go/src/github.com/hyperledger/fabric/scripts/fabric-samples/double-auction/application-javascript/test[00m$ exit
+
+Script done on 2023-03-03 20:54:14+08:00 [COMMAND_EXIT_CODE="0"]
