@@ -3,22 +3,16 @@
 A Co-Simulation Platform For Packetized Energy Management and Trading with Blockchain Integrated with Blockchain
 
 ## 1. Description
-This sub-project is characterized by implementing an Energy Trading Market using Fabric Blockchain, which interacts with the blockchain during the program's execution to make the transaction process more transparent and fair. Due to the need for Fabric Blockchain to run separately in Docker, we cannot integrate it into the Docker of PEMT-CoSim (running Docker in Docker would increase development difficulty). Therefore, PEMT-CoSim runs locally in this project, while Fabric runs in Docker. We will enable PEMT-CoSim to interact with the smart contracts on Fabric through the provided JavaScript program.
+This sub-project implements an Energy Trading Market using Fabric Blockchain, which interacts with the blockchain during program execution to enhance transaction transparency and fairness. Due to the need for Fabric Blockchain to run separately in Docker, it cannot be integrated into the Docker of PEMT-CoSim (running Docker in Docker would increase development difficulty). Therefore, in this project, PEMT-CoSim runs locally, while Fabric runs in Docker. PEMT-CoSim will interact with smart contracts on Fabric through the provided JavaScript program. We referred to the repository https://github.com/xuyangm/double-auction for the implementation of the Fabric code.
 
 
 
 
-
-![image](../doc_images/co-simulation-platform.png)
+![image](../doc_images/PEMT-overview-withbc.png)
 <center>PEMT-CoSim Architecture</center>
 
-Substation is main federate which implements the PEM and PET using developed API, including PEM-related modules (PEM Controllers, PEM Coordinator), PET-related modules (PET Prosumer, PEM Market). Moreover, the AI modules implemented the reinforcement learning algorithm that can be used to optimize the biding strategies for prosumers.
-
-
 ## 2. Installation
-PEMT-CoSim runs natively on Linux and Fabric Blockchain runs inside multiple docker containers in this subproject.
-
-We need to install Docker, TESP and python packages to enable the operation.
+PEMT-CoSim runs natively on Linux, and the Fabric Blockchain runs inside multiple Docker containers in this subproject. To enable the operation, Docker, TESP, and Python packages need to be installed.
 
 ### 2.1 OS Environment
 
@@ -29,28 +23,22 @@ Before the installation, the [Docker or Docker Desktop](https://www.docker.com/p
 ### 2.2 Installation of TESP
 Please run the command line below in sequence to install the TESP (https://github.com/pnnl/tesp)
 
-    ```
     curl -L https://github.com/pnnl/tesp/releases/download/v1.0.0/tesp-1.0.0-linux-x64-installer.run -o tesp-1.0.0-linux-x64-installer.run
     chmod +x tesp-1.0.0-linux-x64-installer.run
     sudo ./tesp-1.0.0-linux-x64-installer.run
-    ```
 
 
 ### 2.3 Python Environment
 
-    ```
     cd ./demo-PET-BC
     pip install -r requirements.txt
-  
-    ```
 ### 2.4 Javascript Environment
-    ```
+
     npm init
     npm install
     npm install fabric-ca-client && npm install fabric-network && npm install perf_hooks
     npm audit fix
-  
-    ```
+
 ## 3. Run Cases
 
 - Set up the Fabric Blockchain Instance.
