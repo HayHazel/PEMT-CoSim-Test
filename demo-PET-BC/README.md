@@ -33,10 +33,20 @@ Please run the command line below in sequence to install the TESP (https://githu
 
 
 ### 2.3 Python Environment
+You can use Anaconda to build an environment
 
+    apt install python3.8-pip
     cd ./demo-PET-BC
     pip install -r requirements.txt
-### 2.4 Javascript Environment
+
+### 2.4 Go Environment
+The go version tested is go1.13.8, different version may cause program crash. But before you find error, you can use apt to install a pre-defined goland module.
+
+    sudo apt update
+    sudo apt install golang
+
+
+### 2.5 Javascript Environment
 
     cd ./demo-PET-BC/fabric/double-auction/application-javascript/test
     npm init
@@ -44,7 +54,7 @@ Please run the command line below in sequence to install the TESP (https://githu
     npm install fabric-ca-client && npm install fabric-network && npm install perf_hooks
     npm audit fix
 
-### 2.4 Install JQ
+### 2.6 Install JQ
 
     sudo apt update
     sudo apt install jq
@@ -54,8 +64,8 @@ Please run the command line below in sequence to install the TESP (https://githu
 - Set up the Fabric Blockchain Instance.
     ```
     cd ./demo-PET-BC/fabric/double-auction/application-javascript/test
-    sudo ./reset.sh
-    sudo ./start.sh
+    sudo bash ./reset.sh
+    sudo bash ./start.sh
     ```
   The scripts will set up the blockchain with 9 dockers. You can visualize it using the VS code extension. Please try to use ./reset.sh to reset all docker instances if you encountered any unknown errors.
 
