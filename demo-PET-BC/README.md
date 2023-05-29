@@ -76,9 +76,13 @@ The go version tested is go1.13.8, different version may cause program crash. Bu
     ```
   This python script will generate a study case based on user configuration
 
+  ![image](../doc_images/generate_case.png)
+
 - Start the Blockchain-based energy trading market.
     ```
     cd /PEMT-CoSim/demo-PET/fed_substation/
     python3 launch_substation.py
     ```
   If executed successfully, the console will print out the bidding information and process.
+
+  ![image](../doc_images/bidding.png)
