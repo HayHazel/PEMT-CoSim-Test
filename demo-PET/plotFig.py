@@ -163,17 +163,17 @@ ax4.legend(['HVAC ON', 'buyer', 'seller', 'none-ptcp'])
 
 
 
-# # system load, PV, house load
-# plt.figure(1)
-# time = time_hour_system
-# plt.plot(time, vpp_load_p , label = "grid consumption")
-# plt.plot(time, system_PV , label = "total PV generation")
-# plt.plot(time, system_house_load , label = "total house load")
-# plt.plot(time, system_hvac_load , label = "total HVAC load")
-# plt.plot(time, system_house_unres , label = "total base load")
-# plt.xlabel('Time (h)')
-# plt.ylabel('Power (kW)')
-# plt.legend()
+# system load, PV, house load
+plt.figure(1)
+time = time_hour_system
+plt.plot(time, vpp_load_p , label = "grid consumption")
+plt.plot(time, system_PV , label = "total PV generation")
+plt.plot(time, system_house_load , label = "total house load")
+plt.plot(time, system_hvac_load , label = "total HVAC load")
+plt.plot(time, system_house_unres , label = "total base load")
+plt.xlabel('Time (h)')
+plt.ylabel('Power (kW)')
+plt.legend()
 #
 #
 # # temperate
