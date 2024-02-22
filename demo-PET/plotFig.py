@@ -9,11 +9,21 @@ path = path_base + exp1 +'/'
 with open(path+'data.pkl', 'rb') as f:
     data_dict = pickle.load(f)
 
-with open(path+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
+secondPath = './fed_gridlabd/'
+with open(secondPath+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
+    prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
+    f.close()
+#think we can ignore auction one as not referenced later in this file.
+#with open(path+'auction_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
+    auction_dict = json.loads(f.read()) # federate_config is the dict data structure
+    f.close()
+
+#orignal path opens
+#with open(path+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
     prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
     f.close()
 
-with open(path+'auction_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
+#with open(path+'auction_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
     auction_dict = json.loads(f.read()) # federate_config is the dict data structure
     f.close()
 
