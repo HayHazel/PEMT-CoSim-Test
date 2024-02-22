@@ -104,18 +104,18 @@ ax13.plot(time_hour_auction, cleared_price, color = 'g', linewidth = 1.5)
 ax13.legend(['bid price', 'cleared price'])
 
 
-# plt.figure(1)
-# time = time_hour_auction
-# plt.plot(time, quantitys , 's-')
-# plt.xlabel('Time (h)')
-# plt.ylabel('Bid-Quantity (1 packet)')
-#
-# plt.figure(2)
-# time = time_hour_auction
-# plt.plot(time, prices , '*-')
-# plt.xlabel('Time (h)')
-# plt.ylabel('Bid-Price ($/kWh)')
-# # plt.legend()
+plt.figure(1)
+time = time_hour_auction
+plt.plot(time, quantitys , 's-')
+plt.xlabel('Time (h)')
+plt.ylabel('Bid-Quantity (1 packet)')
+
+plt.figure(2)
+time = time_hour_auction
+plt.plot(time, prices , '*-')
+plt.xlabel('Time (h)')
+plt.ylabel('Bid-Price ($/kWh)')
+plt.legend()
 
 
 
@@ -177,32 +177,32 @@ plt.legend()
 #
 #
 # # temperate
-# plt.figure(2)
-# time = time_hour_system
-# plt.plot(time, setpoint_mean , label = "average set-point")
-# plt.plot(time, temp_max , label = "maximum")
-# plt.plot(time, temp_min , label = "minimum")
-# plt.plot(time, temp_mean , label = "mean")
-# plt.xlabel('Time (h)')
-# plt.ylabel('House Temperature (degF)')
-# plt.legend()
+plt.figure(2)
+time = time_hour_system
+plt.plot(time, setpoint_mean , label = "average set-point")
+plt.plot(time, temp_max , label = "maximum")
+plt.plot(time, temp_min , label = "minimum")
+plt.plot(time, temp_mean , label = "mean")
+plt.xlabel('Time (h)')
+plt.ylabel('House Temperature (degF)')
+plt.legend()
 #
 # # cleared price
-# plt.figure(3)
-# time = time_hour_auction
-# plt.plot(time, cleared_price )
-# plt.xlabel('Time (h)')
-# plt.ylabel('Price ($/kWh)')
+plt.figure(3)
+time = time_hour_auction
+plt.plot(time, cleared_price )
+plt.xlabel('Time (h)')
+plt.ylabel('Price ($/kWh)')
 #
 # # ratio
-# plt.figure(4)
-# plt.plot(time_hour_auction, buyer_ratio, label = 'buyer ratio')
-# plt.plot(time_hour_auction, seller_ratio, label = 'seller ratio')
-# plt.plot(time_hour_auction, nontcp_ratio, label = 'none-participant ratio')
-# plt.plot(time_hour_system, hvac_on_ratio, label = 'HVAC ON ratio')
-# plt.xlabel('Time (h)', size = 14)
-# plt.ylabel('Ratio', size = 14)
-# plt.legend()
+plt.figure(4)
+plt.plot(time_hour_auction, buyer_ratio, label = 'buyer ratio')
+plt.plot(time_hour_auction, seller_ratio, label = 'seller ratio')
+plt.plot(time_hour_auction, nontcp_ratio, label = 'none-participant ratio')
+plt.plot(time_hour_system, hvac_on_ratio, label = 'HVAC ON ratio')
+plt.xlabel('Time (h)', size = 14)
+plt.ylabel('Ratio', size = 14)
+plt.legend()
 
 #############################################################################333
 
