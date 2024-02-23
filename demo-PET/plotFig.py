@@ -120,7 +120,8 @@ plt.plot(time, roles , 's-')
 plt.xlabel('Time (h)')
 plt.ylabel('Role')
 plt.show()
-plt.savefig('test image')
+figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+plt.savefig('test image', bbox_inches='tight') 
 
 plt.figure(2)
 time = time_hour_auction
