@@ -145,5 +145,6 @@ plt.show()
 
 
 plt.savefig('foo.png')
+plt.savefig('test image')
 
 
