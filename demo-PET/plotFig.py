@@ -179,20 +179,20 @@ ax4.legend(['HVAC ON', 'buyer', 'seller', 'none-ptcp'])
 
 
 # system load, PV, house load
-plt.figure(3)
+plt.figure(4)
 time = time_hour_system
 plt.plot(time, vpp_load_p , label = "grid consumption")
 plt.plot(time, system_PV , label = "total PV generation")
 plt.plot(time, system_house_load , label = "total house load")
-plt.plot(time, system_hvac_load , label = "total HVAC load")
-plt.plot(time, system_house_unres , label = "total base load")
+#plt.plot(time, system_hvac_load , label = "total HVAC load")
+#plt.plot(time, system_house_unres , label = "total base load")
 plt.xlabel('Time (h)')
 plt.ylabel('Power (kW)')
 plt.legend()
 #
 #
 # # temperate
-plt.figure(4)
+plt.figure(5)
 time = time_hour_system
 plt.plot(time, setpoint_mean , label = "average set-point")
 plt.plot(time, temp_max , label = "maximum")
@@ -203,14 +203,15 @@ plt.ylabel('House Temperature (degF)')
 plt.legend()
 #
 # # cleared price
-plt.figure(5)
+plt.figure(6)
 time = time_hour_auction
 plt.plot(time, cleared_price , label= "cleared price" )
 plt.xlabel('Time (h)')
 plt.ylabel('Price ($/kWh)')
+plt.legend()
 #
 # # ratio
-plt.figure(6)
+plt.figure(7)
 plt.plot(time_hour_auction, buyer_ratio, label = 'buyer ratio')
 plt.plot(time_hour_auction, seller_ratio, label = 'seller ratio')
 plt.plot(time_hour_auction, nontcp_ratio, label = 'none-participant ratio')
