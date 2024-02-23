@@ -120,6 +120,7 @@ plt.plot(time, roles , 's-')
 plt.xlabel('Time (h)')
 plt.ylabel('Role')
 plt.show()
+plt.savefig('test image')
 
 plt.figure(2)
 time = time_hour_auction
@@ -127,6 +128,7 @@ plt.plot(time, quantitys , 's-')
 plt.xlabel('Time (h)')
 plt.ylabel('Bid-Quantity (1 packet)')
 plt.show()
+plt.savefig('test image2')
 
 plt.figure(3)
 time = time_hour_auction
@@ -145,6 +147,6 @@ plt.show()
 
 
 plt.savefig('foo.png')
-plt.savefig('test image')
+plt.savefig('test image3')
 
 
