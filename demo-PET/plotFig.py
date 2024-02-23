@@ -119,12 +119,14 @@ time = time_hour_auction
 plt.plot(time, roles , 's-')
 plt.xlabel('Time (h)')
 plt.ylabel('Role')
+plt.show()
 
 plt.figure(2)
 time = time_hour_auction
 plt.plot(time, quantitys , 's-')
 plt.xlabel('Time (h)')
 plt.ylabel('Bid-Quantity (1 packet)')
+plt.show()
 
 plt.figure(3)
 time = time_hour_auction
@@ -133,7 +135,7 @@ plt.plot(time, cleared_price ,label="cleared price" )
 plt.xlabel('Time (h)')
 plt.ylabel('Bid-Price ($/kWh)')
 plt.legend()
-
+plt.show()
 
 
 
@@ -144,4 +146,4 @@ plt.legend()
 
 plt.savefig('foo.png')
 
-plt.show()
+
