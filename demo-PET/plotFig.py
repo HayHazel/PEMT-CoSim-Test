@@ -166,7 +166,6 @@ ax4.plot(time_hour_system, hvac_on_ratio, color = 'k', linewidth = 1.5)
 ax4.plot(time_hour_auction, buyer_ratio, color = 'b', linewidth = 1.5)
 ax4.plot(time_hour_auction, seller_ratio, color = 'g', linewidth = 1.5)
 ax4.plot(time_hour_auction, nontcp_ratio, color = 'm', linewidth = 1.5)
-
 ax4.legend(['HVAC ON', 'buyer', 'seller', 'none-ptcp'])
 
 
@@ -201,7 +200,7 @@ plt.legend()
 # # cleared price
 plt.figure(3)
 time = time_hour_auction
-plt.plot(time, cleared_price )
+plt.plot(time, cleared_price , label= "cleared price" )
 plt.xlabel('Time (h)')
 plt.ylabel('Price ($/kWh)')
 #
