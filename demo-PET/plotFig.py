@@ -121,6 +121,10 @@ plt.xlabel('Time (h)')
 plt.ylabel('Role')
 plt.show()
 
+figure = plt.gcf() 
+figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+plt.savefig('image 1', bbox_inches='tight')
+
 
 plt.figure(2)
 time = time_hour_auction
@@ -128,7 +132,11 @@ plt.plot(time, quantitys , 's-')
 plt.xlabel('Time (h)')
 plt.ylabel('Bid-Quantity (1 packet)')
 plt.show()
-plt.savefig('test image2')
+#plt.savefig('test image2')
+
+figure = plt.gcf() 
+figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+plt.savefig('image2', bbox_inches='tight')
 
 plt.figure(3)
 time = time_hour_auction
@@ -146,8 +154,8 @@ plt.show()
 #############################################################################333
 
 
-plt.savefig('foo.png')
-plt.savefig('test image3')
+#plt.savefig('foo.png')
+#plt.savefig('test image3')
 
 
 figure = plt.gcf() 
