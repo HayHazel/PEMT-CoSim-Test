@@ -114,14 +114,19 @@ ax13.plot(time_hour_auction, prices,  color = 'k', linewidth = 1.5)
 ax13.plot(time_hour_auction, cleared_price, color = 'g', linewidth = 1.5)
 ax13.legend(['bid price', 'cleared price'])
 
-
 plt.figure(1)
+time = time_hour_auction
+plt.plot(time, roles , 's-')
+plt.xlabel('Time (h)')
+plt.ylabel('Bid-Quantity (1 packet)')
+
+plt.figure(2)
 time = time_hour_auction
 plt.plot(time, quantitys , 's-')
 plt.xlabel('Time (h)')
 plt.ylabel('Bid-Quantity (1 packet)')
 
-plt.figure(2)
+plt.figure(3)
 time = time_hour_auction
 plt.plot(time, prices , '*-')
 plt.xlabel('Time (h)')
@@ -174,7 +179,7 @@ ax4.legend(['HVAC ON', 'buyer', 'seller', 'none-ptcp'])
 
 
 # system load, PV, house load
-plt.figure(1)
+plt.figure(3)
 time = time_hour_system
 plt.plot(time, vpp_load_p , label = "grid consumption")
 plt.plot(time, system_PV , label = "total PV generation")
@@ -187,7 +192,7 @@ plt.legend()
 #
 #
 # # temperate
-plt.figure(2)
+plt.figure(4)
 time = time_hour_system
 plt.plot(time, setpoint_mean , label = "average set-point")
 plt.plot(time, temp_max , label = "maximum")
@@ -198,14 +203,14 @@ plt.ylabel('House Temperature (degF)')
 plt.legend()
 #
 # # cleared price
-plt.figure(3)
+plt.figure(5)
 time = time_hour_auction
 plt.plot(time, cleared_price , label= "cleared price" )
 plt.xlabel('Time (h)')
 plt.ylabel('Price ($/kWh)')
 #
 # # ratio
-plt.figure(4)
+plt.figure(6)
 plt.plot(time_hour_auction, buyer_ratio, label = 'buyer ratio')
 plt.plot(time_hour_auction, seller_ratio, label = 'seller ratio')
 plt.plot(time_hour_auction, nontcp_ratio, label = 'none-participant ratio')
