@@ -458,6 +458,7 @@ class HOUSE:
         self.solar_power_predict = 0 # unit. kw
 
         # about packet
+        #packet_unit can be changed to give new size of energy packets///
         self.packet_unit = 1.0 # unit. kw
 
 
