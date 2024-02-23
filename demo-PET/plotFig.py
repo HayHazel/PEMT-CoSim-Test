@@ -206,6 +206,7 @@ plt.legend()
 plt.figure(6)
 time = time_hour_auction
 plt.plot(time, cleared_price , label= "cleared price" )
+plt.plot(time, LMP, label= "local marginal price" )
 plt.xlabel('Time (h)')
 plt.ylabel('Price ($/kWh)')
 plt.legend()
