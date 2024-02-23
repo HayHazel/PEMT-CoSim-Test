@@ -118,7 +118,7 @@ plt.figure(1)
 time = time_hour_auction
 plt.plot(time, roles , 's-')
 plt.xlabel('Time (h)')
-plt.ylabel('Bid-Quantity (1 packet)')
+plt.ylabel('Role')
 
 plt.figure(2)
 time = time_hour_auction
