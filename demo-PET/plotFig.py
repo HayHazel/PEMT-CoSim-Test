@@ -78,6 +78,7 @@ quantitys = []
 for i in range(len(time_hour_auction)):
     t = int((i+1)*300)
     bid = prosumer_dict[str(t)][house] # bid_price, quantity, hvac.power_needed, role
+    print(bid)
     price = bid[0]
     quantity = bid[1]
     role = bid[3]
