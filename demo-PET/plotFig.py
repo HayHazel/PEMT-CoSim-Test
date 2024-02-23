@@ -128,7 +128,8 @@ plt.ylabel('Bid-Quantity (1 packet)')
 
 plt.figure(3)
 time = time_hour_auction
-plt.plot(time, prices , '*-')
+plt.plot(time, prices ,label="bid price", '*-')
+plt.plot(time, cleared_price ,label="cleared price", '*-')
 plt.xlabel('Time (h)')
 plt.ylabel('Bid-Price ($/kWh)')
 plt.legend()
