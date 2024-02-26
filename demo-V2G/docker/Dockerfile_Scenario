@@ -46,7 +46,7 @@ RUN conda create -n cosim python=3.10
 RUN echo "conda activate cosim" >> ~/.bashrc
 COPY requirements.txt .
 #RUN pip install -r ./requirements.txt
-RUN pip install -r line ./requirements.txt
+RUN pip install -r ./requirements.txt
 RUN emobpy create -n unused
 
 RUN apt -y install openssh-server
