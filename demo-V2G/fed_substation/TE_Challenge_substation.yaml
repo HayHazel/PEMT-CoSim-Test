@@ -1,0 +1,16 @@
+name: pet1
+time_delta: 1s
+broker: tcp://localhost:5570
+aggregate_sub: true
+aggregate_pub: true
+values:
+  LMP:
+    topic: pypower/LMP_B7
+    default: 0.1
+    type: double
+    list: false
+  refload:
+    topic: gld1/distribution_load
+    default: 0
+    type: complex
+    list: false
