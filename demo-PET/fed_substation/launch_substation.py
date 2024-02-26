@@ -258,5 +258,6 @@ fh.destroy_federate()  # destroy the federate
 fh.show_resource_consumption() # after simulation, print the resource consumption
 plt.show()
 # fh.kill_processes(True) # it is not suggested here because some other federates may not end their simulations, it will affect their output metrics
-
-
+figure = plt.gcf() 
+figure.set_size_inches(32, 18)
+plt.savefig('launch.png', bbox_inches='tight')
