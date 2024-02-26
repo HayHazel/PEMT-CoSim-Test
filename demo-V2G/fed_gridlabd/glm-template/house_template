@@ -1,0 +1,65 @@
+object triplex_line {
+	phases {phase}S;
+	from grid_meter;
+	to H{house_idx}_meter_billing;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name H{house_idx}_meter_billing;
+	phases {phase}S;
+	nominal_voltage 120;
+	bill_mode UNIFORM;
+    bill_day 1;
+    monthly_fee 6;
+    price ${FIXED_PRICE};
+}
+
+object triplex_line {
+	phases {phase}S;
+	from H{house_idx}_meter_billing;
+	to H{house_idx}_meter_house;
+	length 10 ft;
+	configuration TLCFG;
+}
+
+object triplex_meter {
+	name H{house_idx}_meter_house;
+	groupid F{vpp_idx}_meter;
+	phases {phase}S;
+	nominal_voltage 120;
+}
+
+object house {
+	name H{house_idx};
+    groupid VPP_{vpp_idx};
+	parent H{house_idx}_meter_house;
+	schedule_skew {skew};
+	Rroof {Rroof};
+	Rwall {Rwall};
+	Rfloor {Rfloor};
+	Rdoors {Rdoors};
+	Rwindows {Rwindows};
+	airchange_per_hour {airchange_per_hour};
+	hvac_power_factor 0.97;
+	cooling_system_type ELECTRIC;
+	heating_system_type NONE;
+	fan_type ONE_SPEED;
+	hvac_breaker_rating 200;
+	total_thermal_mass_per_floor_area {total_thermal_mass_per_floor_area};
+	motor_efficiency AVERAGE;
+	motor_model BASIC;
+	cooling_COP {cooling_COP};
+	floor_area {floor_area};
+	number_of_doors {number_of_doors};
+	air_temperature {air_temperature};
+	mass_temperature {mass_temperature};
+    system_mode COOL;
+    thermostat_cycle_time 5;
+    thermostat_mode OFF;
+    cooling_setpoint 10;
+	heating_setpoint 1.0;
+
+    {ZIP_code}
+}

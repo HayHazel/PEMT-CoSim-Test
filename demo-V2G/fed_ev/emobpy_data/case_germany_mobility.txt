@@ -1,0 +1,6 @@
+The config_files contains data to generate time-series of mobility based on Germany's mobility statistics. https://www.mobilitaet-in-tabellen.de/
+
+rules.yml -> contains three kind of drivers
+
+DepartureDestinationTrip_Free.csv -> Free-time drivers (non-commuters)
+DepartureDestinationTrip_Worker.csv -> Full- and part-time workers (Commuters)

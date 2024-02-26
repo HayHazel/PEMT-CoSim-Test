@@ -1,0 +1,135 @@
+FROM ubuntu:jammy
+SHELL ["/bin/bash", "-l", "-c"]
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt update
+RUN apt install -y \
+  python3-pip \
+  git \
+  libboost-dev \
+  libboost-filesystem-dev \
+  libboost-program-options-dev \
+  libboost-test-dev \
+  libzmq5-dev python3-dev \
+  build-essential swig cmake git
+
+RUN apt install -y nano libxtst6 libxi6 libxrender1 wget firefox
+
+WORKDIR $HOME
+
+# build + install HELICS
+RUN git clone https://github.com/GMLC-TDC/HELICS
+WORKDIR $HOME/HELICS
+RUN mkdir -p build
+WORKDIR $HOME/HELICS/build
+RUN cmake ..
+RUN make -j$(nproc)
+RUN make install
+RUN ldconfig
+RUN echo "export LD_LIBRARY_PATH=/usr/local/lib" >> ~/.bashrc
+
+WORKDIR $HOME
+
+# install GridLAB-D
+RUN wget https://github.com/gridlab-d/gridlab-d/releases/download/v5.1/GridLAB-D-5.1.0-Linux.deb
+RUN dpkg -i GridLAB-D-5.1.0-Linux.deb
+
+# install miniconda
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN bash Miniconda3-latest-Linux-x86_64.sh -b
+RUN sed -e '/[ -z "$PS1" ] && return/s/^/#/g' -i /root/.bashrc
+
+# install python requirements
+RUN /root/miniconda3/bin/conda init bash
+RUN conda create -n cosim python=3.10
+RUN echo "conda activate cosim" >> ~/.bashrc
+COPY requirements.txt .
+RUN pip install -r ./requirements.txt
+RUN emobpy create -n unused
+
+RUN apt -y install openssh-server
+RUN sed -i 's/\#PermitRootLogin.*/PermitRootLogin Yes/' /etc/ssh/sshd_config
+RUN systemctl enable ssh & update-rc.d ssh defaults & systemctl enable ssh.socket & systemctl enable ssh.service
+RUN echo "root:helics" | chpasswd
+EXPOSE 22
+
+ADD . /PEMT-CoSim
+WORKDIR /PEMT-CoSim
+ENTRYPOINT python3 generate_case.py $@ && helics run --path=runner.json
+
+#ENTRYPOINT service ssh start && sleep infinity
+#RUN apt install libzmq3-dev libczmq-dev
+## Java support
+#RUN apt -y install openjdk-11-jdk
+#RUN ln -sf /usr/lib/jvm/java-11-openjdk-amd64 /usr/lib/jvm/default-java
+#
+## for HELICS and FNCS
+#RUN apt -y install libzmq5-dev libczmq-dev libboost-dev
+#
+## for GridLAB-D
+#RUN apt -y install libxerces-c-dev libhdf5-serial-dev
+#
+## for solvers used by AMES/Agents/GridLAB-D
+## needed for KLU
+#RUN apt -y install libsuitesparse-dev
+#
+## end users replace libsuitesparse-dev with libklu1, which is licensed LGPL
+## needed for Ipopt/cbc
+#RUN apt -y install coinor-cbc coinor-libcbc-dev coinor-libipopt-dev liblapack-dev libmetis-dev
+#
+#RUN apt -y install software-properties-common
+#RUN add-apt-repository -y ppa:deadsnakes/ppa
+#RUN apt -y install python3.8 python3.8-venv python3-pip python3.8-tk python3-pil.imagetk
+#
+#RUN apt -y install wget
+#
+#WORKDIR /root
+#RUN mkdir -p tesp
+#WORKDIR /root/tesp
+#RUN python3.8 -m venv venv --prompt TESP
+#
+#RUN mkdir -p tenv
+#RUN mkdir -p repository
+#WORKDIR /root/tesp/repository
+#RUN git clone -b v1.2.3 https://github.com/pnnl/tesp.git
+#RUN echo "Copy TESP environment variables to $HOME/tespEnv for shell scripts"
+#RUN cp tesp/scripts/tespEnv "$HOME/"
+#RUN git clone -b master https://github.com/ames-market/AMES-V5.0.git
+#RUN . "${HOME}/tespEnv" && "${TESPBUILD}/patch.sh" AMES-V5.0 AMES-V5.0
+##RUN . "${HOME}/tespEnv" && cd "${TESPBUILD}" && ./tesp_c.sh $binaries
+#RUN . "${HOME}/tespEnv" && pip3 install -r "${TESPDIR}/requirements.txt"
+#RUN . "${HOME}/tespEnv" && cd "${TESPDIR}/src/tesp_support" && pip3 install -e .
+#RUN . "${HOME}/tespEnv" && cd "${REPODIR}/AMES-V5.0/psst" && pip3 install -e .
+#
+#RUN . "${HOME}/tespEnv" && cd "${TESPDIR}/scripts" && ./tesp_c.sh copy
+#
+##ENV INSTDIR=$HOME/tesp/tenv
+##ENV REPODIR=$HOME/tesp/repository
+##ENV TESPDIR=$HOME/tesp/repository/tesp
+##ENV TESPBUILD=$TESPDIR/scripts/build
+##RUN . "${HOME}/tespEnv" && cd "${REPODIR}/AMES-V5.0/psst" && pip3 install -e . > "${TESPBUILD}/tesp_api.log" 2>&1
+##WORKDIR $INSTDIR
+##RUN wget --no-check-certificate https://github.com/pnnl/tesp/releases/download/v1.2.3/tesp_binaries.zip
+##RUN unzip tesp_binaries.zip
+##RUN rm tesp_binaries.zip
+##
+##WORKDIR $TESPBUILD
+##RUN ls -l
+##RUN ls ..
+##RUN . "${HOME}/tespEnv" && ./HELICS-py.sh clean
+##
+##RUN ldconfig
+##RUN $TESPBUILD/versions.sh
+#
+#
+#
+#
+#
+##RUN python3.8 -m pip install virtualenv
+##RUN "${HOME}/.local/bin/virtualenv" venv --prompt TESP
+#
+##RUN wget --no-check-certificate https://raw.githubusercontent.com/pnnl/tesp/main/scripts/tesp.sh
+##RUN sed -i 's/sudo //' tesp.sh
+##RUN chmod 755 tesp.sh
+##RUN yes | ./tesp.sh
