@@ -19,6 +19,8 @@ from plotly.subplots import make_subplots
 
 set_seed(seed=200, dir="emobpy_data/config_files")
 
+#added to try and fix issue with evspecs.json file
+BEVS= BEVspecs()
 
 class DotDict(dict):
     """dot.notation access to dictionary attributes"""
@@ -50,8 +52,8 @@ STATION_DISTRIBUTION = {
 }
 
 CAR_MODELS_DISTRIBUTION = pd.DataFrame([
-    [BEVspecs().model(('Tesla', 'Model Y Long Range AWD', 2020)), 0.6],
-    [BEVspecs().model(('Volkswagen', 'ID.3', 2020)), 0.4],
+    [BEVS.model(('Tesla', 'Model Y Long Range AWD', 2020)), 0.6],
+    [BEVS.model(('Volkswagen', 'ID.3', 2020)), 0.4],
 ], columns=["car_model", "probability"])
 
 USER_TYPE_DISTRIBUTION = pd.DataFrame([
