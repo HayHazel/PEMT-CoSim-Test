@@ -1,170 +1,90 @@
-# PEMT-CoSim
+# V2GPET Cosimulation Environment
 
-A Co-Simulation Platform For Packetized Energy Management and Trading
+## Structure
+The cosimulation has 5 federates in folders `fed_ev`, `fed_gridlabd`, `fed_pypower`, `fed_substation`, `fed_weather`. The main important code/business logic is in `fed_ev` (the EV federate, which simulates EV movement) and `fed_substation` (which simulates houses and the PET trading system)
 
-## 1. Description
-PEMT-CoSim is a co-simulation platform for packetized energy management (PEM) and trading (PET) in smart grids. It is developed based on the open-source [Transactive Energy Simulation Platform (TESP, v1.0.0)](https://tesp.readthedocs.io/en/latest/TESP_Overview.html#). 
-
-
-Packetized Energy (PE) is a gird management technology which breaks the power into fixed-duration/fixed power "energy packet" with a "request-reply" scheme. Prosumers (both suppler and consumer) can request a packet for their load/generator to consume/provide. A central coordinator will accept/reject the request based on grid condition. There are two types of PE, Packetized Energy Management (PEM) and Packetized Energy Trading (PET). Packetized Energy Management (PEM) is a load dispatch program which uses a PEM controller to have houses' flexible load to request a packet with a probability, and the central coordinator will accept/reject the request by comparing the the request load with a balancing signal. PET allows prosumers to bid for a packet in a double-auction market. The cleared price and quantity determine whether bids are accepted or rejected for prosumers. 
-
-PEMT-CoSim utilizes the TESP's HELICS co-simulation framework to enable coordination between a number of dedicated simulators/programs (named "federate" under the HECLIS framework): GridLAB-D federate (distribution system simulator),  PyPower federate (transmission system simulator), EnergyPlus federate(building simulator), Wether federate (weather data generator), Substation federate (Implemented the processes for PET and PEM). 
-
-![image](./doc_images/co-simulation-platform.png)
-<center>PEMT-CoSim Architecture</center>
-
-Substation is main federate which implements the PEM and PET using developed API, including PEM-related modules (PEM Controllers, PEM Coordinator), PET-related modules (PET Prosumer, PEM Market). Moreover, the AI modules implemented the reinforcement learning algorithm that can be used to optimize the biding strategies for prosumers.
-
-
-## 2. Installation
-PEMT-CoSim runs natively on Linux. However, for better deployment of this project,  it is suggested to run this project in a docker container. Therefore, PEMT-CoSim can also run in Windows and MacOS via docker. 
-
-### 2.1 Installation via Docker 
-Before the installation, the [Docker or Docker Desktop](https://www.docker.com/products/docker-desktop), and [Git](https://git-scm.com/) should be installed. 
-
-- Clone the PEMT-CoSim Project from Github (https://github.com/Yuanliang-Li/PEMT-CoSim)
-    > git clone https://github.com/Yuanliang-Li/PEMT-CoSim.git
-    >
-- Open a command prompt in Linux/Windows/MacOS, and cd into the "docker" directory of the PEMT-CoSim project.
-    > cd docker
-    >
-- Build docker image
-    > docker build . -t ubuntu-vnc
-    >
-- Build ubuntu docker container
-    > docker run -it --privileged -p 2222:22 -p 5951:5901 --mount type=bind,source= /YOURDIRECTORY/To/PEMT-CoSim,destination=/PEMT-CoSim --name ubuntu-pemt ubuntu-vnc
-    >
-    When the 'docker run' command runs, the container starts and executes a startup .sh script that will set up the environment for development. \
-    The "--mount" option can make a file or directory on the host machine mounted into the container. So, after the installation you can make development/edition/post-processing on your project in your host machine, and run the co-simulation in the container.
-- Install TESP by typing when building the container
-    > /root/startup/tesp-1.0.0-linux-x64-installer.run
-    >
-    After this step, you have now installed the PEMT-CoSim.
-
-The following steps show how you start and connect to your running container
-- Start the container (the container will run)
-    > docker start ubuntu-pemt
-- Connect to a running docker container
-    > docker exec --privileged -it ubuntu-pemt /bin/bash
-
-
-## 3. File Directory 
-Denote "(c)" as configuration file, "(o)" as output file.
-* _generate_case.py_ : a python script to generate a study case based on user configuration
-* _glmhelper.py_ : a class including functions to generate the .glm file
-* _plotFig.py_ : makes plots for the case
-* fed_gridlabd : folder for Gridlab-D federate
-   * (c) _TE_Challenge.glm_ : define the distribution power grid for Gridlab-D
-   * (c) _outputs_te.glm_ : define the output record for Gridlab-D
-   * (c) _phase_A.player_ : define the phase A voltage for the unresponsive load in Gridlab-D
-   * (c) _phase_B.player_ : define the phase B voltage for the unresponsive load in Gridlab-D
-   * (c) _phase_C.player_ : define the phase C voltage for the unresponsive load in Gridlab-D
-   * (c) _TE_Challenge_glm_dict.json_ : a dictionary of elements in Gridlab-D
-   * (c) _TE_Challenge_HELICS_gld_msg.json_ : define HELICS message flows for Gridlab-D federate
-   * (o) _billing_meter_TE_ChallengeH_metrics.json_
-   * (o) _house_TE_ChallengeH_metrics.json_
-   * (o) _inverter_TE_ChallengeH_metrics.json_
-   * (o) _line_TE_ChallengeH_metrics.json_
-   * (o) _capacitor_TE_ChallengeH_metrics.json_
-   * (o) _regulator_TE_ChallengeH_metrics.json_
-   * (o) _eplus_load.csv_
-   * (o) _evchargerdet_TE_ChallengeH_metrics.json_
-   * (o) _substation_TE_ChallengeH_metrics.json_
-   * (o) _weather.csv_
-   * (o) _gridlabd.log_
-* fed_pypower : folder for PyPower federate
-   * _launch_pypower.py_ : python script for launching the PyPower federate
-   * (c) _te30_pp.json_ : define the transmission system in PyPower 
-   * (c) _NonGLDLoad.txt_ : define the nonresponsive load in transmission system
-   * (c) _pypowerConfig.json_ : define HELICS message flows for PyPower federate
-   * (o) _bus_TE_ChallengeH_metrics.json.csv_
-   * (o) _gen_TE_ChallengeH_metrics.json_
-   * (o) _pypower.log_
-* fed_energyplus : folder for EnergyPlus federate and EnergyPlus agent federate
-   * (c) _*.idf_ : define the building for the EnergyPlus
-   * (c) _helics_eplus.json_ : define HELICS message flows for EnergyPlus federate
-   * (c) _helics_eplus_agent.json_ : define HELICS message flows for EnergyPlus agent federate
-   * (o) _eplus_TE_ChallengeH_metrics.json_
-   * (o) _output_
-   * (o) _eplus.log_
-   * (o) _eplus_agent.log_
-* fed_substation : folder for substation federate
-   * _launch_substation.py_ : python script for launching the substation federate. Moreover, in this example, it is also the main federate that can launch other federates at the same time.
-   * _federate_helper.py_ : some functions for managing the federate, managing co-simulation, and data recording
-   * _my_auction.py_ : user-defined double-auction class for the market
-   * _PEM_Controller.py_ : define classes for PEM controller. 
-   * _PEM_Coordinator.py_ : define classes for PEM coordinator. 
-   * _PET_Prosumer.py_ : define classes for PET prosumers.
-   * _env.py_ : define the reinforcement learning environment for prosumers.
-   * _ddpg.py_ : deep determinstic policy gradient algorithm for reinforcement learnig agents.
-   * (c) _TE_Challenge_agent_dict.json_ : define the market agent and HVAC controller agents
-   * (c) _TE_Challenge_HELICS_substation.json_ : define HELICS message flows for substation federate
-   * (o) _data_: a folder that save all data for post-processing
-* fed_weather : folder for weather federate
-   * _launch_weather.py_ : python script for launching the weather federate
-   * (c) _weather.dat_ : weather data for one specific place in one specific time period
-   * (c) _TE_Challenge_HELICS_Weather_Config.json_ : weather federate configuration file
-   * (o) _weather.log_
-
-* my_tesp_support_api: include the modified version of TESP support API
-
-
-
-
-
-## 4. Run Cases
-### 4.1 Run PEM example via prompt
-In the docker container, type:
+```plaintext
+.
+├── docker
+│   └── Dockerfile
+├── fed_ev
+│   ├── ev_profiles.py  # Script to generate EV movement profiles
+│   ├── pet_ev.py       # Simulates single EV's movement and state of charge
+│   └── emobpy_data
+│       └── config_files      # Config for emobpy EV profile generation
+├── fed_gridlabd
+│   ├── glm-template
+│   │   └── TE_Challenge_TE30.glm  # Source glm for template house data
+│   └── TE_Challenge.glm           # Defines microgrid for GridLAB-D power flow simulation
+├── fed_pypower
+├── fed_substation
+│   ├── PET_Prosumer.py       # Defines House, HVAC, PV, EV, and Grid trading behaviour
+│   ├── market.py             # Defines the continuous double auction system
+│   ├── trading_policies.py   # Defines trading policy used by EVs and PVs
+│   ├── metrics
+│   │   └── <scenario_name>   # Contains metrics from the simulation
+│   ├── figures
+│   │   ├── progress.svg      # Regularly updated plot of recent stats
+│   │   └── ...               # Various detailed plots
+│   └── recording.py          # Handles metrics collection and progress plot generation
+├── fed_weather
+│   └── weather.csv           # Contains weather data
+├── scenarios
+│   └── ....pkl               # Saved scenario details
+├── generate_case.py          # Script to prepare a scenario for simulation
+├── helics_config_helper.py   # Helps in creating HELICS config files
+├── runner.json               # Defines federates and their launch commands
+├── scenario.pkl              # Current scenario details
+└── template_houses.pkl       # Template house data
 ```
-cd /PEMT-CoSim/demo-PEM
-python3 generate_case.py 
-cd ./fed_substation/
-python3 launch_substation.py
-```
-To visualize the experimental results after the simulation
-```
-cd /PEMT-CoSim/
-python3 plotFig.py
-```
-![image](./doc_images/result-PEM.png)
-<center>PEM results</center>
 
+## Docker Setup
 
-### 4.2 Run PET example (without RL) via prompt
-In the docker container, type:
-```
-cd /PEMT-CoSim/demo-PET
-python3 generate_case.py 
-cd ./fed_substation/
-python3 launch_substation.py
-```
-To visualize the experimental results after the simulation
-```
-cd /PEMT-CoSim/
-python3 plotFig.py
-```
-![image](./doc_images/result-PET.png)
-![image](./doc_images/result-PET2.png)
-<center>PET results</center>
+First, build and run the Docker container using these commands:
 
-### 4.3 Run PET-RL example (with RL) via prompt
-In this case, we apply RL to optimize the biding price for prosumers including the biding prices for seller and buyer, respectively. The first 48 hours are used to train the RL agents. After 48 hours, prsoumers use the trained policy to generate biding prices. 
+1. Build the Docker image: `docker build -t v2gpet -f docker/Dockerfile .`
+2. Run the Docker container, mounting the project directory as a volume and entering an interactive shell: `docker run -it --mount type=bind,source=<PATH_TO_THIS_DIR>,destination=/PEMT-CoSim --name v2gpet1 v2gpet`
+3. Activate the Conda environment: `conda activate cosim`
 
-In the docker container, type:
-```
-cd /PEMT-CoSim/demo-PET-RL
-python3 generate_case.py 
-cd ./fed_substation/
-python3 launch_substation.py
-```
-To visualize the experimental results after the simulation
-```
-cd /PEMT-CoSim/
-python3 plotFig.py
-```
-![image](./doc_images/result-PET-RL.png)
-![image](./doc_images/result-PET-RL-2.png)
-<center>PET-RL results</center>
+## Usage
+To run a simulation, you first need to generate EV movement profiles and prepare a simulation scenario. Then, use HELICS to run the simulation.
 
-## Related Publications
-1. Li, Yuanliang, et al. "PEMT-CoSim: A Co-Simulation Platform for Packetized Energy Management and Trading in Distributed Energy Systems." 2022 IEEE International Conference on Communications, Control, and Computing Technologies for Smart Grids (SmartGridComm). IEEE, 2022.
+### Short Version
+
+1. `cd fed_ev`
+2. `python3 ev_profiles.py -n 30 -s '2013-07-01 00:00:00' -e '2013-07-05 00:00:00' -g`
+3. `cd ..`
+4. `python3 generate_case.py -a example -n 30 -p 30 -e 30 -g 100000 -f 7200 -b 0.0`
+5. `helics run --path=runner.json`
+6. `cd fed_substation`
+7. `python3 make_figures.py -s '2013-07-01 00:00:00' -e '2013-07-05 00:00:00' -m metrics/example`
+
+### Detailed Version
+- Before running a simulation, EV movement profiles must be generated using the `fed_ev/ev_profiles.py` script (run this from inside `fed_ev`).
+    - usage: `python3 ev_profiles.py [-h] [-n NUM_EV] [-s START_DATE] [-e END_DATE | -t TOTAL_HOURS] [-g | -f]`
+      - e.g. `python3 ev_profiles.py -n 30 -s '2013-07-01 00:00:00' -e '2013-07-05 00:00:00' -g`
+    - This will take a few moments to use the `emobpy` library to generate profiles using the `CAR_MODELS_DISTRIBUTION` and `USER_TYPES_DISTRIBUTION` in `fed_ev/ev_profiles.py` and the rules and data from `emobpy` in `fed_ev/emobpy_data/config_files`
+    - Once this has finished, figures showing the mobility data can be generated if desired using the same script with the `-f` flag instead of `-g`
+- Next, use the `generate_case.py` script in the root directory to prepare a scenario for simulation
+    - usage: `python3 generate_case.py [-h] [-a NAME] [-n NUM_HOUSES] [-e NUM_EV] [-p NUM_PV] [-g GRID_CAP] [-f FIGURE_PERIOD] [-b EV_BUY_IQR_RATIO]`
+      - e.g. `python3 generate_case.py -a example -n 30 -p 30 -e 30 -g 100000 -f 7200 -b 0.0`
+    - This will:
+        - Save the scenario details to `scenario.pkl`, also making a named copy in the `scenarios` folder for record
+        - Generate the `fed_gridlabd/TE_Challenge.glm` file that defines the microgrid's components and electrical connections, for power flow simulation
+        - Generate the HELICS config files `fed_gridlabd/gridlabd_helics_config.json`, `fed_substation/substation_helics_config.json` that define those HELICS federates and their publications and subscriptions
+          - Creation of these configs is handled by `helics_config_helper.py` in the root directory
+          - Note: at the moment the EV federate is not defined here, its config is generated by the `fed_ev/launch_ev.py` script at the start of the simulation.
+        - Set up the weather data in `fed_weather/weather.csv`
+        - Configure the end time of the pypower and weather federates' HELICS configs
+- Once a scenario is generated, the simulation can be run using `helics run --path=runner.json`.
+  - This uses the `runner.json` file in the root directory to define the federates and their launch commands, starting them all together
+  - Metrics from the simulation are saved in `fed_substation/metrics/<scenario_name>`.
+    - This directory contains pickled DataFrames split into chunks and numbered in chronological order.
+    - The recording of these metrics the generation of progress plots are handled by `fed_substation/recording.py`, where the `HistoryRecorder` class acts as a generic recorder for (nested) properties of Python objects, and `SubstationRecorder` uses `HistoryRecorder`s to collect stats from the whole substation federate.
+      - Note: this metrics collection can currently only record values in the substation federate. I started work on a specific metrics federate that could aggregate metrics from every federate more efficiently, but ran into a couple of issues and out of time and ended up backtracking for now - I think it would be better though and an easy fix at some point. The substation federate subscribes all of the interesting values right now anyway, so it's not a big deal.
+  - While the simulation runs, a plot of recent stats is regularly updated (every FIGURE_PERIOD provided to `generate_case.py`) in `fed_substation/figures/progress.svg`
+    - This plot only shows the recent data as redrawing a full plot takes a long time once there is several days of data
+- During or after the simulation, full detailed plots can be produced using the `fed_substation/make_figures.py` script
+  - usage: `make_figures [-h] [-s START_DATE] [-e END_DATE] [-a ALL | -m METRICS]`
+    - e.g. `make_figures -s '2013-07-01 00:00:00' -e '2013-07-05 00:00:00' -m metrics/example`
+  - This produces a variety of plots written to the `fed_substation/figures` directory

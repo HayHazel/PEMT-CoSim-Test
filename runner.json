@@ -1,0 +1,41 @@
+{
+  "federates": [
+    {
+      "directory": ".",
+      "exec": "helics_broker -f 5 --profiler=helics_profile.log",
+      "host": "localhost",
+      "name": "broker"
+    },
+    {
+      "directory": "./fed_substation",
+      "exec": "python3 -u launch_substation.py",
+      "host": "localhost",
+      "name": "pet1"
+    },
+    {
+      "directory": "./fed_ev",
+      "exec": "python3 -u launch_ev.py",
+      "host": "localhost",
+      "name": "ev1"
+    },
+    {
+      "directory": "./fed_gridlabd",
+      "exec": "gridlabd -D SCHED_PATH=/PEMT-CoSim/tesp_support/schedules -D USE_HELICS -D METRICS_FILE=TE_ChallengeH_metrics.json TE_Challenge.glm",
+      "host": "localhost",
+      "name": "gld1"
+    },
+    {
+      "directory": "./fed_weather",
+      "exec": "python3 launch_weather.py",
+      "host": "localhost",
+      "name": "localWeather"
+    },
+    {
+      "directory": "./fed_pypower",
+      "exec": "python3 launch_pypower.py",
+      "host": "localhost",
+      "name": "pypower"
+    }
+  ],
+  "name": "pet_runner"
+}
