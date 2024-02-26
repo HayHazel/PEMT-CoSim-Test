@@ -1,4 +1,4 @@
-RUN apt install -y \
+RUN pip install -r \
 
 
 appdirs==1.4.4 \
