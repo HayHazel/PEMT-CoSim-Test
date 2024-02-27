@@ -9,7 +9,7 @@ modified by Yuanliang Li
 import sys
 sys.path.append('..')
 # this is necessary since running this file is actually opening a new process
-# where my_tesp_support_api package is not inside the path list
+# where my_tesp_support_api package is not inside the  list
 import time
 import os
 import json
@@ -28,7 +28,7 @@ from federate_helper import FEDERATE_HELPER, CURVES_TO_PLOT
 
 
 """================================Declare something====================================="""
-data_path = './data/exp(test)/'
+data_ = './data/exp(test)/'
 if not os.path.exists(data_path):
     os.makedirs(data_path)
 configfile = 'TE_Challenge_agent_dict.json'
@@ -252,8 +252,8 @@ while (time_granted < StopTime):
 
 for i in range(len(time_hour_auction)):
     t = int((i+1)*300)
-    bid = prosumer_dict[str(t)][house] # bid_price, quantity, hvac.power_needed, role
-    print(bid)
+   # bid = prosumer_dict[str(t)][house] # bid_price, quantity, hvac.power_needed, role
+   # print(bid)
     price = bid[0]
     quantity = bid[1]
     role = bid[3]
@@ -268,7 +268,13 @@ for i in range(len(time_hour_auction)):
         roles.append(0)
     prices.append(price)
 
+path_base = './fed_substation/data/'
+exp1 = 'exp(dyB-1-3kw)'
+path = path_base + exp1 +'/'
+with open(path+'data.pkl', 'rb') as f:
+    data_dict = pickle.load(f)
 
+time_hour_auction = data_dict['time_hour_auction']
 fig2, (ax11, ax12, ax13) = plt.subplots(3)
 ax11.set_ylabel('Role', size = 13)
 ax11.tick_params(axis='x', labelsize=13)
