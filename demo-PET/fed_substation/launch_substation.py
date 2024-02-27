@@ -249,6 +249,12 @@ while (time_granted < StopTime):
     plt.pause(0.01)
     tnext_fig_update += fig_update_period
 
+path_base = './fed_substation/data/'
+exp1 = 'exp(dyB-1-3kw)'
+path = path_base + exp1 +'/'
+with open(path+'data.pkl', 'rb') as f:
+    data_dict = pickle.load(f)
+time_hour_auction = data_dict['time_hour_auction']
 
 for i in range(len(time_hour_auction)):
     t = int((i+1)*300)
@@ -268,11 +274,6 @@ for i in range(len(time_hour_auction)):
         roles.append(0)
     prices.append(price)
 
-path_base = './fed_substation/data/'
-exp1 = 'exp(dyB-1-3kw)'
-path = path_base + exp1 +'/'
-with open(path+'data.pkl', 'rb') as f:
-    data_dict = pickle.load(f)
 
 time_hour_auction = data_dict['time_hour_auction']
 fig2, (ax11, ax12, ax13) = plt.subplots(3)
