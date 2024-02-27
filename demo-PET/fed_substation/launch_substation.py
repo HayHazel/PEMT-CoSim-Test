@@ -249,59 +249,81 @@ while (time_granted < StopTime):
     plt.pause(0.01)
     tnext_fig_update += fig_update_period
 
+
+for i in range(len(time_hour_auction)):
+    t = int((i+1)*300)
+    bid = prosumer_dict[str(t)][house] # bid_price, quantity, hvac.power_needed, role
+    print(bid)
+    price = bid[0]
+    quantity = bid[1]
+    role = bid[3]
+    if role == 'seller':
+        quantitys.append(int(-quantity/3))
+        roles.append(-1)
+    elif role == 'buyer':
+        quantitys.append(int(quantity/3))
+        roles.append(1)
+    else:
+        quantitys.append(0)
+        roles.append(0)
+    prices.append(price)
+
+
 fig2, (ax11, ax12, ax13) = plt.subplots(3)
 ax11.set_ylabel('Role', size = 13)
 ax11.tick_params(axis='x', labelsize=13)
 ax11.tick_params(axis='y', labelsize=13)
 ax11.set_yticks((-1, 0, 1))
 ax11.set_yticklabels(("seller", "none-\nptcpt","buyer"))
-ax11.plot(curves.time_hour_curve, bid[3], 's--', color = 'k', linewidth = 1)
+ax11.plot(time_hour_auction, roles, 's--', color = 'k', linewidth = 1)
 
 ax12.set_ylabel('Bid-Quantity \n(packet)', size = 13)
 ax12.tick_params(axis='x', labelsize=13)
 ax12.tick_params(axis='y', labelsize=13)
-ax12.plot(curves.time_hour_curve, bid[1], 's--', color = 'k', linewidth = 1)
+ax12.plot(time_hour_auction, quantity, 's--', color = 'k', linewidth = 1)
 
 ax13.set_ylabel('Bid-Price \n($/kWh)', size = 13)
 ax13.set_xlabel("Time (h)", size = 13)
 ax13.tick_params(axis='x', labelsize=13)
 ax13.tick_params(axis='y', labelsize=13)
-ax13.plot(curves.time_hour_curve,bid[0],  color = 'k', linewidth = 1.5)
-ax13.plot(curves.time_hour_curve, curves.curve_cleared_price, color = 'g', linewidth = 1.5)
+ax13.plot(time_hour_auction, prices,  color = 'k', linewidth = 1.5)
+ax13.plot(time_hour_auction, cleared_price, color = 'g', linewidth = 1.5)
 ax13.legend(['bid price', 'cleared price'])
 
 plt.figure(1)
 time = time_hour_auction
-plt.plot(time,bid[3] , 's-')
+plt.plot(time, roles , 's-')
 plt.xlabel('Time (h)')
 plt.ylabel('Role')
 plt.show()
 
-figure = plt.gcf() 
-figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
-plt.savefig('image 1', bbox_inches='tight')
+#figure = plt.gcf() 
+#figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+#plt.savefig('image 1', bbox_inches='tight')
 
 
 plt.figure(2)
 time = time_hour_auction
-plt.plot(time, bid[1], 's-')
+plt.plot(time, quantity , 's-')
 plt.xlabel('Time (h)')
 plt.ylabel('Bid-Quantity (1 packet)')
 plt.show()
 #plt.savefig('test image2')
 
-figure = plt.gcf() 
-figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
-plt.savefig('image2', bbox_inches='tight')
+#figure = plt.gcf() 
+#figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+#plt.savefig('image2', bbox_inches='tight')
 
 plt.figure(3)
 time = time_hour_auction
-plt.plot(time, bid[0] ,label="bid price")
-plt.plot(time, curves.curve_cleared_price ,label="cleared price" )
+plt.plot(time, prices ,label="bid price")
+plt.plot(time, cleared_price ,label="cleared price" )
 plt.xlabel('Time (h)')
 plt.ylabel('Bid-Price ($/kWh)')
 plt.legend()
 plt.show()
+
+
 
 
 
