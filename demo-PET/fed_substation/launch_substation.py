@@ -260,7 +260,7 @@ while (time_granted < StopTime):
   #  secondPath2 = os.chdir('../')
    # os.getcwd()
     trialPath = '../'
-    filePath = './fed_gridlabd/'      
+    filePath = 'fed_gridlabd/'      
     with open(trialPath + trialPath + filePath+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
         prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
         f.close()      
