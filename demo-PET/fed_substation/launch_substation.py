@@ -109,7 +109,9 @@ time_last = 0
 
 """============================Substation Loop=================================="""
 
+while (time_granted < StopTime):
 
+  
 
 
   """ 9. visualize some results during the simulation"""
