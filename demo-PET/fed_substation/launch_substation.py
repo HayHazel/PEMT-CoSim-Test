@@ -247,7 +247,7 @@ while (time_granted < StopTime):
     ax5.plot(curves.time_hour_curve, curves.curve_nontcp_ratio)
     ax5.legend(['HVAC-ON ratio', 'Buyer ratio', 'Seller ratio', 'None-participant ratio'])
 
-    path_base = './fed_substation/data/'
+    path_base = './data/' #prevuously fed_substation/data but already in substation folder
     exp1 = 'exp(dyB-1-3kw)'
     path = path_base + exp1 +'/'
     with open(path+'data.pkl', 'rb') as f:
