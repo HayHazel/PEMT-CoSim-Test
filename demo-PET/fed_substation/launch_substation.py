@@ -1,4 +1,4 @@
-d# file: launch substation.py
+# file: launch substation.py
 """
 Function:
         start running substation federate (main federate) as well as other federates
