@@ -275,7 +275,7 @@ for i in range(len(time_hour_auction)):
     prices.append(price)
 
 
-time_hour_auction = data_dict['time_hour_auction']
+#time_hour_auction = data_dict['time_hour_auction']
 fig2, (ax11, ax12, ax13) = plt.subplots(3)
 ax11.set_ylabel('Role', size = 13)
 ax11.tick_params(axis='x', labelsize=13)
