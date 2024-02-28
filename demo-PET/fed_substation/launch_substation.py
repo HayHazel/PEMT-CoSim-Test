@@ -254,7 +254,7 @@ while (time_granted < StopTime):
        data_dict = pickle.load(f)
 
    # secondPath = '../demo-PET/fed_gridlabd/'
-    secondPath = os.chdir("/PEMT-CoSim-Test/PEMT-CoSim-Test/demo-PET/")
+    os.chdir("/PEMT-CoSim-Test/PEMT-CoSim-Test/demo-PET/")
   #  secondPath2 = os.chdir('..')
    # secondPath = os.chdir('../')
   #  secondPath2 = os.chdir('../')
