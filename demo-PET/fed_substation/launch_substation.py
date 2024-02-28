@@ -262,6 +262,7 @@ for i in range(len(time_hour_auction)):
    # bid = prosumer_dict[str(t)][house] # bid_price, quantity, hvac.power_needed, role
    # print(bid)
    # bids = []
+    fh.prosumer_metrics[time_key][house.name] = [bid[0], bid[1], bid[2], bid[3]]
     prices = []
     roles = []
     quantitys = []
