@@ -247,7 +247,8 @@ while (time_granted < StopTime):
     ax5.plot(curves.time_hour_curve, curves.curve_nontcp_ratio)
     ax5.legend(['HVAC-ON ratio', 'Buyer ratio', 'Seller ratio', 'None-participant ratio'])
 
-    
+    plt.pause(0.01)
+    tnext_fig_update += fig_update_period
 
 
 """============================ Finalize the metrics output ============================"""
@@ -270,29 +271,29 @@ plt.savefig('launch.png', bbox_inches='tight')
 
 
 path_base = './data/' #prevuously fed_substation/data but already in substation folder
-    exp1 = 'exp(dyB-1-3kw)'
-    path = path_base + exp1 +'/'
-    with open(path+'data.pkl', 'rb') as f:
+exp1 = 'exp(dyB-1-3kw)'
+path = path_base + exp1 +'/'
+with open(path+'data.pkl', 'rb') as f:
        data_dict = pickle.load(f)
 
    # secondPath = '../demo-PET/fed_gridlabd/'
-    os.chdir("/PEMT-CoSim-Test/PEMT-CoSim-Test/demo-PET/")
+os.chdir("/PEMT-CoSim-Test/PEMT-CoSim-Test/demo-PET/")
   #  secondPath2 = os.chdir('..')
    # secondPath = os.chdir('../')
   #  secondPath2 = os.chdir('../')
    # os.getcwd()
-    trialPath = '../'
-    filePath = 'fed_gridlabd/'      
-    with open(filePath+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
+trialPath = '../'
+filePath = 'fed_gridlabd/'      
+with open(filePath+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
         prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
         f.close()      
-    time_hour_auction = data_dict['time_hour_auction']
-    house = 'F0_house_A6'
-    bids = []
-    prices = []
-    roles = []
-    quantitys = []
-    for i in range(len(time_hour_auction)):
+time_hour_auction = data_dict['time_hour_auction']
+house = 'F0_house_A6'
+bids = []
+prices = []
+roles = []
+quantitys = []
+for i in range(len(time_hour_auction)):
         t = int((i+1)*300)
         bid = prosumer_dict[str(t)][house] # bid_price, quantity, hvac.power_needed, role
        # print(bid)
@@ -310,62 +311,60 @@ path_base = './data/' #prevuously fed_substation/data but already in substation 
             roles.append(0)
         prices.append(price)
 
-
-        fig2, (ax11, ax12, ax13) = plt.subplots(3)
-        ax11.set_ylabel('Role', size = 13)
-        ax11.tick_params(axis='x', labelsize=13)
-        ax11.tick_params(axis='y', labelsize=13)
-        ax11.set_yticks((-1, 0, 1))
-        ax11.set_yticklabels(("seller", "none-\nptcpt","buyer"))
-        ax11.plot(time_hour_auction, roles, 's--', color = 'k', linewidth = 1)
+fig2, (ax11, ax12, ax13) = plt.subplots(3)
+ax11.set_ylabel('Role', size = 13)
+ax11.tick_params(axis='x', labelsize=13)
+ax11.tick_params(axis='y', labelsize=13)
+ax11.set_yticks((-1, 0, 1))
+ax11.set_yticklabels(("seller", "none-\nptcpt","buyer"))
+ax11.plot(time_hour_auction, roles, 's--', color = 'k', linewidth = 1)
         
-        ax12.set_ylabel('Bid-Quantity \n(packet)', size = 13)
-        ax12.tick_params(axis='x', labelsize=13)
-        ax12.tick_params(axis='y', labelsize=13)
-        ax12.plot(time_hour_auction, quantity, 's--', color = 'k', linewidth = 1)
+ax12.set_ylabel('Bid-Quantity \n(packet)', size = 13)
+ax12.tick_params(axis='x', labelsize=13)
+ax12.tick_params(axis='y', labelsize=13)
+ax12.plot(time_hour_auction, quantity, 's--', color = 'k', linewidth = 1)
         
-        ax13.set_ylabel('Bid-Price \n($/kWh)', size = 13)
-        ax13.set_xlabel("Time (h)", size = 13)
-        ax13.tick_params(axis='x', labelsize=13)
-        ax13.tick_params(axis='y', labelsize=13)
-        ax13.plot(time_hour_auction, prices,  color = 'k', linewidth = 1.5)
-        ax13.plot(time_hour_auction, cleared_price, color = 'g', linewidth = 1.5)
-        ax13.legend(['bid price', 'cleared price'])
+ax13.set_ylabel('Bid-Price \n($/kWh)', size = 13)
+ax13.set_xlabel("Time (h)", size = 13)
+ax13.tick_params(axis='x', labelsize=13)
+ax13.tick_params(axis='y', labelsize=13)
+ax13.plot(time_hour_auction, prices,  color = 'k', linewidth = 1.5)
+ax13.plot(time_hour_auction, cleared_price, color = 'g', linewidth = 1.5)
+ax13.legend(['bid price', 'cleared price'])
         
-        plt.figure(1)
-        time = time_hour_auction
-        plt.plot(time, roles , 's-')
-        plt.xlabel('Time (h)')
-        plt.ylabel('Role')
-        plt.show()
+plt.figure(1)
+time = time_hour_auction
+plt.plot(time, roles , 's-')
+plt.xlabel('Time (h)')
+plt.ylabel('Role')
+plt.show()
         
-        figure = plt.gcf() 
-        figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
-        plt.savefig('image 1', bbox_inches='tight')
+figure = plt.gcf() 
+figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+plt.savefig('image 1', bbox_inches='tight')
         
         
-        plt.figure(2)
-        time = time_hour_auction
-        plt.plot(time, quantity , 's-')
-        plt.xlabel('Time (h)')
-        plt.ylabel('Bid-Quantity (1 packet)')
-        plt.show()
+plt.figure(2)
+time = time_hour_auction
+plt.plot(time, quantity , 's-')
+plt.xlabel('Time (h)')
+plt.ylabel('Bid-Quantity (1 packet)')
+plt.show()
         #plt.savefig('test image2')
         
-        figure = plt.gcf() 
-        figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
-        plt.savefig('image2', bbox_inches='tight')
+figure = plt.gcf() 
+figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+plt.savefig('image2', bbox_inches='tight')
         
-        plt.figure(3)
-        time = time_hour_auction
-        plt.plot(time, prices ,label="bid price")
-        plt.plot(time, cleared_price ,label="cleared price" )
-        plt.xlabel('Time (h)')
-        plt.ylabel('Bid-Price ($/kWh)')
-        plt.legend()
-        plt.show()
-        plt.pause(0.01)
-        tnext_fig_update += fig_update_period
+plt.figure(3)
+time = time_hour_auction
+plt.plot(time, prices ,label="bid price")
+plt.plot(time, cleared_price ,label="cleared price" )
+plt.xlabel('Time (h)')
+plt.ylabel('Bid-Price ($/kWh)')
+plt.legend()
+plt.show()
+        
 figure = plt.gcf() 
 figure.set_size_inches(32, 18)
 plt.savefig('launch2.png', bbox_inches='tight')
