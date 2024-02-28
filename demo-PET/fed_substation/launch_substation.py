@@ -78,7 +78,7 @@ last_house_name = key
 num_houses = len(houses)
 curves = CURVES_TO_PLOT(num_houses)
 if drawFigure:
-  fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(6) #previously subplots(5)
+  fig, (ax1, ax2, ax3, ax4, ax5, ax6) = plt.subplots(6) #previously subplots(5) and added ax6 to left side
 
 
 # initialize time parameters
