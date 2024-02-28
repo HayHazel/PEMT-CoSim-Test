@@ -163,7 +163,8 @@ while (time_granted < StopTime):
     fh.prosumer_metrics[time_key] = {}
     for key, house in houses.items():
       bid = house.formulate_bid() # bid is [bid_price, quantity, hvac.power_needed, role, unres_kw, name]
- #     print("the bid is: ", bid )
+
+      print("the bid is: ", bid )
       fh.prosumer_metrics[time_key][house.name] = [bid[0], bid[1], bid[2], bid[3]]
       if hasMarket:
         auction.collect_bid(bid)
@@ -264,7 +265,7 @@ while (time_granted < StopTime):
     for i in range(len(time_hour_auction)):
        t = int((i+1)*300)
       # bid = prosumer_dict[str(t)][house] # bid_price, quantity, hvac.power_needed, role
-       print(bid)
+       #print(bid)
        price = bid[0]
        quantity = bid[1]
        role = bid[3]
