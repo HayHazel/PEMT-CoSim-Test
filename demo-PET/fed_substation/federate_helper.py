@@ -480,9 +480,6 @@ class CURVES_TO_PLOT:
         self.time_hour_curve = []
         self.time_hour_system = []
         self.time_hour_auction = []
-        #added ones here:
-        self.price = []
-        self.curve_price = []
 
 
     def save_statistics(self, path):
@@ -492,8 +489,6 @@ class CURVES_TO_PLOT:
         data_dict['seller_ratio'] = self.seller_ratio
         data_dict['nontcp_ratio'] = self.nontcp_ratio
         data_dict['cleared_price'] = self.cleared_price
-        #added price
-        data_dict['price'] = self.price
         data_dict['LMP'] = self.LMP
 
         data_dict['time_hour_system'] = self.time_hour_system
@@ -542,7 +537,6 @@ class CURVES_TO_PLOT:
         self.nontcp_ratio.append(aucObj.num_nontcp/len(houseObjs))
 
         self.cleared_price.append(aucObj.clearing_price)
-        self.price.append(aucObj.price)
         self.LMP.append(aucObj.lmp)
 
 
@@ -649,8 +643,6 @@ class CURVES_TO_PLOT:
 
 
         self.curve_cleared_price.append(self.cleared_price[-1])
-        #added for price
-        self.curve_price.append(self.price[-1])
 
         # for auction statistics
 
@@ -663,7 +655,3 @@ class CURVES_TO_PLOT:
         # self.add_house_load_point(houseObjs)
         # self.add_distribution_load_point(aucObj)
         # self.add_cleared_price_point(aucObj)
-
-
-
-
