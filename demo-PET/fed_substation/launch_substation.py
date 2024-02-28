@@ -110,7 +110,7 @@ time_last = 0
 """============================Substation Loop=================================="""
 
 while (time_granted < StopTime):
-""" 1. step the co-simulation time """
+  """ 1. step the co-simulation time """
   nextHELICSTime = int(min ([tnext_update,tnext_request,tnext_lmp, tnext_bid, tnext_agg, tnext_clear, tnext_adjust, StopTime]))
   time_granted = int (helics.helicsFederateRequestTime(fh.hFed, nextHELICSTime))
   time_delta = time_granted - time_last
