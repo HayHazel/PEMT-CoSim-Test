@@ -281,61 +281,61 @@ while (time_granted < StopTime):
         prices.append(price)
 
 
-fig2, (ax11, ax12, ax13) = plt.subplots(3)
-ax11.set_ylabel('Role', size = 13)
-ax11.tick_params(axis='x', labelsize=13)
-ax11.tick_params(axis='y', labelsize=13)
-ax11.set_yticks((-1, 0, 1))
-ax11.set_yticklabels(("seller", "none-\nptcpt","buyer"))
-ax11.plot(time_hour_auction, roles, 's--', color = 'k', linewidth = 1)
-
-ax12.set_ylabel('Bid-Quantity \n(packet)', size = 13)
-ax12.tick_params(axis='x', labelsize=13)
-ax12.tick_params(axis='y', labelsize=13)
-ax12.plot(time_hour_auction, quantity, 's--', color = 'k', linewidth = 1)
-
-ax13.set_ylabel('Bid-Price \n($/kWh)', size = 13)
-ax13.set_xlabel("Time (h)", size = 13)
-ax13.tick_params(axis='x', labelsize=13)
-ax13.tick_params(axis='y', labelsize=13)
-ax13.plot(time_hour_auction, prices,  color = 'k', linewidth = 1.5)
-ax13.plot(time_hour_auction, cleared_price, color = 'g', linewidth = 1.5)
-ax13.legend(['bid price', 'cleared price'])
-
-plt.figure(1)
-time = time_hour_auction
-plt.plot(time, roles , 's-')
-plt.xlabel('Time (h)')
-plt.ylabel('Role')
-plt.show()
-
-figure = plt.gcf() 
-figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
-plt.savefig('image 1', bbox_inches='tight')
-
-
-plt.figure(2)
-time = time_hour_auction
-plt.plot(time, quantity , 's-')
-plt.xlabel('Time (h)')
-plt.ylabel('Bid-Quantity (1 packet)')
-plt.show()
-#plt.savefig('test image2')
-
-figure = plt.gcf() 
-figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
-plt.savefig('image2', bbox_inches='tight')
-
-plt.figure(3)
-time = time_hour_auction
-plt.plot(time, prices ,label="bid price")
-plt.plot(time, cleared_price ,label="cleared price" )
-plt.xlabel('Time (h)')
-plt.ylabel('Bid-Price ($/kWh)')
-plt.legend()
-plt.show()
-    plt.pause(0.01)
-    tnext_fig_update += fig_update_period
+        fig2, (ax11, ax12, ax13) = plt.subplots(3)
+        ax11.set_ylabel('Role', size = 13)
+        ax11.tick_params(axis='x', labelsize=13)
+        ax11.tick_params(axis='y', labelsize=13)
+        ax11.set_yticks((-1, 0, 1))
+        ax11.set_yticklabels(("seller", "none-\nptcpt","buyer"))
+        ax11.plot(time_hour_auction, roles, 's--', color = 'k', linewidth = 1)
+        
+        ax12.set_ylabel('Bid-Quantity \n(packet)', size = 13)
+        ax12.tick_params(axis='x', labelsize=13)
+        ax12.tick_params(axis='y', labelsize=13)
+        ax12.plot(time_hour_auction, quantity, 's--', color = 'k', linewidth = 1)
+        
+        ax13.set_ylabel('Bid-Price \n($/kWh)', size = 13)
+        ax13.set_xlabel("Time (h)", size = 13)
+        ax13.tick_params(axis='x', labelsize=13)
+        ax13.tick_params(axis='y', labelsize=13)
+        ax13.plot(time_hour_auction, prices,  color = 'k', linewidth = 1.5)
+        ax13.plot(time_hour_auction, cleared_price, color = 'g', linewidth = 1.5)
+        ax13.legend(['bid price', 'cleared price'])
+        
+        plt.figure(1)
+        time = time_hour_auction
+        plt.plot(time, roles , 's-')
+        plt.xlabel('Time (h)')
+        plt.ylabel('Role')
+        plt.show()
+        
+        figure = plt.gcf() 
+        figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+        plt.savefig('image 1', bbox_inches='tight')
+        
+        
+        plt.figure(2)
+        time = time_hour_auction
+        plt.plot(time, quantity , 's-')
+        plt.xlabel('Time (h)')
+        plt.ylabel('Bid-Quantity (1 packet)')
+        plt.show()
+        #plt.savefig('test image2')
+        
+        figure = plt.gcf() 
+        figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+        plt.savefig('image2', bbox_inches='tight')
+        
+        plt.figure(3)
+        time = time_hour_auction
+        plt.plot(time, prices ,label="bid price")
+        plt.plot(time, cleared_price ,label="cleared price" )
+        plt.xlabel('Time (h)')
+        plt.ylabel('Bid-Price ($/kWh)')
+        plt.legend()
+        plt.show()
+        plt.pause(0.01)
+        tnext_fig_update += fig_update_period
 
 
 """============================ Finalize the metrics output ============================"""
