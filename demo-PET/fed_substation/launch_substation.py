@@ -257,6 +257,7 @@ while (time_granted < StopTime):
   #  secondPath = os.chdir('..')
   #  secondPath2 = os.chdir('..')
     os.chdir('..')
+    os.getcwd()
     os.chdir('..')
     filePath = './fed_gridlabd/'      
     with open(filePath+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
