@@ -35,7 +35,7 @@ if not os.path.exists(data_path):
 configfile = 'TE_Challenge_agent_dict.json'
 helicsConfig = 'TE_Challenge_HELICS_substation.json'
 metrics_root = 'TE_ChallengeH'
-hour_stop = 48  # simulation duration (default 48 hours)
+hour_stop = 1  # simulation duration (default 48 hours)
 hasMarket = True # have market or not
 vppEnable = False # have Vpp coordinator or not
 drawFigure = True # draw figures during the simulation
@@ -82,7 +82,7 @@ if drawFigure:
 
 
 # initialize time parameters
-StopTime= int (hour_stop * 3600) # co-simulation stop time in seconds
+StopTime= int (hour_stop * 3600) # co-simulation stop time in seconds ##originally 3600
 StartTime = '2013-07-01 00:00:00 -0800' # co-simulation start time
 dt_now = datetime.strptime (StartTime, '%Y-%m-%d %H:%M:%S %z')
 
@@ -110,7 +110,96 @@ time_last = 0
 """============================Substation Loop=================================="""
 
 while (time_granted < StopTime):
+""" 1. step the co-simulation time """
+  nextHELICSTime = int(min ([tnext_update,tnext_request,tnext_lmp, tnext_bid, tnext_agg, tnext_clear, tnext_adjust, StopTime]))
+  time_granted = int (helics.helicsFederateRequestTime(fh.hFed, nextHELICSTime))
+  time_delta = time_granted - time_last
+  time_last = time_granted
+  hour_of_day = 24.0 * ((float(time_granted) / 86400.0) % 1.0)
+  dt_now = dt_now + timedelta(seconds=time_delta) # this is the actual time
+  day_of_week = dt_now.weekday() # get the day of week
+  hour_of_day = dt_now.hour # get the hour of the day
 
+
+  """ 2. houses update state/measurements for all devices, 
+         update schedule and determine the power needed for hvac,
+         make power predictions for solar,
+         make power predictions for house load"""
+  if time_granted >= tnext_update:
+    for key, house in houses.items():
+      house.update_measurements() # update measurements for all devices
+      house.hvac.change_basepoint(hour_of_day, day_of_week) # update schedule
+      house.hvac.determine_power_needed() # hvac determines if power is needed based on current state
+      house.predict_solar_power() # predict the solar power generation
+      house.predict_house_load()  # predict the house load
+    vpp.get_vpp_load() # get the VPP load
+    curves.record_state_statistics(time_granted, houses, auction, vpp) # record something
+    tnext_update += update_period
+
+
+  """ 3. houses launch basic real-time control actions (not post-market control)
+      including the control for battery"""
+  if time_granted >= tnext_control:
+    for key, house in houses.items():
+      if house.hasBatt:
+        house.battery.auto_control() # real-time basic control of battery to track the HVAC load
+      # house.hvac.auto_control()
+    tnext_control += control_period
+
+
+  """ 4. market gets the local marginal price (LMP) from the bulk power grid,"""
+  if time_granted >= tnext_lmp:
+    auction.get_lmp () # get local marginal price (LMP) from the bulk power grid
+    auction.get_refload() # get distribution load from gridlabd
+    for key, house in houses.items():
+      house.get_lmp_from_market(auction.lmp) # houses get LMP from the market
+    tnext_lmp += market_period
+
+
+  """ 5. houses formulate and send their bids"""
+  if time_granted >= tnext_bid:
+    auction.clear_bids() # auction remove all previous records, re-initialize
+    time_key = str(int(tnext_clear))
+    fh.prosumer_metrics[time_key] = {}
+    for key, house in houses.items():
+      bid = house.formulate_bid() # bid is [bid_price, quantity, hvac.power_needed, role, unres_kw, name]
+ #     print("the bid is: ", bid )
+      fh.prosumer_metrics[time_key][house.name] = [bid[0], bid[1], bid[2], bid[3]]
+      if hasMarket:
+        auction.collect_bid(bid)
+    tnext_bid += market_period
+
+
+  """ 6. market aggreates bids from prosumers"""
+  if time_granted >= tnext_agg:
+    auction.aggregate_bids()
+    auction.publish_agg_bids_for_buyer()
+    tnext_agg += market_period
+
+
+  """ 7. market clears the market """
+  if time_granted >= tnext_clear:
+    if hasMarket:
+      auction.clear_market(tnext_clear, time_granted)
+      auction.surplusCalculation(tnext_clear, time_granted)
+      auction.publish_clearing_price()
+      print("!!The cleared price is: ",auction.clearing_price)
+      for key, house in houses.items():
+        house.get_cleared_price (auction.clearing_price)
+        house.publish_meter_price()
+        house.post_market_control(auction.market_condition, auction.marginal_quantity) # post-market control is needed
+    time_key = str(int(tnext_clear))
+    fh.auction_metrics [time_key] = {auction.name:[auction.clearing_price, auction.clearing_type, auction.consumerSurplus, auction.averageConsumerSurplus, auction.supplierSurplus]}
+    curves.record_auction_statistics(time_granted, houses, auction)
+    tnext_clear += market_period
+
+
+  """ 8. prosumer demand response (adjust control parameters/setpoints) """
+  if time_granted >= tnext_adjust:
+    if has_demand_response:
+      for key, house in houses.items():
+        house.demand_response()
+    tnext_adjust += market_period
   
 
 
