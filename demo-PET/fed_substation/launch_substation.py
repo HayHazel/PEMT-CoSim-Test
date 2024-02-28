@@ -264,6 +264,7 @@ while (time_granted < StopTime):
     with open(filePath+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
         prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
         f.close()      
+    time_hour_auction = data_dict['time_hour_auction']
     house = 'F0_house_A6'
     bids = []
     prices = []
