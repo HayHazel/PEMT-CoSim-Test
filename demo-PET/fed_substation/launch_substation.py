@@ -253,7 +253,7 @@ while (time_granted < StopTime):
     with open(path+'data.pkl', 'rb') as f:
        data_dict = pickle.load(f)
 
-    secondPath = './fed_gridlabd/'
+    secondPath = './demo-PET/fed_gridlabd/'
     with open(secondPath+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
         prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
         f.close()      
