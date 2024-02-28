@@ -288,14 +288,14 @@ with open(filePath+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
         prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
         f.close()      
 time_hour_auction = data_dict['time_hour_auction']
-house = 'F0_house_A6'
+houseName = 'F0_house_A6'
 bids = []
 prices = []
 roles = []
 quantitys = []
 for i in range(len(time_hour_auction)):
         t = int((i+1)*300)
-        newBid = prosumer_dict[str(t)][house] # bid_price, quantity, hvac.power_needed, role
+        newBid = prosumer_dict[str(t)][houseName] # bid_price, quantity, hvac.power_needed, role
        # print(bid)
         price = newBid[0]
         quantity = newBid[1]
