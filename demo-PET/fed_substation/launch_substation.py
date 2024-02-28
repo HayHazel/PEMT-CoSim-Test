@@ -247,7 +247,29 @@ while (time_granted < StopTime):
     ax5.plot(curves.time_hour_curve, curves.curve_nontcp_ratio)
     ax5.legend(['HVAC-ON ratio', 'Buyer ratio', 'Seller ratio', 'None-participant ratio'])
 
-    path_base = './data/' #prevuously fed_substation/data but already in substation folder
+    
+
+
+"""============================ Finalize the metrics output ============================"""
+curves.save_statistics(data_path)
+print ('writing metrics', flush=True)
+auction_op = open (data_path+'auction_' + metrics_root + '_metrics.json', 'w')
+house_op = open (data_path+'house_' + metrics_root + '_metrics.json', 'w')
+print (json.dumps(fh.auction_metrics), file=auction_op)
+print (json.dumps(fh.prosumer_metrics), file=house_op)
+auction_op.close()
+house_op.close()
+fh.destroy_federate()  # destroy the federate
+fh.show_resource_consumption() # after simulation, print the resource consumption
+plt.show()
+# fh.kill_processes(True) # it is not suggested here because some other federates may not end their simulations, it will affect their output metrics
+figure = plt.gcf() 
+figure.set_size_inches(32, 18)
+plt.savefig('launch.png', bbox_inches='tight')
+
+
+
+path_base = './data/' #prevuously fed_substation/data but already in substation folder
     exp1 = 'exp(dyB-1-3kw)'
     path = path_base + exp1 +'/'
     with open(path+'data.pkl', 'rb') as f:
@@ -344,25 +366,6 @@ while (time_granted < StopTime):
         plt.show()
         plt.pause(0.01)
         tnext_fig_update += fig_update_period
-
-
-"""============================ Finalize the metrics output ============================"""
-curves.save_statistics(data_path)
-print ('writing metrics', flush=True)
-auction_op = open (data_path+'auction_' + metrics_root + '_metrics.json', 'w')
-house_op = open (data_path+'house_' + metrics_root + '_metrics.json', 'w')
-print (json.dumps(fh.auction_metrics), file=auction_op)
-print (json.dumps(fh.prosumer_metrics), file=house_op)
-auction_op.close()
-house_op.close()
-fh.destroy_federate()  # destroy the federate
-fh.show_resource_consumption() # after simulation, print the resource consumption
-plt.show()
-# fh.kill_processes(True) # it is not suggested here because some other federates may not end their simulations, it will affect their output metrics
-figure = plt.gcf() 
-figure.set_size_inches(32, 18)
-plt.savefig('launch.png', bbox_inches='tight')
-
 figure = plt.gcf() 
 figure.set_size_inches(32, 18)
 plt.savefig('launch2.png', bbox_inches='tight')
