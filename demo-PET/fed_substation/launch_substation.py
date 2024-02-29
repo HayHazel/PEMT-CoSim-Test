@@ -277,9 +277,9 @@ os.chdir("/PEMT-CoSim-Test/PEMT-CoSim-Test/demo-PET/")
    # os.getcwd()
 trialPath = '../'
 filePath = 'fed_gridlabd/'      
-with open(data_path+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:  #used to be with open(filePath + ...)
-        prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
-        f.close()      
+with open(data_path+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:  #used to be with open(filePath + ...)####
+    prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
+    f.close() 
 time_hour_auction = data_dict['time_hour_auction']
 houseName = 'F0_house_A6'
 bids = []
@@ -287,23 +287,23 @@ prices = []
 roles = []
 quantitys = []
 for i in range(37):   #(len(time_hour_auction)):
-        t = int((i+1)*300)
-        print("t is :",t)
-        newBid = prosumer_dict[str(t)][houseName] # bid_price, quantity, hvac.power_needed, role (str(t))
+    t = int((i+1)*300)
+    print("t is :",t)
+    newBid = prosumer_dict[str(t)][houseName] # bid_price, quantity, hvac.power_needed, role (str(t))
        # print(bid)
-        price = newBid[0]
-        quantity = newBid[1]
-        role = newBid[3]
-        if role == 'seller':
-            quantitys.append(int(-quantity/3))
-            roles.append(-1)
-        elif role == 'buyer':
-            quantitys.append(int(quantity/3))
-            roles.append(1)
-        else:
-            quantitys.append(0)
-            roles.append(0)
-        prices.append(price)
+    price = newBid[0]
+    quantity = newBid[1]
+    role = newBid[3]
+    if role == 'seller':
+        quantitys.append(int(-quantity/3))
+        roles.append(-1)
+    elif role == 'buyer':
+        quantitys.append(int(quantity/3))
+        roles.append(1)
+    else:
+        quantitys.append(0)
+        roles.append(0)
+    prices.append(price)
 
 fig2, (ax11, ax12, ax13) = plt.subplots(3)
 ax11.set_ylabel('Role', size = 13)
