@@ -282,6 +282,12 @@ with open('./data/exp(dyB-1-3kw)/house_TE_ChallengeH_metrics.json', encoding='ut
     prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
     f.close() 
 time_hour_auction = data_dict['time_hour_auction']
+time_hour_auction = data_dict['time_hour_auction']
+buyer_ratio = data_dict['buyer_ratio']
+seller_ratio = data_dict['seller_ratio']
+nontcp_ratio = data_dict['nontcp_ratio']
+cleared_price = data_dict['cleared_price']
+LMP = data_dict['LMP']
 houseName = 'F0_house_A6'
 bids = []
 prices = []
