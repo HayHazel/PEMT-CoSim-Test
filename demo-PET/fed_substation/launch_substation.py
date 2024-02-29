@@ -264,7 +264,7 @@ house_op.close()
 
 
 path_base = './data/' #prevuously fed_substation/data but already in substation folder
-secondPath_base = ''exp(dyB-1-3kw)''
+#secondPath_base = ''exp(dyB-1-3kw)''
 exp1 = 'exp(dyB-1-3kw)'
 path = path_base + exp1 +'/'
 with open(path+'data.pkl', 'rb') as f:
