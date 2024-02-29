@@ -277,7 +277,7 @@ os.chdir("/PEMT-CoSim-Test/PEMT-CoSim-Test/demo-PET/")
    # os.getcwd()
 trialPath = '../'
 filePath = 'fed_gridlabd/'      
-with open(data_path+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f: b  #used to be with open(filePath + ...)
+with open(data_path+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:  #used to be with open(filePath + ...)
         prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
         f.close()      
 time_hour_auction = data_dict['time_hour_auction']
