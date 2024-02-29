@@ -29,7 +29,7 @@ from federate_helper import FEDERATE_HELPER, CURVES_TO_PLOT
 
 
 """================================Declare something====================================="""
-data_path = './data/exp(test)/'
+data_path = './data/exp(dyB-1-3kw)/'#'./data/exp(test)/'
 if not os.path.exists(data_path):
     os.makedirs(data_path)
 configfile = 'TE_Challenge_agent_dict.json'
