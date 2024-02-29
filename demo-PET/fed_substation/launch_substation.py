@@ -35,7 +35,7 @@ if not os.path.exists(data_path):
 configfile = 'TE_Challenge_agent_dict.json'
 helicsConfig = 'TE_Challenge_HELICS_substation.json'
 metrics_root = 'TE_ChallengeH'
-hour_stop = 3  # simulation duration (default 48 hours)
+hour_stop = 48  # simulation duration (default 48 hours)
 hasMarket = True # have market or not
 vppEnable = False # have Vpp coordinator or not
 drawFigure = True # draw figures during the simulation
@@ -296,9 +296,9 @@ bids = []
 prices = []
 roles = []
 quantitys = []
-for i in range(36):   #(len(time_hour_auction)):
+for i in range(len(time_hour_auction)):   #range(36):   #(len(time_hour_auction)):
     t = int((i+1)*300)
-    print("t is :",t)
+   # print("t is :",t)
     newBid = prosumer_dict[str(t)][houseName] # bid_price, quantity, hvac.power_needed, role (str(t))
        # print(bid)
     price = newBid[0]
