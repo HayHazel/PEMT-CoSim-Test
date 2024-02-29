@@ -347,7 +347,7 @@ plt.savefig('image 1', bbox_inches='tight')
         
 plt.figure(2)
 time = time_hour_auction
-plt.plot(time, quantity , 's-')
+plt.plot(time, quantitys , 's-')
 plt.xlabel('Time (h)')
 plt.ylabel('Bid-Quantity (1 packet)')
 plt.show()
