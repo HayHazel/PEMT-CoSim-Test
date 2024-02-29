@@ -256,6 +256,7 @@ curves.save_statistics(data_path)
 print ('writing metrics', flush=True)
 auction_op = open (data_path+'auction_' + metrics_root + '_metrics.json', 'w')
 house_op = open (data_path+'house_' + metrics_root + '_metrics.json', 'w')
+#auction_op = open (data_path+'auction_' + metrics_root + '_metrics.json', 'w')
 print (json.dumps(fh.auction_metrics), file=auction_op)
 print (json.dumps(fh.prosumer_metrics), file=house_op)
 auction_op.close()
@@ -276,7 +277,7 @@ os.chdir("/PEMT-CoSim-Test/PEMT-CoSim-Test/demo-PET/")
    # os.getcwd()
 trialPath = '../'
 filePath = 'fed_gridlabd/'      
-with open(filePath+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:
+with open(data_path+'house_TE_ChallengeH_metrics.json', encoding='utf-8') as f: b  #used to be with open(filePath + ...)
         prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
         f.close()      
 time_hour_auction = data_dict['time_hour_auction']
