@@ -360,18 +360,18 @@ plt.savefig('image 1', bbox_inches='tight')
 #figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
 #plt.savefig('image2', bbox_inches='tight')
         
-#plt.figure(3)
-#time = time_hour_auction
-#plt.plot(time, prices ,label="bid price")
-#plt.plot(time, cleared_price ,label="cleared price" )
-#plt.xlabel('Time (h)')
-#plt.ylabel('Bid-Price ($/kWh)')
-#plt.legend()
-#plt.show()
+plt.figure(3)
+time = time_hour_auction
+plt.plot(time, prices ,label="bid price")
+plt.plot(time, cleared_price ,label="cleared price" )
+plt.xlabel('Time (h)')
+plt.ylabel('Bid-Price ($/kWh)')
+plt.legend()
+plt.show()
         
-#figure = plt.gcf() 
-#figure.set_size_inches(32, 18)
-#plt.savefig('launch2.png', bbox_inches='tight')
+figure = plt.gcf() 
+figure.set_size_inches(32, 18)
+plt.savefig('launch2.png', bbox_inches='tight')
 
 
 
