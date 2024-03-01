@@ -298,6 +298,7 @@ roles = []
 quantitys = []
 for i in range(36):   #range(36):   #(len(time_hour_auction)):
     t = int((i+1)*300)
+    times = str(t)
    # print("t is :",t)
     newBid = prosumer_dict[str(t)][houseName] # bid_price, quantity, hvac.power_needed, role (str(t))
        # print(bid)
@@ -322,7 +323,7 @@ ax11.tick_params(axis='y', labelsize=13)
 ax11.set_yticks((-1, 0, 1))
 ax11.set_yticklabels(("seller", "none-\nptcpt","buyer"))
 #ax11.plot(time_hour_auction, roles, 's--', color = 'k', linewidth = 1)
-ax11.plot(t, roles, 's--', color = 'k', linewidth = 1)
+ax11.plot(times, roles, 's--', color = 'k', linewidth = 1)
 
 
 ax12.set_ylabel('Bid-Quantity \n(packet)', size = 13)
