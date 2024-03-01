@@ -35,7 +35,7 @@ if not os.path.exists(data_path):
 configfile = 'TE_Challenge_agent_dict.json'
 helicsConfig = 'TE_Challenge_HELICS_substation.json'
 metrics_root = 'TE_ChallengeH'
-hour_stop = 48  # simulation duration (default 48 hours)
+hour_stop = 3  # simulation duration (default 48 hours)
 hasMarket = True # have market or not
 vppEnable = False # have Vpp coordinator or not
 drawFigure = True # draw figures during the simulation
@@ -284,7 +284,7 @@ filePath = 'fed_gridlabd/'
 with open('./data/exp(dyB-1-3kw)/house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:  #used to be with open(filePath + ...)####
     prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
     f.close() 
-time_hour_auction = data_dict['time_hour_auction']
+#time_hour_auction = data_dict['time_hour_auction']
 time_hour_auction = data_dict['time_hour_auction']
 buyer_ratio = data_dict['buyer_ratio']
 seller_ratio = data_dict['seller_ratio']
@@ -296,7 +296,7 @@ bids = []
 prices = []
 roles = []
 quantitys = []
-for i in range(len(time_hour_auction)):   #range(36):   #(len(time_hour_auction)):
+for i in range(36):   #range(36):   #(len(time_hour_auction)):
     t = int((i+1)*300)
    # print("t is :",t)
     newBid = prosumer_dict[str(t)][houseName] # bid_price, quantity, hvac.power_needed, role (str(t))
