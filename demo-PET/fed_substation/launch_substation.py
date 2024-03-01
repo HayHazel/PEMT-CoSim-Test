@@ -165,7 +165,7 @@ while (time_granted < StopTime):
     fh.prosumer_metrics[time_key] = {}
     for key, house in houses.items():
       bid = house.formulate_bid() # bid is [bid_price, quantity, hvac.power_needed, role, unres_kw, name]
-      print("the bid at 5. is", bid)
+     # print("the bid at 5. is", bid)
 
      # print("the bid is: ", bid )
       fh.prosumer_metrics[time_key][house.name] = [bid[0], bid[1], bid[2], bid[3]]
