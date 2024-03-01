@@ -170,7 +170,7 @@ while (time_granted < StopTime):
      # print("the bid is: ", bid )
       fh.prosumer_metrics[time_key][house.name] = [bid[0], bid[1], bid[2], bid[3]]
       if hasMarket:
-        auction.supllier_bid(bid)
+        auction.supplier_bid(bid)
         auction.collect_bid(bid)
       #  print("the bid at collect is:", bid)
     tnext_bid += market_period
