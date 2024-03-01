@@ -607,6 +607,7 @@ class HOUSE:
             self.role = 'buyer'
             if self.hvac.power_needed:
                 p = self.mean + (self.hvac.air_temp - self.hvac.basepoint) * self.hvac.ramp * self.std_dev / self.hvac.Trange #* 30
+                print("p is", p)
                 if p >= self.hvac.price_cap:
                     self.bid_price = self.hvac.price_cap
                 elif p <= 0.0:
@@ -627,6 +628,7 @@ class HOUSE:
         self.bid = [self.bid_price, quantity, self.hvac.power_needed, self.role, self.unres_kw, self.name, base_covered]
 
         return self.bid
+        
 
 
     def demand_response(self):
