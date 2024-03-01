@@ -67,7 +67,7 @@ seed = 1
 for key, info in fh.housesInfo_dict.items(): # key: house name, info: information of the house, including names of PV, battery ...
   houses[key] = HOUSE(key, info, fh.agents_dict, auction, seed) # initialize a house object
  ####new additon _init_#######
-  houses[key].__init__(key, 'house', info, fh.agents_dict, auction, seed)
+#  houses[key].__init__(key, 'house', info, fh.agents_dict, auction, seed)
   houses[key].get_helics_subspubs(fh.get_agent_pubssubs(key, 'house', info)) # get subscriptions and publications for house meters
   houses[key].set_meter_mode() # set meter mode
   houses[key].get_cleared_price(auction.clearing_price)
