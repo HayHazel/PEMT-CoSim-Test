@@ -322,8 +322,8 @@ ax11.tick_params(axis='x', labelsize=13)
 ax11.tick_params(axis='y', labelsize=13)
 ax11.set_yticks((-1, 0, 1))
 ax11.set_yticklabels(("seller", "none-\nptcpt","buyer"))
-#ax11.plot(time_hour_auction, roles, 's--', color = 'k', linewidth = 1)
-ax11.plot(times, roles, 's--', color = 'k', linewidth = 1)
+ax11.plot(time_hour_auction, roles, 's--', color = 'k', linewidth = 1)
+#ax11.plot(times, roles, 's--', color = 'k', linewidth = 1)
 
 
 ax12.set_ylabel('Bid-Quantity \n(packet)', size = 13)
