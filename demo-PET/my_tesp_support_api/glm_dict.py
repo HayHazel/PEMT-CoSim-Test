@@ -220,10 +220,6 @@ def glm_dict (nameroot, ercot=False, te30=False):
       if inInverters == True:
         if lst[0] == 'name' and lastInverter == '':
           lastInverter = lst[1].strip(';')
-        if lst[0] == 'name' and lastInverter != '':
-          DC_source_name = lst[1].strip(';')
-        if lst[0] == 'parent':
-          parent = lst[1].strip(';')
         if lst[1] == 'solar':
           hasSolar = True
           hasBattery = False
@@ -264,9 +260,9 @@ def glm_dict (nameroot, ercot=False, te30=False):
             lastBillingMeter = ercotMeterName (name)
           elif isCommercialHouse (house_class):
             lastBillingMeter = helpers.zoneMeterName (parent)
-          houses[name] = {'feeder_id':feeder_id,'billingmeter_id':lastBillingMeter,'parent':parent,'sqft':sqft,'stories':stories,'doors':doors,
-            'thermal_integrity':thermal_integrity,'cooling':cooling,'heating':heating,'wh_gallons':0,'house_class':house_class
-            }
+          houses[name] = {'feeder_id':feeder_id,'billingmeter_id':lastBillingMeter,'sqft':sqft,'stories':stories,'doors':doors,
+            'thermal_integrity':thermal_integrity,'cooling':cooling,'heating':heating,'wh_gallons':0,'house_class':house_class,
+            'parent':parent}
           lastHouse = name
           inHouses = False
       if inWaterHeaters == True:
@@ -291,12 +287,6 @@ def glm_dict (nameroot, ercot=False, te30=False):
           phases = lst[1].strip(';')
         if lst[0] == 'parent':
           lastMeterParent = lst[1].strip(';')
-        if lst[0] == 'groupid':
-          meterClass = lst[1].strip(';')
-          if meterClass == 'VPP_Meter':
-            vpp_name = 'VPP_' + re.findall('\d+', name)[0]
-            VPPs[vpp_name] = {}
-            VPPs[vpp_name]['VPP_meter'] = name
         if lst[0] == 'bill_mode':
           if te30 == True:
             if 'flatrate' not in name:
@@ -318,7 +308,11 @@ def glm_dict (nameroot, ercot=False, te30=False):
           vll = vln * math.sqrt(3.0)
         if lst[0] == 'groupid':
           meterClass = lst[1].strip(';')
-          inMeters = False
+          if meterClass == 'VPP_Meter':
+            vpp_name = 'VPP_' + re.findall('\d+', name)[0]
+            VPPs[vpp_name] = {}
+            VPPs[vpp_name]['VPP_meter'] = name
+            inMeters = False
         if lst[0] == 'bill_mode':
           billingmeters[name] = {'feeder_id':feeder_id,'phases':phases,'vll':vll,'vln':vln,'children':[]}
           lastBillingMeter = name
@@ -330,27 +324,21 @@ def glm_dict (nameroot, ercot=False, te30=False):
         if ercot:
           lastBillingMeter = ercotMeterName (name)
         elif te30:
-          pass
-          # lastBillingMeter = lastMeterParent
+          lastBillingMeter = lastMeterParent
         inverters[lastInverter] = {'feeder_id':feeder_id,
                                   'billingmeter_id':lastBillingMeter,
-                                  'parent': parent,
                                   'rated_W':rating,
                                   'resource':'solar',
-                                  'resource_name': DC_source_name,
                                   'inv_eta':inv_eta}
       elif hasBattery:
         if ercot:
           lastBillingMeter = ercotMeterName (name)
         elif te30:
-          pass
-          # lastBillingMeter = lastMeterParent
+          lastBillingMeter = lastMeterParent
         inverters[lastInverter] = {'feeder_id':feeder_id,
                                   'billingmeter_id':lastBillingMeter,
-                                  'parent': parent,
                                   'rated_W':rating,
                                   'resource':'battery',
-                                  'resource_name': DC_source_name,
                                   'inv_eta':inv_eta,
                                   'bat_eta':bat_eta,
                                   'bat_capacity':capacity,
@@ -373,13 +361,11 @@ def glm_dict (nameroot, ercot=False, te30=False):
       val['wh_gallons'] = waterheaters[key]['gallons']
       val['wh_tmix'] = waterheaters[key]['tmix']
       val['wh_mlayer'] = waterheaters[key]['mlayer']
-      parent = val['parent']
     if ercot and isCommercialHouse (val['house_class']):
       parent = val['parent']
       val['billingmeter_id'] = loads[parent]['parent']
     mtr = billingmeters[val['billingmeter_id']]
     mtr['children'].append(key)
-    # mtr['children'].append(parent)
 
   for key, val in inverters.items():
     mtr = billingmeters[val['billingmeter_id']]

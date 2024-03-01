@@ -65,22 +65,22 @@ Eplus_Load = 'Eplus_load'
 agent_participation = 1.0
 
 wakeup_start_lo = 5.0
-wakeup_start_hi = 6.5
+wakeup_start_hi = 7.5 #6.5
 daylight_start_lo = 8.0
-daylight_start_hi = 9.0
-evening_start_lo = 17.0
-evening_start_hi = 18.5
-night_start_lo = 22.0
+daylight_start_hi = 10.0 #9.0
+evening_start_lo = 16.0 #17.0
+evening_start_hi = 19.5 #18.5
+night_start_lo = 20.0 # 22.0
 night_start_hi = 23.5
 
 wakeup_set_lo = 78.0
-wakeup_set_hi = 80.0
-daylight_set_lo = 84.0
+wakeup_set_hi = 82.0 #80.0
+daylight_set_lo = 82.0
 daylight_set_hi = 86.0
 evening_set_lo = 78.0
-evening_set_hi = 80.0
-night_set_lo = 72.0
-night_set_hi = 74.0
+evening_set_hi = 82.0
+night_set_lo = 75.0
+night_set_hi = 80.0
 
 weekend_day_start_lo = 8.0
 weekend_day_start_hi = 9.0
@@ -93,8 +93,8 @@ weekend_night_set_hi = 74.0
 
 ramp_lo = 0.5
 ramp_hi = 3.0
-deadband_lo = 2.0
-deadband_hi = 3.0
+deadband_lo = 3.0 #2.0
+deadband_hi = 6.0 #3.0
 offset_limit_lo = 2.0
 offset_limit_hi = 4.0
 ctrl_cap_lo = 1.0
@@ -307,9 +307,7 @@ def ProcessGLM (fileroot, global_config):
         f.close()
 
     # agent_dict file
-    meta = {'markets':auctions, 'VPPs':glm_dict['VPPs'],
-            'billingmeters': glm_dict['billingmeters'], 'houses': glm_dict['houses'],
-            'hvacs':controllers, 'inverters': glm_dict['inverters'], 'dt':dt,'GridLABD':FedName}
+    meta = {'markets':auctions, 'VPPs':glm_dict['VPPs'], 'billingmeters': glm_dict['billingmeters'], 'hvacs':controllers, 'inverters': glm_dict['inverters'], 'dt':dt,'GridLABD':FedName}
     dictfile = './fed_substation/' + fileroot + '_agent_dict.json'
     dp = open (dictfile, 'w')
     json.dump (meta, dp, ensure_ascii=False, indent=2)
@@ -336,12 +334,10 @@ def ProcessGLM (fileroot, global_config):
 
     pubSubMeters = set()
     for key,val in controllers.items():
-      # meterName = val['meterName']
+      meterName = val['meterName']
       houseName = val['houseName']
-      meterName = glm_dict['houses'][houseName]['billingmeter_id']
       subs.append ({"key":"gld1/"+houseName+"#air_temperature", "type":"double"}) #Tair
       subs.append ({"key":"gld1/"+houseName+"#hvac_load", "type":"double"}) #Load
-      subs.append ({"key":"gld1/"+houseName+"#total_load", "type":"double"}) #Load
       subs.append ({"key":"gld1/"+houseName+"#power_state", "type":"string"})   #On
       pubs.append ({"key":key+"/cooling_setpoint", "type":"double", "global": False})
       pubs.append ({"key":key+"/heating_setpoint", "type":"double", "global": False})
@@ -355,40 +351,6 @@ def ProcessGLM (fileroot, global_config):
         pubs.append ({"key":meterName+"/bill_mode", "type":"string", "global": False})
         pubs.append ({"key":meterName+"/price", "type":"double", "global": False})
         pubs.append ({"key":meterName+"/monthly_fee", "type":"double", "global": False})
-
-    # for house parent meter
-    for key, val in glm_dict['houses'].items():
-        meterName = val['parent']
-        subs.append ({"key":"gld1/"+meterName+"#measured_power", "type":"complex"})
-
-    # for inverter parent meter
-    for key, val in glm_dict['inverters'].items():
-        meterName = val['parent']
-        subs.append ({"key":"gld1/"+meterName+"#measured_power", "type":"complex"})
-
-    # for DC resource
-    for key, val in glm_dict['inverters'].items():
-        resource_name = val['resource_name']
-        if val['resource'] == 'solar':
-            subs.append ({"key":"gld1/"+resource_name+"#V_Out", "type":"complex"})
-            subs.append ({"key":"gld1/"+resource_name+"#I_Out", "type":"complex"})
-        if val['resource'] == 'battery':
-            subs.append ({"key":"gld1/"+resource_name+"#state_of_charge", "type":"double"})
-
-    # for PV inverter control
-    for key, val in glm_dict['inverters'].items():
-        if val['resource'] == 'solar':
-            props = ['P_Out', 'Q_Out']
-            for prop in props:
-                pubs.append ({"key":key+"/"+prop, "type":"double", "global": False})
-
-    # for battery inverter control
-    for key, val in glm_dict['inverters'].items():
-        if val['resource'] == 'battery':
-            props = ['charge_on_threshold', 'charge_off_threshold', 'discharge_on_threshold', 'discharge_off_threshold']
-            for prop in props:
-                pubs.append ({"key":key+"/"+prop, "type":"double", "global": False})
-
 
     msg = {}
     msg["name"] = "sub1"
@@ -419,10 +381,8 @@ def ProcessGLM (fileroot, global_config):
     print ('    type: complex', file=yp)
     print ('    list: false', file=yp)
     for key,val in controllers.items():
-
         houseName = val['houseName']
-        # meterName = val['meterName']
-        meterName = glm_dict['houses'][houseName]['billingmeter_id']
+        meterName = val['meterName']
         print ('  ' + key + '#V1:', file=yp)
         print ('    topic: gld1/' + meterName + '/measured_voltage_1', file=yp)
         print ('    default: 120', file=yp)
@@ -506,11 +466,10 @@ def ProcessGLM (fileroot, global_config):
     for key, val in controllers.items():
       houseName = val['houseName']
       houseClass = val['houseClass']
-      meterName = glm_dict['houses'][houseName]['billingmeter_id']
-      # meterName = val['meterName']
+      meterName = val['meterName']
       for prop in ['power_state']:
         pubs.append ({"global":False, "key":houseName + "#" + prop, "type":"string", "info":{"object":houseName,"property":prop}})
-      for prop in ['air_temperature', 'hvac_load', 'total_load']:
+      for prop in ['air_temperature', 'hvac_load']:
         pubs.append ({"global":False, "key":houseName + "#" + prop, "type":"double", "info":{"object":houseName,"property":prop}})
       for prop in ['cooling_setpoint', 'heating_setpoint', 'thermostat_deadband']:
         subs.append ({"key": "sub1/" + key + "/" + prop, "type":"double", "info":{"object":houseName, "property":prop}})
@@ -530,43 +489,6 @@ def ProcessGLM (fileroot, global_config):
           subs.append ({"key": "sub1/" + meterName + "/" + prop, "type":"string", "info":{"object":meterName, "property":prop}})
         for prop in ['price', 'monthly_fee']:
           subs.append ({"key": "sub1/" + meterName + "/" + prop, "type":"double", "info":{"object":meterName, "property":prop}})
-
-    # for house parent meter
-    for key, val in glm_dict['houses'].items():
-        meterName = val['parent']
-        prop = 'measured_power'
-        pubs.append ({"global":False, "key":meterName + '#' + prop, "type":"complex", "info":{"object":meterName,"property":prop}})
-    # for inverter parent meter
-    for key, val in glm_dict['inverters'].items():
-        meterName = val['parent']
-        prop = 'measured_power'
-        pubs.append ({"global":False, "key":meterName + '#' + prop, "type":"complex", "info":{"object":meterName,"property":prop}})
-    # for PV DC resource
-    for key, val in glm_dict['inverters'].items():
-        resource_name = val['resource_name']
-        if val['resource'] == 'solar':
-            props = ['V_Out', 'I_Out']
-            for prop in props:
-                pubs.append ({"global":False, "key":resource_name + '#' + prop, "type":"complex", "info":{"object":resource_name,"property":prop}})
-        if val['resource'] == 'battery':
-            prop = 'state_of_charge'
-            pubs.append ({"global":False, "key":resource_name + '#' + prop, "type":"double", "info":{"object":resource_name,"property":prop}})
-
-    # for PV inverter control
-    for key, val in glm_dict['inverters'].items():
-        if val['resource'] == 'solar':
-            props = ['P_Out', 'Q_Out']
-            for prop in props:
-                subs.append ({"key": "sub1/" + key + "/" + prop, "type":"double", "info":{"object":key, "property":prop}})
-
-
-    # for battery control
-    for key, val in glm_dict['inverters'].items():
-        if val['resource'] == 'battery':
-            props = ['charge_on_threshold', 'charge_off_threshold', 'discharge_on_threshold', 'discharge_off_threshold']
-            for prop in props:
-                subs.append ({"key": "sub1/" + key + "/" + prop, "type":"double", "info":{"object":key, "property":prop}})
-
 
     # for inverters
     inverts_dict = glm_dict['inverters']
