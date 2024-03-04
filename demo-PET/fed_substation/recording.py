@@ -45,7 +45,7 @@ def deep_get(target, keys, default=None):
 
 
 class HistoryRecorder:
-    def __init__(self, target, keys: list[str] or list[list[str]]):  #self, target, keys: list[str] | list[list[str]]
+    def __init__(self, target, keys: list[str]):  #self, target, keys: list[str] | list[list[str]]
         self.target = target
         self.keys = keys.split(".") if isinstance(keys, str) else keys
         self.times = []
