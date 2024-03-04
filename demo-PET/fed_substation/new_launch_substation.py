@@ -13,9 +13,26 @@ sys.path.append("../")
 from scenario import PETScenario
 
 #new additions
+
 from federate_helper import FEDERATE_HELPER
+
+
+"""================================Declare something====================================="""
+data_path = './data/exp(test)/'
+if not os.path.exists(data_path):
+    os.makedirs(data_path)
+configfile = 'TE_Challenge_agent_dict.json'
+helicsConfig = 'TE_Challenge_HELICS_substation.json'
+metrics_root = 'TE_ChallengeH'
+hour_stop = 48  # simulation duration (default 48 hours)
+hasMarket = True # have market or not
+vppEnable = False # have Vpp coordinator or not
+drawFigure = True # draw figures during the simulation
+has_demand_response = False
 fh = FEDERATE_HELPER(configfile, helicsConfig, metrics_root, hour_stop) 
 fh.cosimulation_start() 
+
+
 class PETFederate:
     def __init__(self, scenario, helics_config: str):
         print("initialising PETFederate", flush=True)
