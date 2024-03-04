@@ -270,7 +270,7 @@ class FEDERATE_HELPER:
         return agent_subs, agent_pubs
 
 
-    def federateEnterExecutingMode(self):
+    def FederateEnterExecutingMode(self):
         helics.helicsFederateEnterExecutingMode(self.hFed)
         print("Substation federate launched!")
 
@@ -294,7 +294,7 @@ class FEDERATE_HELPER:
         # 4. execute other federates
         self.run_other_federates()
         # 5. execute the main federate (it should be in the final)
-        self.federateEnterExecutingMode()
+        self.FederateEnterExecutingMode()
 
     def run_other_federates(self):
         TESP_INSTALL = os.environ['TESP_INSTALL']
