@@ -1,3 +1,4 @@
+# file: launch substation.py
 """
 Function:
         start running substation federate (main federate) as well as other federates
@@ -66,7 +67,7 @@ seed = 1
 for key, info in fh.housesInfo_dict.items(): # key: house name, info: information of the house, including names of PV, battery ...
   houses[key] = HOUSE(key, info, fh.agents_dict, auction, seed) # initialize a house object
  ####new additon _init_#######
-  houses[key]._init_(key, 'house', info, fh.agents_dict, auction, seed)
+#  houses[key].__init__(key, 'house', info, fh.agents_dict, auction, seed)
   houses[key].get_helics_subspubs(fh.get_agent_pubssubs(key, 'house', info)) # get subscriptions and publications for house meters
   houses[key].set_meter_mode() # set meter mode
   houses[key].get_cleared_price(auction.clearing_price)
@@ -164,11 +165,12 @@ while (time_granted < StopTime):
     fh.prosumer_metrics[time_key] = {}
     for key, house in houses.items():
       bid = house.formulate_bid() # bid is [bid_price, quantity, hvac.power_needed, role, unres_kw, name]
-      print("the bid at 5. is", bid)
+     # print("the bid at 5. is", bid)
 
      # print("the bid is: ", bid )
       fh.prosumer_metrics[time_key][house.name] = [bid[0], bid[1], bid[2], bid[3]]
       if hasMarket:
+        auction.supplier_bid(bid)
         auction.collect_bid(bid)
       #  print("the bid at collect is:", bid)
     tnext_bid += market_period
@@ -385,3 +387,7 @@ fh.destroy_federate()  # destroy the federate
 fh.show_resource_consumption() # after simulation, print the resource consumption
 plt.show()
 # fh.kill_processes(True) # it is not suggested here because some other federates may not end their simulations, it will affect their output metrics
+
+
+
+
