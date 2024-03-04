@@ -1,0 +1,48 @@
+{'fulltime':{'weekday':
+                {'n_trip_out': [1],
+                    'last_trip_to':{'home':True},
+                    'at_least_one_trip':{'workplace':True},
+                    'overall_min_time_at':{'home':9,'workplace':7.0},
+                    'overall_max_time_at':{'workplace':8.0},
+                    'min_state_duration':{'home': 0.25, 'errands': 0.25, 'escort': 0.25, 'shopping': 0.25, 'leisure': 0.25, 'workplace':3.5}
+                },
+            'weekend':
+                {'n_trip_out': [1],
+                    'last_trip_to':{'home':True},
+                    'overall_min_time_at':{'home':6,'workplace':3},
+                    'overall_max_time_at':{'workplace':4},
+                    'min_state_duration':{'home': 0.25, 'errands': 0.25, 'escort': 0.25, 'shopping': 0.25, 'leisure': 0.25, 'workplace':3}
+                }
+            },
+
+'parttime':{'weekday':
+                {'n_trip_out': [1],
+                    'last_trip_to':{'home': True},
+                    'at_least_one_trip':{'workplace': True},
+                    'overall_min_time_at':{'home': 9,'workplace': 3.5},
+                    'overall_max_time_at':{'workplace': 4},
+                    'min_state_duration':{'home': 0.25, 'errands': 0.25, 'escort': 0.25, 'shopping': 0.25, 'leisure': 0.25, 'workplace': 3.5}
+                },
+            'weekend':
+                {'n_trip_out': [1],
+                    'last_trip_to':{'home': True},
+                    'overall_min_time_at':{'home': 6,'workplace': 3},
+                    'overall_max_time_at':{'workplace': 4},
+                    'min_state_duration':{'home': 0.25, 'errands': 0.25, 'escort': 0.25, 'shopping': 0.25, 'leisure': 0.25, 'workplace': 3}
+                }
+            },
+
+'freetime':{'weekday':
+                {'n_trip_out': [1],
+                    'last_trip_to':{'home': True},
+                    'overall_min_time_at':{'home': 9},
+                    'min_state_duration':{'home': 0.25,'errands': 0.25,'escort': 0.25,'shopping': 0.25,'leisure': 0.25},
+                },
+            'weekend':
+                {'n_trip_out': [1],
+                    'last_trip_to':{'home': True},
+                    'overall_min_time_at':{'home': 6},
+                    'min_state_duration':{'home': 0.25,'errands': 0.25, 'escort': 0.25,'shopping': 0.25,'leisure': 0.25},
+                }
+            } 
+}
