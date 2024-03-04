@@ -37,7 +37,7 @@ drawFigure = True # draw figures during the simulation
 has_demand_response = False
 fh = FEDERATE_HELPER(configfile, helicsConfig, metrics_root, hour_stop) 
 fh.cosimulation_start() 
-print ('##,tnow,tclear,ClearType,ClearQ,ClearP,BuyCount,BuyUnresp,BuyResp,SellCount,SellUnresp,SellResp,MargQ,MargFrac,LMP,RefLoad,ConSurplus,AveConSurplus,SupplierSurplus,UnrespSupplierSurplus', flush=True
+print ('##,tnow,tclear,ClearType,ClearQ,ClearP,BuyCount,BuyUnresp,BuyResp,SellCount,SellUnresp,SellResp,MargQ,MargFrac,LMP,RefLoad,ConSurplus,AveConSurplus,SupplierSurplus,UnrespSupplierSurplus', flush=True)
 
 class PETFederate:
     def __init__(self, scenario, helics_config: str):
