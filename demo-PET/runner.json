@@ -20,7 +20,7 @@
     },
     {
       "directory": "./fed_gridlabd",
-      "exec": "gridlabd -D SCHED_PATH=/PEMT-CoSim/tesp_support/schedules -D USE_HELICS -D METRICS_FILE=TE_ChallengeH_metrics.json TE_Challenge_TE30.glm",
+      "exec": "gridlabd -D SCHED_PATH={} -D USE_HELICS -D METRICS_FILE=TE_ChallengeH_metrics.json TE_Challenge.glm ",
       "host": "localhost",
       "name": "gld1"
     },
