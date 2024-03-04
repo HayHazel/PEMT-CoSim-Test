@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 import numpy as np
 import pandas
-from helics import helicsFederate
+from helics import HelicsFederate
 from pandas import DataFrame, Series
 from scipy.stats import iqr
 
