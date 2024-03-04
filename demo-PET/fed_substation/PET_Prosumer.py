@@ -11,6 +11,8 @@ import my_tesp_support_api.helpers as helpers
 import math
 import random
 import helics
+#new line beneath
+from helics import HelicsFederate
 from collections import deque
 
 class HVAC:
