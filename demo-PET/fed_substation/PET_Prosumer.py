@@ -12,7 +12,7 @@ import math
 import random
 import helics
 #new line beneath
-#from helics import HelicsFederate
+from helics import HelicsFederate
 from collections import deque
 
 class HVAC:
