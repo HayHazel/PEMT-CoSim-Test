@@ -23,11 +23,13 @@ class GLOBAL_Configuration:
     helics_connected = True
 
     num_VPPs = 1 # number of VPPs, each VPP manages a number of houses
-    num_house_phase_list = [20] # number of houses of each phase for each VPP
-    num_house_list = np.array(num_house_phase_list)*3 # number of houses for each VPP
+    VPP_phase_list = ['A'] # the phase managed by a VPP
+    num_house_phase_list = [30] # number of houses of each phase for each VPP
+    num_house_list = np.array(num_house_phase_list) # number of houses for each VPP
     ratio_PV_only_list = [0/10] # ratio of houses that have only PV installed for each VPP
-    ratio_Bat_only_list = [0/10]# ratio of houses that have only battery installed for each VPP
-    ratio_PV_Bat_list =  [0/10] # ratio oh houses that have both PV and battery installed for each VP
+    # in this case, each house must have battery installed, so ratio_PV_only_list = [0,..]
+    ratio_Bat_only_list = [0/30]# ratio of houses that have only battery installed for each VPP
+    ratio_PV_Bat_list =  [30/30] # ratio oh houses that have both PV and battery installed for each VP
     # Note: ratio_PV_only + ratio_Bat_only + ratio_PV_Bat <= 1,
     # the remaining is the houses without PV and battery installed.
     # It is suggested that ratio_PV_only = 0, which means all houses should at least have battery installed
