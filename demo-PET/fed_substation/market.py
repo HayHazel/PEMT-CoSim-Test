@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import numpy as np
 import pandas
 import helics
-from helics import HelicsFederate
+from helics import helicsFederate
 from pandas import DataFrame, Series
 from scipy.stats import iqr
 
