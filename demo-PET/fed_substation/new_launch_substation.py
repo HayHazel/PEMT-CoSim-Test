@@ -12,9 +12,7 @@ from recording import SubstationRecorder
 sys.path.append("../")
 from scenario import PETScenario
 
-#new additions
-fh = FEDERATE_HELPER(configfile, helicsConfig, metrics_root, hour_stop) 
-fh.cosimulation_start() 
+
 class PETFederate:
     def __init__(self, scenario, helics_config: str):
         print("initialising PETFederate", flush=True)
