@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import numpy as np
 import pandas
 import helics
-from helics import HelicsFederate
+#from helics import HelicsFederate
 from pandas import DataFrame, Series
 from scipy.stats import iqr
 
@@ -63,13 +63,13 @@ def match_orders(bids):
 
 
 class ContinuousDoubleAuction:
-    def __init__(self, helics_federate: HelicsFederate, start_time: datetime):
+    def __init__(self, start_time: datetime):  #(self, helics_federate: HelicsFederate, start_time: datetime):
         self.average_price = 0
         self.lmp = 0.0
         self.refload = 0.0
         self.refload_p = 0.0
         self.refload_q = 0.0
-        self.helics_federate = helics_federate
+        self.helics_federate = helics.helics_federate
         self.bids: DataFrame = DataFrame()
         self.period = 300
         self.transactions = {}
@@ -95,7 +95,7 @@ class ContinuousDoubleAuction:
         }, index=[start_time])
 
         # publications and subscriptions
-        if helics_federate is not None:
+        if helics.helics_federate is not None:
             self.pubUnresp = helics_federate.publications["pet1/unresponsive_mw"]
             self.pubMax = helics_federate.publications["pet1/responsive_max_mw"]
             self.pubC1 = helics_federate.publications["pet1/responsive_c1"]
