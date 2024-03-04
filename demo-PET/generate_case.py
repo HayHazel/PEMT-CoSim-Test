@@ -38,7 +38,8 @@ class GLOBAL_Configuration:
     battery_mode = 'LOAD_FOLLOWING'  # CONSTANT_PQ
 
 glbal_config = GLOBAL_Configuration()
-glm = GLM_HELPER(glbal_config)
+#glm = GLM_HELPER(glbal_config)
+glm = GlmGenerator(glbal_config)
 glm.generate_glm()
 
 
