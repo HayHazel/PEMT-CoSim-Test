@@ -9,7 +9,8 @@ modified by Yuanliang Li
 
 import os
 import numpy as np
-from glmhelper import GLM_HELPER
+#from glmhelper import GLM_HELPER #glmhelper has been swapped to freddy's version
+from glmhelper import GlmGenerator
 import my_tesp_support_api.api as tesp
 
 
