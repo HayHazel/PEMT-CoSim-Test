@@ -5,7 +5,7 @@ from datetime import timedelta
 
 import helics
 
-from PET_Prosumer import House, GridSupply
+from PET_Prosumer import HOUSE, GridSupply
 from market import ContinuousDoubleAuction
 from recording import SubstationRecorder
 
