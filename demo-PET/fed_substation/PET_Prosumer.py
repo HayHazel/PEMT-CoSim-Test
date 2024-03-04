@@ -11,6 +11,8 @@ import my_tesp_support_api.helpers as helpers
 import math
 import random
 import helics
+#new line beneath
+#from helics import HelicsFederate
 from collections import deque
 
 class HVAC:
@@ -804,3 +806,31 @@ class VPP:
 #    def post_market_control(self, transactions):
  #       sells = [bid for bid in transactions if bid["role"] == "seller"]
   #      self.intended_load = sum(bid["quantity"] for bid in sells)
+#
+class GridSupply:
+    #def __init__(self, helics_federate: HelicsFederate, auction: ContinuousDoubleAuction, power_cap: int):
+    def __init__(self, name, info, agents_dict, aucObj, power_cap: int):
+        self.name = "grid"
+        self.weather_temp = 0
+        self.auction = auction
+        self.power_cap = power_cap
+
+        # state
+        self.measured_load = complex(0)
+        self.bid = None
+        self.intended_load = 0
+
+        self.sub_vpp_power = helics.helics_federate.subscriptions[f'gld1/grid_meter#measured_real_power']
+        self.sub_weather = helics.helics_federate.subscriptions[f"localWeather/temperature"]
+
+    def formulate_bid(self):
+        self.bid = [(self.name, "main"), "seller", self.auction.lmp, self.power_cap]
+        return self.bid
+
+    def update_load(self):
+        self.measured_load = self.sub_vpp_power.complex
+        self.weather_temp = self.sub_weather.double
+
+    def post_market_control(self, transactions):
+        sells = [bid for bid in transactions if bid["role"] == "seller"]
+        self.intended_load = sum(bid["quantity"] for bid in sells)
