@@ -808,8 +808,7 @@ class VPP:
   #      self.intended_load = sum(bid["quantity"] for bid in sells)
 #
 class GridSupply:
-    #def __init__(self, helics_federate: HelicsFederate, auction: ContinuousDoubleAuction, power_cap: int):
-    def __init__(self, name, info, agents_dict, aucObj, power_cap: int):
+    def __init__(self, helics_federate: HelicsFederate, auction: ContinuousDoubleAuction, power_cap: int):
         self.name = "grid"
         self.weather_temp = 0
         self.auction = auction
