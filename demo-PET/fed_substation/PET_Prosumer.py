@@ -820,8 +820,8 @@ class GridSupply:
         self.bid = None
         self.intended_load = 0
 
-        self.sub_vpp_power = helics_federate.subscriptions[f'gld1/grid_meter#measured_real_power']
-        self.sub_weather = helics_federate.subscriptions[f"localWeather/temperature"]
+        self.sub_vpp_power = helics.helics_federate.subscriptions[f'gld1/grid_meter#measured_real_power']
+        self.sub_weather = helics.helics_federate.subscriptions[f"localWeather/temperature"]
 
     def formulate_bid(self):
         self.bid = [(self.name, "main"), "seller", self.auction.lmp, self.power_cap]
