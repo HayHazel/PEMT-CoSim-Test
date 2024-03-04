@@ -13,12 +13,6 @@ sys.path.append("../")
 from scenario import PETScenario
 
 #new additions
-import time
-import os
-import json
-import random
-import psutil
-import subprocess
 
 from federate_helper import FEDERATE_HELPER
 
