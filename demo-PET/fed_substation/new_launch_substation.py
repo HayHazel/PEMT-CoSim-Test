@@ -13,6 +13,7 @@ sys.path.append("../")
 from scenario import PETScenario
 
 #new additions
+from federate_helper import FEDERATE_HELPER
 fh = FEDERATE_HELPER(configfile, helicsConfig, metrics_root, hour_stop) 
 fh.cosimulation_start() 
 class PETFederate:
