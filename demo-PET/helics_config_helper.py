@@ -8,8 +8,7 @@ def pub(obj, prop, prop_type, info=False):
         "global": False,
         "key": f"{obj}#{prop}",
         "type": prop_type
-    } or ({"info": {"object": obj, "property": prop}} if info else {})
-  #  } | ({"info": {"object": obj, "property": prop}} if info else {})
+    } | ({"info": {"object": obj, "property": prop}} if info else {})
 
 
 def sub(source, obj, prop, prop_type, info=False, target_name=None):
