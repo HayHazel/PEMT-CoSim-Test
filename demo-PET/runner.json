@@ -1,3 +1,8 @@
+TESP_INSTALL = os.environ['TESP_INSTALL']
+TESP_SUPPORT = TESP_INSTALL+'/share/support'
+SCHED_PATH = TESP_SUPPORT+'/schedules'
+EPW = TESP_SUPPORT+'/energyplus/USA_AZ_Tucson.Intl.AP.722740_TMY3.epw'
+
 {
   "federates": [
     {
