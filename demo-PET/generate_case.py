@@ -6,59 +6,76 @@ last update time: 2021-11-11
 modified by Yuanliang Li
 
 """
+import argparse
+import json
+import pickle
+from datetime import datetime
 
-import os
-import numpy as np
-from glmhelper import GLM_HELPER
-import my_tesp_support_api.api as tesp
-
+from fed_weather.TMY3toCSV import weathercsv
+from glmhelper import GlmGenerator
+from helics_config_helper import HelicsConfigHelper
+from scenario import PETScenario
 
 """0. generate a glm file (TE_Challenge.glm) according to user's preference"""
-class GLOBAL_Configuration:
-    """ a class which defines the configurations of the glm for GridLAB-D
-    """
 
-    minimum_timestep = 1 # simulation time step
-    market_period = 300  # market running period
-    helics_connected = True
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        prog='python3 generate_case.py',
+        description='Generate a PET scenario for simulation')
+    parser.add_argument("-a", "--name", type=str, default=None, help="scenario name")
+    parser.add_argument("-n", "--num_houses", type=int, default=30, help="number of houses")
+    parser.add_argument("-e", "--num_ev", type=int, default=30, help="number of EVs")
+    parser.add_argument("-p", "--num_pv", type=int, default=30, help="number of PVs")
+    parser.add_argument("-g", "--grid_cap", type=int, default=200000, help="grid power capacity (W)")
+    # parser.add_argument("-w", "--work_charge_rate", type=int, default=7000, help="work charge rate")
+    parser.add_argument("-f", "--figure_period", type=int, default=3600*24, help="figure drawing period (seconds)")
+    parser.add_argument("-b", "--ev_buy_iqr_ratio", type=float, default=0.3, help="EV buy IQR ratio")
+    parser.add_argument("-i", "--input_file", type=argparse.FileType('rb'), required=False)
+    args = parser.parse_args()
+    if args.input_file:
+        scenario = pickle.load(args.input_file)
+    else:
+        scenario = PETScenario(
+            scenario_name=args.name if args.name else f"scenario_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+            num_houses=args.num_houses,
+            num_ev=args.num_ev,
+            num_pv=args.num_pv,
+            grid_power_cap=args.grid_cap,
+            start_time=datetime(2013, 7, 1, 0, 0, 0),
+            end_time=datetime(2013, 7, 7, 0, 0, 0),
+            workplace_charge_capacity=0,
+            figure_period=args.figure_period,
+            ev_buy_iqr_ratio=args.ev_buy_iqr_ratio
+        )
+        pickle.dump(scenario, open(f"scenarios/{scenario.name}.pkl", "wb"))
+    pickle.dump(scenario, open("scenario.pkl", "wb"))
+    print(f"Saved scenario {scenario.name} to scenario.pkl")
 
-    num_VPPs = 1 # number of VPPs, each VPP manages a number of houses
-    num_house_phase_list = [20] # number of houses of each phase for each VPP
-    num_house_list = np.array(num_house_phase_list)*3 # number of houses for each VPP
-    ratio_PV_only_list = [0/10] # ratio of houses that have only PV installed for each VPP
-    ratio_Bat_only_list = [0/10]# ratio of houses that have only battery installed for each VPP
-    ratio_PV_Bat_list =  [0/10] # ratio oh houses that have both PV and battery installed for each VP
-    # Note: ratio_PV_only + ratio_Bat_only + ratio_PV_Bat <= 1,
-    # the remaining is the houses without PV and battery installed.
-    # It is suggested that ratio_PV_only = 0, which means all houses should at least have battery installed
-    ratio_PV_generation_list = [100/100] # PV generation ratio for each VPP
-    battery_mode = 'LOAD_FOLLOWING'  # CONSTANT_PQ
+    GlmGenerator(scenario).save("fed_gridlabd")
 
-glbal_config = GLOBAL_Configuration()
-glm = GLM_HELPER(glbal_config)
-glm.generate_glm()
+    # configure weather data
+    weathercsv(f"fed_weather/tesp_weather/AZ-Tucson_International_Ap.tmy3", 'weather.csv', scenario.start_time,
+               scenario.end_time,
+               scenario.start_time.year)
 
+    # generate HELICS configs for fed_gridlabd and fed_substation
+    helics_config_helper = HelicsConfigHelper(scenario)
+    with open("fed_gridlabd/gridlabd_helics_config.json", "w") as f:
+        json.dump(helics_config_helper.gridlab_config, f, indent=4)
 
-"""1. configure simulation time period"""
-year = 2013
-start_time = '2013-07-01 00:00:00'
-stop_time  = '2013-07-03 00:00:00'
+    with open("fed_substation/substation_helics_config.json", "w") as f:
+        json.dump(helics_config_helper.pet_config, f, indent=4)
 
+    # update weather config
+    weather_config_path = "fed_weather/weather_helics_config.json"
+    weather_config = json.load(open(weather_config_path, "r"))
+    weather_config["time_stop"] = f"{int((scenario.end_time - scenario.start_time).total_seconds() / 60)}m"
+    json.dump(weather_config, open(weather_config_path, "w"), indent=4)
 
-"""2. configure weather data"""
-tmy_file_name = 'AZ-Tucson_International_Ap.tmy3' # choose a .tmy3 file to specify the weather in a specific location
-tmy_file_dir = os.getenv('TESP_INSTALL') + '/share/support/weather/'
-tmy_file = tmy_file_dir + tmy_file_name
-tesp.weathercsv (tmy_file, 'weather.dat', start_time, stop_time, year) # it will output weather.dat in the weather fold as the input of the weather federate
+    # update pypower config
+    pypower_config_path = "fed_pypower/te30_pp.json"
+    pypower_config = json.load(open(pypower_config_path, "r"))
+    pypower_config["Tmax"] = int((scenario.end_time - scenario.start_time).total_seconds())
+    json.dump(pypower_config, open(pypower_config_path, "w"), indent=4)
+        
 
-"""3. generate configuration files for gridlabd, substation, pypower, and weather"""
-tesp.glm_dict ('TE_Challenge',te30=True)
-tesp.prep_substation ('TE_Challenge', glbal_config)
-
-# to run the original E+ model with heating/cooling, copy the following file to Merged.idf
-#base_idf = os.getenv('TESP_INSTALL') + '/share/support/energyplus/SchoolDualController.idf'
-
-"""4. genereate configuration files for energyplus"""
-base_idf = './fed_energyplus/SchoolBase.idf'
-ems_idf = './fed_energyplus/emsSchoolBaseH.idf'
-tesp.merge_idf (base_idf, ems_idf, start_time, stop_time, './fed_energyplus/MergedH.idf', 12)
