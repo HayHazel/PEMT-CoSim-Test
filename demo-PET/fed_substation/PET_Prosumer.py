@@ -7,7 +7,7 @@ bid quantity, and thermostat setting changes as the response
 mechanism.
 """
 import math
-import my_tesp_support_api.helpers as helpers
+#import my_tesp_support_api.helpers as helpers
 import math
 import random
 import helics
