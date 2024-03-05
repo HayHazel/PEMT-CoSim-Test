@@ -51,11 +51,14 @@ stop_time  = '2013-07-03 00:00:00'
 tmy_file_name = 'AZ-Tucson_International_Ap.tmy3' # choose a .tmy3 file to specify the weather in a specific location
 tmy_file_dir = os.getenv('TESP_INSTALL') + '/share/support/weather/'
 tmy_file = tmy_file_dir + tmy_file_name
-tesp.weathercsv (tmy_file, 'weather.dat', start_time, stop_time, year) # it will output weather.dat in the weather fold as the input of the weather federate
+#tesp.weathercsv (tmy_file, 'weather.dat', start_time, stop_time, year) # it will output weather.dat in the weather fold as the input of the weather federate
 
 """3. generate configuration files for gridlabd, substation, pypower, and weather"""
 tesp.glm_dict ('TE_Challenge',te30=True)
 tesp.prep_substation ('TE_Challenge', glbal_config)
+weathercsv(f"fed_weather/tesp_weather/AZ-Tucson_International_Ap.tmy3", 'weather.csv', scenario.start_time,
+               scenario.end_time,
+               scenario.start_time.year)
 
 # to run the original E+ model with heating/cooling, copy the following file to Merged.idf
 #base_idf = os.getenv('TESP_INSTALL') + '/share/support/energyplus/SchoolDualController.idf'
