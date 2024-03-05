@@ -67,7 +67,8 @@ def readtmy3(filename=None, coerce_year=None, recolumn=True):
     data = pd.read_csv(
         csvdata, header=0,
         parse_dates={'datetime': ['Date (MM/DD/YYYY)', 'Time (HH:MM)']},
-        date_parser=lambda *x: _parsedate(*x, year=coerce_year),
+        #date_parser=lambda *x: _parsedate(*x, year=coerce_year),  #warnign is given for datew_parser
+        date_format=lambda *x: _parsedate(*x, year=coerce_year),
         index_col='datetime')
     if recolumn:
         data = _recolumn(data)  # rename to standard column names
