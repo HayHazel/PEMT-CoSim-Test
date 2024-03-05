@@ -12,6 +12,8 @@ import numpy as np
 from glmhelper import GLM_HELPER
 import my_tesp_support_api.api as tesp
 from fed_weather.TMY3toCSV import weathercsv
+from scenario import PETScenario
+
 
 """0. generate a glm file (TE_Challenge.glm) according to user's preference"""
 class GLOBAL_Configuration:
