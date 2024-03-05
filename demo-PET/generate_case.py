@@ -64,4 +64,3 @@ tesp.prep_substation ('TE_Challenge', glbal_config)
 base_idf = './fed_energyplus/SchoolBase.idf'
 ems_idf = './fed_energyplus/emsSchoolBaseH.idf'
 tesp.merge_idf (base_idf, ems_idf, start_time, stop_time, './fed_energyplus/MergedH.idf', 12)
-
