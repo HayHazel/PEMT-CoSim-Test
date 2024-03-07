@@ -119,7 +119,7 @@ time_granted = 0
 time_last = 0
 
 def plotFig1(curves):
- curves.update_curves(time_granted)
+    curves.update_curves(time_granted)
     ax1.cla()
     ax1.set_ylabel("VPP Load (kW)")
     # ax1.plot(curves.time_hour_curve, curves.curve_distri_load_p)
