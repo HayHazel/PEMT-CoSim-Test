@@ -8,14 +8,14 @@ def pub(obj, prop, prop_type, info=False):
         "global": False,
         "key": f"{obj}#{prop}",
         "type": prop_type
-    } | ({"info": {"object": obj, "property": prop}} if info else {})
+    } or ({"info": {"object": obj, "property": prop}} if info else {})
 
 
 def sub(source, obj, prop, prop_type, info=False, target_name=None):
     return {
         "key": f"{source}/{obj}#{prop}",
         "type": prop_type
-    } | ({"info": {"object": obj, "property": target_name or prop}} if info else {})
+    } or ({"info": {"object": obj, "property": target_name or prop}} if info else {})
 
 
 class HelicsConfigHelper:
