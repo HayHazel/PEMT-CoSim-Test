@@ -35,7 +35,7 @@ if not os.path.exists(data_path):
 configfile = 'TE_Challenge_agent_dict.json'
 helicsConfig = 'TE_Challenge_HELICS_substation.json'
 metrics_root = 'TE_ChallengeH'
-hour_stop = 10  # simulation duration (default 48 hours)
+hour_stop = 3  # simulation duration (default 48 hours)
 hasMarket = True # have market or not
 vppEnable = False # have Vpp coordinator or not
 drawFigure = True # draw figures during the simulation
@@ -301,7 +301,7 @@ bids = []
 prices = []
 roles = []
 quantitys = []
-for i in range(120):   #range(36): for 3 hours   #(len(time_hour_auction)):
+for i in range(36):   #range(36): for 3 hours   #(len(time_hour_auction)):
     t = int((i+1)*300)
     times = str(t)
    # print("t is :",t)
