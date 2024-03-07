@@ -258,6 +258,9 @@ while (time_granted < StopTime):
 
     plt.pause(0.01)
     tnext_fig_update += fig_update_period
+    figure = plt.gcf() 
+    figure.set_size_inches(32, 18)
+    plt.savefig('launch.png', bbox_inches='tight')
 
 
 """============================ Finalize the metrics output ============================"""
