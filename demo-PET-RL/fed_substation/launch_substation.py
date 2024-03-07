@@ -16,6 +16,7 @@ import json
 import helics
 import random
 import psutil
+import pickle
 import subprocess
 from PET_Prosumer import HOUSE, VPP        # import user-defined my_hvac class for hvac controllers
 from env import BIDING_ENV
