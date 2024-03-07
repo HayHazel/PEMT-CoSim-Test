@@ -161,6 +161,7 @@ def plotFig1(curves):
     figure = plt.gcf() 
     figure.set_size_inches(32, 18)
     plt.savefig('launch.png', bbox_inches='tight')
+    plt.show()
 
 
 def plotFig2():
