@@ -170,7 +170,7 @@ def plotFig2():
         exp1 = 'exp(dyB-1-3kw)'
         path = path_base + exp1 +'/'
         with open(path+'data.pkl', 'rb') as f:
-       data_dict = pickle.load(f)
+        data_dict = pickle.load(f)
 
    # secondPath = '../demo-PET/fed_gridlabd/'
 #os.chdir("/PEMT-CoSim-Test/PEMT-CoSim-Test/demo-PET/")
