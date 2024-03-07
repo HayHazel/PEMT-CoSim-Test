@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 import helics
-from helics import HelicsFederate
+from helics import helics.HelicsFederate
 
 from market import ContinuousDoubleAuction
 from trading_policies import BoundedCrossoverTrader
