@@ -2,7 +2,7 @@
 
 appdirs #==1.4.4
 emobpy #==0.6.2 
-glm #==0.4.4 
+glm==0.4.3 #==0.4.4 
 helics #==3.4.0 
 kaleido #==0.2.1 
 matplotlib #==3.7.1 
