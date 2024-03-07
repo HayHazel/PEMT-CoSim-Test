@@ -36,7 +36,7 @@ if not os.path.exists(data_path):
 configfile = 'TE_Challenge_agent_dict.json'
 helicsConfig = 'TE_Challenge_HELICS_substation.json'
 metrics_root = 'TE_ChallengeH'
-hour_stop = 4*24  # simulation duration (default 48 hours)
+hour_stop = 10#4*24  # simulation duration (default 48 hours)
 hour_stop_seconds = hour_stop*3600
 hasMarket = True # have market or not
 vppEnable = False # have Vpp coordinator or not
@@ -272,6 +272,119 @@ auction_op.close()
 house_op = open (data_path+'house_' + metrics_root + '_metrics.json', 'w')
 print(json.dumps(fh.prosumer_metrics), file=house_op)
 house_op.close()
+
+path_base = './data/' #prevuously fed_substation/data but already in substation folder
+#secondPath_base = ''exp(dyB-1-3kw)''
+exp1 = 'exp(dyB-1-3kw)'
+path = path_base + exp1 +'/'
+with open(path+'data.pkl', 'rb') as f:
+       data_dict = pickle.load(f)
+
+   # secondPath = '../demo-PET/fed_gridlabd/'
+#os.chdir("/PEMT-CoSim-Test/PEMT-CoSim-Test/demo-PET/")
+  #  secondPath2 = os.chdir('..')
+   # secondPath = os.chdir('../')
+  #  secondPath2 = os.chdir('../')
+   # os.getcwd()
+trialPath = '../'
+filePath = 'fed_gridlabd/'      
+with open('./data/exp(dyB-1-3kw)/house_TE_ChallengeH_metrics.json', encoding='utf-8') as f:  #used to be with open(filePath + ...)####
+    prosumer_dict = json.loads(f.read()) # federate_config is the dict data structure
+    f.close() 
+#time_hour_auction = data_dict['time_hour_auction']
+time_hour_auction = data_dict['time_hour_auction']
+buyer_ratio = data_dict['buyer_ratio']
+seller_ratio = data_dict['seller_ratio']
+nontcp_ratio = data_dict['nontcp_ratio']
+cleared_price = data_dict['cleared_price']
+LMP = data_dict['LMP']
+houseName = 'F0_house_A6'
+bids = []
+prices = []
+roles = []
+quantitys = []
+for i in range(120):   #range(36): for 3 hours   #(len(time_hour_auction)):
+    t = int((i+1)*300)
+    times = str(t)
+   # print("t is :",t)
+    newBid = prosumer_dict[str(t)][houseName] # bid_price, quantity, hvac.power_needed, role (str(t))
+       # print(bid)
+    price = newBid[0]
+    quantity = newBid[1]
+    role = newBid[3]
+    if role == 'seller':
+        quantitys.append(int(-quantity/3))
+        roles.append(-1)
+    elif role == 'buyer':
+        quantitys.append(int(quantity/3))
+        roles.append(1)
+    else:
+        quantitys.append(0)
+        roles.append(0)
+    prices.append(price)
+
+fig2, (ax11, ax12, ax13) = plt.subplots(3)
+ax11.set_ylabel('Role', size = 13)
+ax11.tick_params(axis='x', labelsize=13)
+ax11.tick_params(axis='y', labelsize=13)
+ax11.set_yticks((-1, 0, 1))
+ax11.set_yticklabels(("seller", "none-\nptcpt","buyer"))
+ax11.plot(time_hour_auction, roles, 's--', color = 'k', linewidth = 1)
+#ax11.plot(times, roles, 's--', color = 'k', linewidth = 1)
+
+
+ax12.set_ylabel('Bid-Quantity \n(packet)', size = 13)
+ax12.tick_params(axis='x', labelsize=13)
+ax12.tick_params(axis='y', labelsize=13)
+ax12.plot(time_hour_auction, quantitys, 's--', color = 'k', linewidth = 1)
+        
+ax13.set_ylabel('Bid-Price \n($/kWh)', size = 13)
+ax13.set_xlabel("Time (h)", size = 13)
+ax13.tick_params(axis='x', labelsize=13)
+ax13.tick_params(axis='y', labelsize=13)
+ax13.plot(time_hour_auction, prices,  color = 'k', linewidth = 1.5)
+ax13.plot(time_hour_auction, cleared_price, color = 'g', linewidth = 1.5)
+ax13.legend(['bid price', 'cleared price'])
+        
+#plt.figure(1)
+#time = time_hour_auction
+#plt.plot(time, roles , 's-')
+#plt.xlabel('Time (h)')
+#plt.ylabel('Role')
+#plt.show()
+        
+figure = plt.gcf() 
+figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+plt.savefig('image 1', bbox_inches='tight')
+        
+        
+#plt.figure(2)
+#time = time_hour_auction
+#plt.plot(time, quantitys , 's-')
+#plt.xlabel('Time (h)')
+#plt.ylabel('Bid-Quantity (1 packet)')
+#plt.show()
+        #plt.savefig('test image2')
+        
+#figure = plt.gcf() 
+#figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+#plt.savefig('image2', bbox_inches='tight')
+        
+#plt.figure(3)
+#time = time_hour_auction
+#plt.plot(time, prices ,label="bid price")
+#plt.plot(time, cleared_price ,label="cleared price" )
+#plt.xlabel('Time (h)')
+#plt.ylabel('Bid-Price ($/kWh)')
+#plt.legend()
+#plt.show()
+        
+#figure = plt.gcf() 
+#figure.set_size_inches(32, 18)
+#plt.savefig('launch2.png', bbox_inches='tight')
+
+
+
 fh.destroy_federate()  # destroy the federate
 fh.show_resource_consumption() # after simulation, print the resource consumption
 plt.show()
