@@ -91,6 +91,7 @@ class HVAC:
         # self.cleared_price = aucObj.clearing_price
         # self.cleared_price_window = deque(maxlen = 36) # this window saves history cleared price with a window size
         # self.bid_price = 0.0
+        self.bid_price = 0.0 #added to see if affects bid{0}
 
         # state
         self.air_temp = 78.0
