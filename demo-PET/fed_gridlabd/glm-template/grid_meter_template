@@ -1,0 +1,16 @@
+object transformer {
+	name grid_center_tap_transformer;
+	phases SA;
+	from transformer_meter;
+	to grid_meter;
+	configuration default_transformer_A;
+}
+
+object triplex_meter {
+	name grid_meter;
+	phases SA;
+	nominal_voltage 120;
+    groupid VPP_Meter;
+}
+
+
