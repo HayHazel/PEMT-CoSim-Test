@@ -37,7 +37,7 @@ if not os.path.exists(data_path):
 configfile = 'TE_Challenge_agent_dict.json'
 helicsConfig = 'TE_Challenge_HELICS_substation.json'
 metrics_root = 'TE_ChallengeH'
-hour_stop = 3#4*24  # simulation duration (default 48 hours)
+hour_stop = 10#4*24  # simulation duration (default 48 hours)
 hour_stop_seconds = hour_stop*3600
 hasMarket = True # have market or not
 vppEnable = False # have Vpp coordinator or not
@@ -118,6 +118,49 @@ tnext_fig_update = market_period + dt   # the next time to update figures
 time_granted = 0
 time_last = 0
 
+def plotFig1(curves):
+ curves.update_curves(time_granted)
+    ax1.cla()
+    ax1.set_ylabel("VPP Load (kW)")
+    # ax1.plot(curves.time_hour_curve, curves.curve_distri_load_p)
+    ax1.plot(curves.time_hour_curve, curves.curve_vpp_load_p)
+    ax1.legend(['VPP Load'])
+
+    ax2.cla()
+    ax2.set_ylabel("House Load (kW)")
+    ax2.plot(curves.time_hour_curve, curves.curve_house_load_max)
+    ax2.plot(curves.time_hour_curve, curves.curve_house_load_mean)
+    ax2.plot(curves.time_hour_curve, curves.curve_house_load_min)
+    ax2.legend(['max', 'mean', 'min'])
+
+    ax3.cla()
+    ax3.set_ylabel("Temperature (degF)")
+    ax3.plot(curves.time_hour_curve, curves.curve_temp_max)
+    ax3.plot(curves.time_hour_curve, curves.curve_temp_mean)
+    ax3.plot(curves.time_hour_curve, curves.curve_temp_min)
+    ax3.plot(curves.time_hour_curve, curves.curve_basepoint_mean)
+    ax3.plot(curves.time_hour_curve, curves.curve_setpoint_mean)
+    ax3.legend(['max', 'mean', 'min', 'base-point', 'set-point'])
+
+    ax4.cla()
+    ax4.set_ylabel("Cleared Price ($)")
+    ax4.plot(curves.time_hour_curve, curves.curve_cleared_price)
+
+    ax5.cla()
+    ax5.set_xlabel("Time (h)")
+    ax5.set_ylabel("Percentage")
+    ax5.plot(curves.time_hour_curve, curves.curve_hvac_on_ratio)
+    ax5.plot(curves.time_hour_curve, curves.curve_buyer_ratio)
+    ax5.plot(curves.time_hour_curve, curves.curve_seller_ratio)
+    ax5.plot(curves.time_hour_curve, curves.curve_nontcp_ratio)
+    ax5.legend(['HVAC-ON ratio', 'Buyer ratio', 'Seller ratio', 'None-participant ratio'])
+
+
+    plt.pause(0.01)
+    tnext_fig_update += fig_update_period
+    figure = plt.gcf() 
+    figure.set_size_inches(32, 18)
+    plt.savefig('launch.png', bbox_inches='tight')
 
 """============================Substation Loop=================================="""
 
@@ -220,48 +263,8 @@ while (time_granted < StopTime):
 
   """ 9. visualize some results during the simulation"""
   if drawFigure and time_granted >= tnext_fig_update:
-    curves.update_curves(time_granted)
-    ax1.cla()
-    ax1.set_ylabel("VPP Load (kW)")
-    # ax1.plot(curves.time_hour_curve, curves.curve_distri_load_p)
-    ax1.plot(curves.time_hour_curve, curves.curve_vpp_load_p)
-    ax1.legend(['VPP Load'])
-
-    ax2.cla()
-    ax2.set_ylabel("House Load (kW)")
-    ax2.plot(curves.time_hour_curve, curves.curve_house_load_max)
-    ax2.plot(curves.time_hour_curve, curves.curve_house_load_mean)
-    ax2.plot(curves.time_hour_curve, curves.curve_house_load_min)
-    ax2.legend(['max', 'mean', 'min'])
-
-    ax3.cla()
-    ax3.set_ylabel("Temperature (degF)")
-    ax3.plot(curves.time_hour_curve, curves.curve_temp_max)
-    ax3.plot(curves.time_hour_curve, curves.curve_temp_mean)
-    ax3.plot(curves.time_hour_curve, curves.curve_temp_min)
-    ax3.plot(curves.time_hour_curve, curves.curve_basepoint_mean)
-    ax3.plot(curves.time_hour_curve, curves.curve_setpoint_mean)
-    ax3.legend(['max', 'mean', 'min', 'base-point', 'set-point'])
-
-    ax4.cla()
-    ax4.set_ylabel("Cleared Price ($)")
-    ax4.plot(curves.time_hour_curve, curves.curve_cleared_price)
-
-    ax5.cla()
-    ax5.set_xlabel("Time (h)")
-    ax5.set_ylabel("Percentage")
-    ax5.plot(curves.time_hour_curve, curves.curve_hvac_on_ratio)
-    ax5.plot(curves.time_hour_curve, curves.curve_buyer_ratio)
-    ax5.plot(curves.time_hour_curve, curves.curve_seller_ratio)
-    ax5.plot(curves.time_hour_curve, curves.curve_nontcp_ratio)
-    ax5.legend(['HVAC-ON ratio', 'Buyer ratio', 'Seller ratio', 'None-participant ratio'])
-
-
-    plt.pause(0.01)
-    tnext_fig_update += fig_update_period
-    figure = plt.gcf() 
-    figure.set_size_inches(32, 18)
-    plt.savefig('launch.png', bbox_inches='tight')
+    plotFig1
+   
 
 
 """============================ Finalize the metrics output ============================"""
