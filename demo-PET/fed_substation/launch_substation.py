@@ -255,6 +255,7 @@ while (time_granted < StopTime):
     plt.pause(0.01)
     tnext_fig_update += fig_update_period
     figure = plt.gcf() 
+    plt.show()
     figure.set_size_inches(32, 18)
     plt.savefig('launch.png', bbox_inches='tight')
 
