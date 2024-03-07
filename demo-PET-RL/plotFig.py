@@ -206,7 +206,9 @@ ax4.legend(['HVAC ON', 'buyer', 'seller', 'none-ptcp'])
 
 #############################################################################333
 
-
+figure = plt.gcf() 
+figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+plt.savefig('filename.png', bbox_inches='tight')
 
 
 plt.show()
