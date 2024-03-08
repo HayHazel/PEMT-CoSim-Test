@@ -500,6 +500,7 @@ class HOUSE:
         # house meter power
         cval = helics.helicsInputGetComplex(self.subs['subHousePower'])
         self.house_kw = cval[0]*0.001 # unit. kW
+        print("house_kw is:", self.house_kw)
         # self.house_kw2 = max(helics.helicsInputGetDouble(self.subs['subHouseLoad']), 0) # unit kW
         # test: a = math.sqrt((cval[0]*0.001)**2+(cval[1]*0.001)**2) - self.house_kw2
 
