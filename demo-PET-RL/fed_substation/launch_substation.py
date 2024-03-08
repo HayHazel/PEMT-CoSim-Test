@@ -379,24 +379,19 @@ ax13.plot(time_hour_auction, prices,  color = 'k', linewidth = 1.5)
 ax13.plot(time_hour_auction, cleared_price, color = 'g', linewidth = 1.5)
 ax13.legend(['bid price', 'cleared price'])
 
-figure = plt.gcf() 
-figure.set_size_inches(32, 18)
-plt.savefig('launch4.png', bbox_inches='tight')
-plot.show()
 
-# plt.figure(1)
-# time = time_hour_auction
-# plt.plot(time, quantitys , 's-')
-# plt.xlabel('Time (h)')
-# plt.ylabel('Bid-Quantity (1 packet)')
+plt.figure(1)
+time = time_hour_auction
+plt.plot(time, quantitys , 's-')
+plt.xlabel('Time (h)')
+plt.ylabel('Bid-Quantity (1 packet)')
 #
-# plt.figure(2)
-# time = time_hour_auction
-# plt.plot(time, prices , '*-')
-# plt.xlabel('Time (h)')
-# plt.ylabel('Bid-Price ($/kWh)')
-# # plt.legend()
-
+plt.figure(2)
+time = time_hour_auction
+plt.plot(time, prices , '*-')
+plt.xlabel('Time (h)')
+plt.ylabel('Bid-Price ($/kWh)')
+plt.legend()
 
 
 
