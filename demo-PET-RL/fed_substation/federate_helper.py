@@ -54,8 +54,7 @@ class FEDERATE_HELPER:
             self.housesInfo_dict[houseName] = {}
             hvacName = self.hvac_name_list[i]
             meter = self.billingmeter_name_list[i]
-          house_name, val in self.housesInfo_dict.items():
-            solar_inv_name = val['PV']
+           # solar_inv_name = val['PV']
             vpp = self.agents_dict['houses'][houseName]['house_class']
             self.housesInfo_dict[houseName]['VPP'] = vpp
             self.housesInfo_dict[houseName]['meter'] = meter
