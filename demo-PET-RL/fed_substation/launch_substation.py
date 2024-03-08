@@ -379,6 +379,10 @@ ax13.plot(time_hour_auction, prices,  color = 'k', linewidth = 1.5)
 ax13.plot(time_hour_auction, cleared_price, color = 'g', linewidth = 1.5)
 ax13.legend(['bid price', 'cleared price'])
 
+figure = plt.gcf() 
+figure.set_size_inches(32, 18)
+plt.savefig('launch4.png', bbox_inches='tight')
+ploit.show()
 
 # plt.figure(1)
 # time = time_hour_auction
@@ -434,7 +438,10 @@ ax4.plot(time_hour_auction, nontcp_ratio, color = 'm', linewidth = 1.5)
 
 ax4.legend(['HVAC ON', 'buyer', 'seller', 'none-ptcp'])
 
-
+figure = plt.gcf() 
+figure.set_size_inches(32, 18)
+plt.savefig('launch3.png', bbox_inches='tight')
+plot.show()
 
 
 
@@ -485,7 +492,7 @@ ax4.legend(['HVAC ON', 'buyer', 'seller', 'none-ptcp'])
 
 figure = plt.gcf() 
 figure.set_size_inches(32, 18)
-plt.savefig('launch.png', bbox_inches='tight')
+plt.savefig('launch2.png', bbox_inches='tight')
 
 
 plt.show()
