@@ -641,6 +641,7 @@ class HOUSE:
 
         self.bid.clear()
         diff = self.solar_power_predict - self.house_load_predict # estimated the surplus solar generation
+        print("the diff is:", diff)
         base_covered = False
         self.current_rl_agent_role = 'rl-ntcp'
         action  = None
