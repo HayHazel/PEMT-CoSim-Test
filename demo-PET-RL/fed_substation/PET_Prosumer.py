@@ -91,6 +91,8 @@ class HVAC:
         # self.cleared_price = aucObj.clearing_price
         # self.cleared_price_window = deque(maxlen = 36) # this window saves history cleared price with a window size
         # self.bid_price = 0.0
+        self.bid_price = 0.0
+
 
         # state
         self.air_temp = 78.0
@@ -674,6 +676,7 @@ class HOUSE:
                     self.current_rl_agent_role = 'rl-buyer'
                 else:
                     p = self.mean + (self.hvac.air_temp - self.hvac.basepoint) * self.hvac.ramp * self.std_dev / self.hvac.Trange #* 30
+                    print("p is:", p)
                 if p >= self.hvac.price_cap:
                     self.bid_price = self.hvac.price_cap
                 elif p <= 0.0:
