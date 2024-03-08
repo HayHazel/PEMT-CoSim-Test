@@ -585,7 +585,7 @@ class HOUSE:
     def predict_solar_power(self):
         if self.hasPV:
             self.solar_power_predict = self.solarDC_Vout * self.solarDC_Iout /1000
-           # print("self.solar_power_predict is:", self.solar_power_predict)
+            print("self.solar_power_predict is:", self.solar_power_predict)
         else:
             self.solar_power_predict = 0
 
