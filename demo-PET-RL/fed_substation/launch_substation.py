@@ -382,7 +382,7 @@ ax13.legend(['bid price', 'cleared price'])
 figure = plt.gcf() 
 figure.set_size_inches(32, 18)
 plt.savefig('launch4.png', bbox_inches='tight')
-ploit.show()
+plot.show()
 
 # plt.figure(1)
 # time = time_hour_auction
