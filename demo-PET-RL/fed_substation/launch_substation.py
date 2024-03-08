@@ -160,7 +160,7 @@ def plotFig1(curves):
     tnext_fig_update += fig_update_period
     figure = plt.gcf() 
     figure.set_size_inches(32, 18)
-    plt.savefig('launch.png', bbox_inches='tight')
+    plt.savefig('launchTry.png', bbox_inches='tight')
     plt.show()
 
 
