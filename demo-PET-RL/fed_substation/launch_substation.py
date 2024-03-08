@@ -359,6 +359,18 @@ for i in range(36):  #range(len(time_hour_auction)):
 
 
 #
+fig2, (ax11, ax12, ax13) = plt.subplots(3)
+ax11.set_ylabel('Role', size = 13)
+ax11.tick_params(axis='x', labelsize=13)
+ax11.tick_params(axis='y', labelsize=13)
+ax11.set_yticks((-1, 0, 1))
+ax11.set_yticklabels(("seller", "none-\nptcpt","buyer"))
+ax11.plot(time_hour_auction, roles, 's--', color = 'k', linewidth = 1)
+
+ax12.set_ylabel('Bid-Quantity \n(packet)', size = 13)
+ax12.tick_params(axis='x', labelsize=13)
+ax12.tick_params(axis='y', labelsize=13)
+ax12.plot(time_hour_auction, quantitys, 's--', color = 'k', linewidth = 1)
 
 ax13.set_ylabel('Bid-Price \n($/kWh)', size = 13)
 ax13.set_xlabel("Time (h)", size = 13)
@@ -367,6 +379,7 @@ ax13.tick_params(axis='y', labelsize=13)
 ax13.plot(time_hour_auction, prices,  color = 'k', linewidth = 1.5)
 ax13.plot(time_hour_auction, cleared_price, color = 'g', linewidth = 1.5)
 ax13.legend(['bid price', 'cleared price'])
+
 
 
 plt.figure(1)
