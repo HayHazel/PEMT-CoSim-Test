@@ -261,7 +261,7 @@ while (time_granted < StopTime):
     tnext_fig_update += fig_update_period
     figure = plt.gcf() 
     figure.set_size_inches(32, 18)
-    plt.savefig('launch.png', bbox_inches='tight')
+    plt.savefig('launch2.png', bbox_inches='tight')
 
 
 """============================ Finalize the metrics output ============================"""
@@ -381,19 +381,21 @@ ax13.plot(time_hour_auction, cleared_price, color = 'g', linewidth = 1.5)
 ax13.legend(['bid price', 'cleared price'])
 
 
-
-plt.figure(1)
-time = time_hour_auction
-plt.plot(time, quantitys , 's-')
-plt.xlabel('Time (h)')
-plt.ylabel('Bid-Quantity (1 packet)')
+figure = plt.gcf() 
+figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+plt.savefig('image 1', bbox_inches='tight')
+#plt.figure(1)
+#time = time_hour_auction
+#plt.plot(time, quantitys , 's-')
+#plt.xlabel('Time (h)')
+#plt.ylabel('Bid-Quantity (1 packet)')
 #
-plt.figure(2)
-time = time_hour_auction
-plt.plot(time, prices , '*-')
-plt.xlabel('Time (h)')
-plt.ylabel('Bid-Price ($/kWh)')
-plt.legend()
+#plt.figure(2)
+#time = time_hour_auction
+#plt.plot(time, prices , '*-')
+#plt.xlabel('Time (h)')
+#plt.ylabel('Bid-Price ($/kWh)')
+#plt.legend()
 
 
 
@@ -438,7 +440,6 @@ ax4.legend(['HVAC ON', 'buyer', 'seller', 'none-ptcp'])
 figure = plt.gcf() 
 figure.set_size_inches(32, 18)
 plt.savefig('launch3.png', bbox_inches='tight')
-plot.show()
 
 
 
