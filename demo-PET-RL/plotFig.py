@@ -103,6 +103,9 @@ ax13.plot(time_hour_auction, prices,  color = 'k', linewidth = 1.5)
 ax13.plot(time_hour_auction, cleared_price, color = 'g', linewidth = 1.5)
 ax13.legend(['bid price', 'cleared price'])
 
+figure = plt.gcf() 
+figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
+plt.savefig('filename2.png', bbox_inches='tight')
 
 # plt.figure(1)
 # time = time_hour_auction
