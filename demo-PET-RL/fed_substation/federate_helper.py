@@ -54,6 +54,8 @@ class FEDERATE_HELPER:
             self.housesInfo_dict[houseName] = {}
             hvacName = self.hvac_name_list[i]
             meter = self.billingmeter_name_list[i]
+          house_name, val in self.housesInfo_dict.items():
+            solar_inv_name = val['PV']
             vpp = self.agents_dict['houses'][houseName]['house_class']
             self.housesInfo_dict[houseName]['VPP'] = vpp
             self.housesInfo_dict[houseName]['meter'] = meter
@@ -151,6 +153,7 @@ class FEDERATE_HELPER:
             hvac_name = val['HVAC']
             meter_name = val['meter']
             house_meter_name = self.agents_dict['houses'][house_name]['parent']
+            
 
             houseSubTopic = self.gldName + '/' + house_name  # subs from gridlabd
             billMeterSubTopic = self.gldName + '/' + meter_name  # subs from meter
@@ -181,6 +184,7 @@ class FEDERATE_HELPER:
                 pvMeterSubTopic = self.gldName + '/' + solar_meter_name
                 pvArraySubTopic = self.gldName + '/' + solar_array_name
                 self.subsSolarPower[house_name] =  helics.helicsFederateGetSubscription (self.hFed, pvMeterSubTopic + '#measured_power')
+                print("subssolarPower is:", self.subsSolarPower[house_name]) 
                 self.subsSolarVout[house_name] =  helics.helicsFederateGetSubscription (self.hFed, pvArraySubTopic + '#V_Out')
                 self.subsSolarIout[house_name] =  helics.helicsFederateGetSubscription (self.hFed, pvArraySubTopic + '#I_Out')
 
