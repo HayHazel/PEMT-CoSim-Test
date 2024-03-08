@@ -42,7 +42,7 @@ hour_stop_seconds = hour_stop*3600
 hasMarket = True # have market or not
 vppEnable = False # have Vpp coordinator or not
 drawFigure = True # draw figures during the simulation
-has_demand_response = False
+has_demand_response = True #False
 has_RL = True
 fh = FEDERATE_HELPER(configfile, helicsConfig, metrics_root, hour_stop) # initialize the federate helper
 
