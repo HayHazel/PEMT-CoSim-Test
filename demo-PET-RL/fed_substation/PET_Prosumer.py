@@ -575,8 +575,10 @@ class HOUSE:
     def predict_house_load(self):
         if self.hvac.power_needed:
             self.house_load_predict = 3.0 + self.unres_kw
+            print("hvac power needed, house load predict=", self.house_load_predict)
         else:
             self.house_load_predict = self.unres_kw
+            print("hvac power NOT needed, house load predict=", self.house_load_predict)
 
     def predict_solar_power(self):
         if self.hasPV:
