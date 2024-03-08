@@ -418,9 +418,11 @@ class HOUSE:
         self.hvac = HVAC(hvac_name, agents_dict['hvacs'][hvac_name], aucObj) # create hvac object
         if PV_name == None:
             self.hasPV = False
+            print("has none PV_name")
         else:
             self.pv = PV(PV_name, agents_dict['inverters'][PV_name], aucObj)
             self.hasPV = True
+            print("hasPV name")
         if battery_name == None:
             self.hasBatt = False
         else:
