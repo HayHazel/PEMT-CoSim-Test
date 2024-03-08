@@ -275,6 +275,7 @@ class HVAC:
                     self.offset = -self.offset_limit
                 elif self.offset > self.offset_limit:
                     self.offset = self.offset_limit
+            print("self offset:", self.offset)
         if self.response_strategy == 'mttr':
             price_upper = 0.5
             self.MTTR_now = (price-price_upper)/(self.mean-price_upper)*(self.MTTR_base-self.MTTR_upper)+self.MTTR_upper
