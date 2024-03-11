@@ -151,6 +151,7 @@ class HVAC:
 
     def determine_power_needed(self):
         self.setpoint = self.basepoint + self.offset
+        print("setpoint is:", self.setpoint)
 
         up_bound = self.setpoint + 1/2*self.deadband
         print("upbound is:", up_bound)
