@@ -157,8 +157,10 @@ class HVAC:
 
         if self.air_temp > up_bound:
             self.power_needed = True
+            print("hvac power = true")
         if self.air_temp < lower_bound:
             self.power_needed = False
+            print("hvac pwoer = false")
 
         if self.air_temp < (lower_bound-3) and self.hvac_on:
             print("Something wrong")
@@ -421,11 +423,11 @@ class HOUSE:
         self.hvac = HVAC(hvac_name, agents_dict['hvacs'][hvac_name], aucObj) # create hvac object
         if PV_name == None:
             self.hasPV = False
-            print("has none PV_name")
+          #  print("has none PV_name")
         else:
             self.pv = PV(PV_name, agents_dict['inverters'][PV_name], aucObj)
             self.hasPV = True
-            print("hasPV name")
+          #  print("hasPV name")
         if battery_name == None:
             self.hasBatt = False
         else:
@@ -525,7 +527,7 @@ class HOUSE:
         # house meter power
         cval = helics.helicsInputGetComplex(self.subs['subHousePower'])
         self.house_kw = cval[0]*0.001 # unit. kW
-        print("house_kw is:", self.house_kw)
+     #   print("house_kw is:", self.house_kw)
         # self.house_kw2 = max(helics.helicsInputGetDouble(self.subs['subHouseLoad']), 0) # unit kW
         # test: a = math.sqrt((cval[0]*0.001)**2+(cval[1]*0.001)**2) - self.house_kw2
 
@@ -534,7 +536,7 @@ class HOUSE:
         self.air_temp = helics.helicsInputGetDouble (self.subs['subTemp'])
         # hvac load
         self.hvac_kw = max(helics.helicsInputGetDouble (self.subs['subHVACLoad']), 0) # unit kW
-        print("hvac_kw is:", self.hvac_kw)
+   #     print("hvac_kw is:", self.hvac_kw)
         # hvac state (no use here)
         # str = helics.helicsInputGetString (self.subs['subState'])
         self.hvac_on = self.hvac.hvac_on
@@ -558,7 +560,7 @@ class HOUSE:
             # PV I_Out
             cval = helics.helicsInputGetComplex(self.subs['subSolarIout'])
             self.solarDC_Iout = cval[0] # unit. A
-            print(self.solar_kw, self.solarDC_Vout, self.solarDC_Iout)
+          # print(self.solar_kw, self.solarDC_Vout, self.solarDC_Iout)
 
             self.pv.get_state(self.solar_kw, self.solarDC_Vout, self.solarDC_Iout)
 
@@ -578,15 +580,15 @@ class HOUSE:
     def predict_house_load(self):
         if self.hvac.power_needed:
             self.house_load_predict = 3.0 + self.unres_kw
-            print("hvac power needed, house load predict=", self.house_load_predict)
+            #print("hvac power needed, house load predict=", self.house_load_predict)
         else:
             self.house_load_predict = self.unres_kw
-            print("hvac power NOT needed, house load predict=", self.house_load_predict)
+           # print("hvac power NOT needed, house load predict=", self.house_load_predict)
 
     def predict_solar_power(self):
         if self.hasPV:
             self.solar_power_predict = self.solarDC_Vout * self.solarDC_Iout /1000
-            print("self.solar_power_predict is:", self.solar_power_predict)
+            #print("self.solar_power_predict is:", self.solar_power_predict)
         else:
             self.solar_power_predict = 0
 
@@ -646,13 +648,13 @@ class HOUSE:
 
         self.bid.clear()
         diff = self.solar_power_predict - self.house_load_predict # estimated the surplus solar generation
-        print("the diff is:", diff)
+      #  print("the diff is:", diff)
         base_covered = False
         self.current_rl_agent_role = 'rl-ntcp'
         action  = None
 
         num_packets = int(diff//self.packet_unit) # estimated the number of surplus PV power packet
-        print("num packets is:", num_packets)
+      #  print("num packets is:", num_packets)
         if num_packets >= 1 :
             self.role = 'seller'
             quantity = num_packets * self.packet_unit
@@ -671,14 +673,14 @@ class HOUSE:
         else:
             self.role = 'buyer'
             if self.hvac.power_needed:
-                print("hvac power needed")
+              #  print("hvac power needed")
                 if self.rl_env and self.rl_agent_buyer:
                     action = self.rl_agent_buyer.select_action(self.rl_env.obs)
                     p = self.rl_env.actionToPrice(action)
                     self.current_rl_agent_role = 'rl-buyer'
                 else:
                     p = self.mean + (self.hvac.air_temp - self.hvac.basepoint) * self.hvac.ramp * self.std_dev / self.hvac.Trange #* 30
-                    print("p is:", p)
+                   # print("p is:", p)
                 if p >= self.hvac.price_cap:
                     self.bid_price = self.hvac.price_cap
                 elif p <= 0.0:
@@ -693,7 +695,7 @@ class HOUSE:
                     quantity = 3.0
                     base_covered = False
             else:
-                print("hvac power not needed")
+               # print("hvac power not needed")
                 self.bid_price = 0
                 quantity = 0
                 base_covered = False
