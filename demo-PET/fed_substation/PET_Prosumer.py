@@ -535,7 +535,7 @@ class HOUSE:
             # PV I_Out
             cval = helics.helicsInputGetComplex(self.subs['subSolarIout'])
             self.solarDC_Iout = cval[0] # unit. A
-            # test: print(self.solar_kw, self.solarDC_Vout, self.solarDC_Iout)
+            print("pv measurements:",self.solar_kw, self.solarDC_Vout, self.solarDC_Iout)
 
             self.pv.get_state(self.solar_kw, self.solarDC_Vout, self.solarDC_Iout)
 
