@@ -95,14 +95,14 @@ class HVAC:
 
 
         # state
-        self.air_temp = 70.0 #78.0
+        self.air_temp = 78.0
         self.hvac_kw = 3.0
         self.hvac_kv_last = self.hvac_kw # save the last power measurement that > 0
         self.hvac_on = False
         self.power_needed = False
 
         # setpoint related
-        self.basepoint = 80.6
+        self.basepoint = 78.0 #80.6
         self.fix_basepoint = False # if ture, the base point will not be changed all the time
         self.setpoint = 0.0
         self.offset = 0
