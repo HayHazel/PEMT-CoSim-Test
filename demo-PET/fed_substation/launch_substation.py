@@ -145,7 +145,7 @@ while (time_granted < StopTime):
     for key, house in houses.items():
       if house.hasBatt:
         house.battery.auto_control() # real-time basic control of battery to track the HVAC load
-      # house.hvac.auto_control()
+        house.hvac.auto_control()
     tnext_control += control_period
 
 
