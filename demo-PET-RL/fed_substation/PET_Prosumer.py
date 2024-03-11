@@ -95,7 +95,7 @@ class HVAC:
 
 
         # state
-        self.air_temp = 78.0
+        self.air_temp = 80.6  #78.0
         self.hvac_kw = 3.0
         self.hvac_kv_last = self.hvac_kw # save the last power measurement that > 0
         self.hvac_on = False
