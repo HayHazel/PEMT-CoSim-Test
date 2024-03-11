@@ -671,6 +671,7 @@ class HOUSE:
         else:
             self.role = 'buyer'
             if self.hvac.power_needed:
+                print("hvac power needed")
                 if self.rl_env and self.rl_agent_buyer:
                     action = self.rl_agent_buyer.select_action(self.rl_env.obs)
                     p = self.rl_env.actionToPrice(action)
@@ -692,6 +693,7 @@ class HOUSE:
                     quantity = 3.0
                     base_covered = False
             else:
+                print("hvac power not needed")
                 self.bid_price = 0
                 quantity = 0
                 base_covered = False
