@@ -102,7 +102,7 @@ class HVAC:
         self.power_needed = False
 
         # setpoint related
-        self.basepoint = 72 #80.6
+        self.basepoint = 68 #80.6
         self.fix_basepoint = False # if ture, the base point will not be changed all the time
         self.setpoint = 0.0
         self.offset = 0
