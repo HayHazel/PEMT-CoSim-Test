@@ -510,7 +510,7 @@ class HOUSE:
         ##### edited this out 11/03/24 h.smith #######
        # self.air_temp = helics.helicsInputGetDouble (self.subs['subTemp'])
         # hvac load
-      #  self.hvac_kw = max(helics.helicsInputGetDouble (self.subs['subHVACLoad']), 0) # unit kW
+        self.hvac_kw = max(helics.helicsInputGetDouble (self.subs['subHVACLoad']), 0) # unit kW
         ######## end of edit #######
         # hvac state (no use here)
         # str = helics.helicsInputGetString (self.subs['subState'])
