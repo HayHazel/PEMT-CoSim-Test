@@ -174,6 +174,7 @@ class FEDERATE_HELPER:
             self.pubsThermostatState[house_name] = helics.helicsFederateGetPublication (self.hFed, hvacPubTopic + '/thermostat_mode') # new added by Yuanliang
 
             if val['PV'] != None:
+                print("val Pv is not none")
                 solar_meter_name = self.agents_dict['inverters'][val['PV']]['parent']
                 solar_array_name = self.agents_dict['inverters'][val['PV']]['resource_name']
                 pvMeterSubTopic = self.gldName + '/' + solar_meter_name
