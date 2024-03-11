@@ -255,4 +255,4 @@ plt.show()
 
 figure = plt.gcf() 
 figure.set_size_inches(32, 18) # set figure's size manually to your full screen (32x18)
-plt.savefig('filename.png', bbox_inches='tight')
+plt.savefig('plot.png', bbox_inches='tight')
