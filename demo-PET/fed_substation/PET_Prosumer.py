@@ -528,7 +528,7 @@ class HOUSE:
         if self.hasPV:
             # PV power
             cval = helics.helicsInputGetComplex(self.subs['subSolarPower'])
-            print("cval is:", cval)
+         #   print("cval is:", cval)
             self.solar_kw = abs(cval[0]*0.001) # unit. kW
             # PV V_Out
             cval = helics.helicsInputGetComplex(self.subs['subSolarVout'])
