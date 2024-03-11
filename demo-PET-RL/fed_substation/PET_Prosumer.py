@@ -153,7 +153,10 @@ class HVAC:
         self.setpoint = self.basepoint + self.offset
 
         up_bound = self.setpoint + 1/2*self.deadband
+        print("upbound is:", up_bound)
         lower_bound = self.setpoint - 1/2*self.deadband
+        print("lower bound is:", lower_bound)
+        print("air temp is:", self.air_temp)
 
         if self.air_temp > up_bound:
             self.power_needed = True
