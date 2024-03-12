@@ -145,8 +145,11 @@ class GLM_HELPER:
             phase = self.VPP_phase_list[vpp_idx]
             # for phase in "ABC":
             count_pv_only = self.ratio_PV_only_list[vpp_idx]*self.num_house_phase_list[vpp_idx]
+            print("count_pv_only", count_pv_only)
             count_bat_only = self.ratio_Bat_only_list[vpp_idx]*self.num_house_phase_list[vpp_idx]
+            print("count_bat_only", count_bat_only)
             count_pv_bat = self.ratio_PV_Bat_list[vpp_idx]*self.num_house_phase_list[vpp_idx]
+            print("count_pv_bat", count_pv_bat)
             for house_idx in range(num_houses_phase):
                 h_code = house_code
                 h_code = h_code.replace("{vpp_idx}", str(vpp_idx))
