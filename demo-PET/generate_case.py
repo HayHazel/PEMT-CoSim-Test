@@ -58,7 +58,7 @@ tmy_file_name = 'AZ-Tucson_International_Ap.tmy3' # choose a .tmy3 file to speci
 tmy_file_dir = os.getenv('TESP_INSTALL') + '/share/support/weather/'
 tmy_file = tmy_file_dir + tmy_file_name
 #tesp.weathercsv (tmy_file, 'weather.dat', start_time, stop_time, year) # it will output weather.dat in the weather fold as the input of the weather federate
-tesp.weathercsv(f"fed_weather/tesp_weather/AZ-Tucson_International_Ap.tmy3", 'weather.csv', start_time,
+tesp.weathercsv(tmy_file, 'weather.dat', start_time,
                end_time,
                start_time[0])
 
