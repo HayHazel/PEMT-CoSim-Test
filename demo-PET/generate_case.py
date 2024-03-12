@@ -44,13 +44,13 @@ glbal_config = GLOBAL_Configuration()
 glm = GLM_HELPER(glbal_config)
 glm.generate_glm()
 
-start_time=datetime(2013, 7, 1, 0, 0, 0),
-end_time=datetime(2013, 7, 7, 0, 0, 0),
+#start_time=datetime(2013, 7, 1, 0, 0, 0),
+#end_time=datetime(2013, 7, 7, 0, 0, 0),
 
 """1. configure simulation time period"""
-#year_ = '2013'
-#start_time = '2013-07-01 00:00:00'
-#stop_time  = '2013-07-03 00:00:00'
+year = '2013'
+start_time = '2013-07-01 00:00:00'
+stop_time  = '2013-07-03 00:00:00'
 
 
 """2. configure weather data"""
