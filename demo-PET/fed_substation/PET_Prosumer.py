@@ -632,6 +632,7 @@ class HOUSE:
                 base_covered = False
 
         self.bid = [self.bid_price, quantity, self.hvac.power_needed, self.role, self.unres_kw, self.name, base_covered]
+        print("bid is:", self.bid)
 
         return self.bid
         
