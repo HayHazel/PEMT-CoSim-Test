@@ -237,7 +237,7 @@ class FEDERATE_HELPER:
             agent_subs['subHouseLoad'] = self.subsHouseLoad[key]
             if info['PV'] != None:
                 agent_subs['subSolarPower'] = self.subsSolarPower[key]
-                print("subsSolarPower = ", agent_subs['subSolarPower']
+                print("subsSolarPower = ", agent_subs['subSolarPower'])
                 agent_subs['subSolarVout'] = self.subsSolarVout[key]
                 agent_subs['subSolarIout'] = self.subsSolarIout[key]
                 agent_pubs['pubPVPout'] = self.pubsPVPout[key]
