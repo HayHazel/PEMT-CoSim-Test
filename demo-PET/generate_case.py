@@ -44,7 +44,7 @@ glm.generate_glm()
 
 
 """1. configure simulation time period"""
-year_ = 2013
+year_ = '2013'
 start_time = '2013-07-01 00:00:00'
 stop_time  = '2013-07-03 00:00:00'
 
