@@ -216,6 +216,7 @@ class FEDERATE_HELPER:
         agent_pubs = {}
 
         if category == 'house': # the key is the house name
+            print("categroy == house")
             # for HVAC
             agent_subs['subTemp'] = self.subsTemp[key]
             agent_subs['subState'] = self.subsState[key]
@@ -236,6 +237,7 @@ class FEDERATE_HELPER:
             agent_subs['subHouseLoad'] = self.subsHouseLoad[key]
             if info['PV'] != None:
                 agent_subs['subSolarPower'] = self.subsSolarPower[key]
+                print("subsSolarPower = ", agent_subs['subSolarPower']
                 agent_subs['subSolarVout'] = self.subsSolarVout[key]
                 agent_subs['subSolarIout'] = self.subsSolarIout[key]
                 agent_pubs['pubPVPout'] = self.pubsPVPout[key]
