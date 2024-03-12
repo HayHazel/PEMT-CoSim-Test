@@ -599,6 +599,7 @@ class HOUSE:
         base_covered = False
 
         num_packets = int(diff//self.packet_unit) # estimated the number of surplus PV power packet
+        print("num packets:", num_packets)
         if num_packets >= 1 :
             self.role = 'seller'
             quantity = num_packets * self.packet_unit
