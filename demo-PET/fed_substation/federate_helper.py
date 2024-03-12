@@ -599,6 +599,7 @@ class CURVES_TO_PLOT:
         self.house_load_min.append(min(house_load_list))
 
         self.system_PV.append(sum(pv_power_list))
+        print("system Pv sum of pv power list:", self.system_PV)
         self.house_PV_mean.append(sum(pv_power_list)/len(pv_power_list))
         self.house_PV_max.append(max(pv_power_list))
         self.house_PV_min.append(min(pv_power_list))
