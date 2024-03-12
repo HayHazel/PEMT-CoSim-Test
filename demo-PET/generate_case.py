@@ -58,9 +58,9 @@ tmy_file = tmy_file_dir + tmy_file_name
 """3. generate configuration files for gridlabd, substation, pypower, and weather"""
 tesp.glm_dict ('TE_Challenge',te30=True)
 tesp.prep_substation ('TE_Challenge', glbal_config)
-tesp.weathercsv ("fed_weather/tesp_weather/AZ-Tucson_International_Ap.tmy3", 'weather.csv', start_time, stop_time, year_)
+#tesp.weathercsv ("fed_weather/tesp_weather/AZ-Tucson_International_Ap.tmy3", 'weather.csv', start_time, stop_time, year_)
 #tesp.weathercsv("fed_weather/tesp_weather/AZ-Tucson_International_Ap.tmy3", 'weather.csv', start_time, stop_time, year)
-#tesp.weathercsv (tmy_file, 'weather.dat', start_time, stop_time, year) # it will output weather.dat in the weather fold as the input of the weather federate
+tesp.weathercsv (tmy_file, 'weather.dat', start_time, stop_time, year_) # it will output weather.dat in the weather fold as the input of the weather federate
 
 # to run the original E+ model with heating/cooling, copy the following file to Merged.idf
 #base_idf = os.getenv('TESP_INSTALL') + '/share/support/energyplus/SchoolDualController.idf'
