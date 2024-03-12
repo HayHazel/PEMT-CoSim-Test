@@ -42,11 +42,13 @@ glbal_config = GLOBAL_Configuration()
 glm = GLM_HELPER(glbal_config)
 glm.generate_glm()
 
+start_time=datetime(2013, 7, 1, 0, 0, 0),
+end_time=datetime(2013, 7, 7, 0, 0, 0),
 
 """1. configure simulation time period"""
-year_ = '2013'
-start_time = '2013-07-01 00:00:00'
-stop_time  = '2013-07-03 00:00:00'
+#year_ = '2013'
+#start_time = '2013-07-01 00:00:00'
+#stop_time  = '2013-07-03 00:00:00'
 
 
 """2. configure weather data"""
@@ -54,13 +56,20 @@ tmy_file_name = 'AZ-Tucson_International_Ap.tmy3' # choose a .tmy3 file to speci
 tmy_file_dir = os.getenv('TESP_INSTALL') + '/share/support/weather/'
 tmy_file = tmy_file_dir + tmy_file_name
 #tesp.weathercsv (tmy_file, 'weather.dat', start_time, stop_time, year) # it will output weather.dat in the weather fold as the input of the weather federate
+tesp.weathercsv(f"fed_weather/tesp_weather/AZ-Tucson_International_Ap.tmy3", 'weather.csv', start_time,
+               end_time,
+               start_time.year)
+
+
 
 """3. generate configuration files for gridlabd, substation, pypower, and weather"""
 tesp.glm_dict ('TE_Challenge',te30=True)
 tesp.prep_substation ('TE_Challenge', glbal_config)
 #tesp.weathercsv ("fed_weather/tesp_weather/AZ-Tucson_International_Ap.tmy3", 'weather.csv', start_time, stop_time, year_)
 #tesp.weathercsv("fed_weather/tesp_weather/AZ-Tucson_International_Ap.tmy3", 'weather.csv', start_time, stop_time, year)
-tesp.weathercsv (tmy_file, 'weather.dat', start_time, stop_time, year_) # it will output weather.dat in the weather fold as the input of the weather federate
+#tesp.weathercsv (tmy_file, 'weather.dat', start_time, stop_time, year_) # it will output weather.dat in the weather fold as the input of the weather federate
+
+
 
 # to run the original E+ model with heating/cooling, copy the following file to Merged.idf
 #base_idf = os.getenv('TESP_INSTALL') + '/share/support/energyplus/SchoolDualController.idf'
