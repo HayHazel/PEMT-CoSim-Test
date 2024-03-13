@@ -11,16 +11,18 @@ import os
 import numpy as np
 from glmhelper import GLM_HELPER
 import my_tesp_support_api.api as tesp
+import datetime
 
 
 """0. generate a glm file (TE_Challenge.glm) according to user's preference"""
 class GLOBAL_Configuration:
     """ a class which defines the configurations of the glm for GridLAB-D
     """
-
-    year = 2013
-    start_time = '2013-07-01 00:00:00'
-    stop_time  = '2013-07-05 00:00:00'
+     start_time = datetime.datetime(2013, 7, 1, 0, 0, 0)
+     stop_time = datetime.datetime(2013, 7, 5, 0, 0, 0)
+   # year = 2013
+   # start_time = '2013-07-01 00:00:00'
+   # stop_time  = '2013-07-05 00:00:00'
     duration = 4 * 24 * 3600 # unit: seconds
     minimum_timestep = 1 # simulation time step
     market_period = 300  # market running period
