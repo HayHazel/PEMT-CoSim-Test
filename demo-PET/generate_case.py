@@ -55,9 +55,9 @@ glm.generate_glm()
 #end_time=datetime(2013, 7, 7, 0, 0, 0),
 
 """1. configure simulation time period"""
-year = '2013'
-start_time = '2013-07-01 00:00:00'
-stop_time  = '2013-07-03 00:00:00'
+#year = '2013'
+#start_time = '2013-07-01 00:00:00'
+#stop_time  = '2013-07-03 00:00:00'
 
 
 """2. configure weather data"""
