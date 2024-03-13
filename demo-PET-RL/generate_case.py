@@ -18,11 +18,11 @@ import datetime
 class GLOBAL_Configuration:
     """ a class which defines the configurations of the glm for GridLAB-D
     """
-     start_time = datetime.datetime(2013, 7, 1, 0, 0, 0)
-     stop_time = datetime.datetime(2013, 7, 5, 0, 0, 0)
-   # year = 2013
-   # start_time = '2013-07-01 00:00:00'
-   # stop_time  = '2013-07-05 00:00:00'
+   #  start_time = datetime.datetime(2013, 7, 1, 0, 0, 0)
+    # stop_time = datetime.datetime(2013, 7, 5, 0, 0, 0)
+    year = 2013
+    start_time = '2013-07-01' #00:00:00'
+    stop_time  = '2013-07-05' #00:00:00'
     duration = 4 * 24 * 3600 # unit: seconds
     minimum_timestep = 1 # simulation time step
     market_period = 300  # market running period
