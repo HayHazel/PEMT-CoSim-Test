@@ -11,7 +11,7 @@ from datetime import timedelta
 
 import helics
 
-from PET_Prosumer import House, GridSupply  # import user-defined my_hvac class for hvac controllers
+from PET_Prosumer2 import House, GridSupply  # import user-defined my_hvac class for hvac controllers
 from federate_helper import FederateHelper
 from market import ContinuousDoubleAuction
 from recording import SubstationRecorder
