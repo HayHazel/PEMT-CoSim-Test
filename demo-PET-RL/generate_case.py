@@ -19,11 +19,11 @@ from fed_weather.TMY3toCSV import weathercsv
 class GLOBAL_Configuration:
     """ a class which defines the configurations of the glm for GridLAB-D
     """
-   #  start_time = datetime.datetime(2013, 7, 1, 0, 0, 0)
-    # stop_time = datetime.datetime(2013, 7, 5, 0, 0, 0)
-    year = 2013
-    start_time = '2013-07-01 00:00:00'
-    stop_time  = '2013-07-05 00:00:00'
+     start_time = datetime(2013, 7, 1, 0, 0, 0)
+     stop_time = datetime(2013, 7, 5, 0, 0, 0)
+   # year = 2013
+   # start_time = '2013-07-01 00:00:00'
+   # stop_time  = '2013-07-05 00:00:00'
 
     duration = 4 * 24 * 3600 # unit: seconds
     minimum_timestep = 1 # simulation time step
@@ -56,7 +56,7 @@ tmy_file_dir = os.getenv('TESP_INSTALL') + '/share/support/weather/'
 tmy_file = tmy_file_dir + tmy_file_name
 #tesp.weathercsv (tmy_file, 'weather.dat',  '2013-07-01 00:00:00', '2013-07-05 00:00:00', 2013 ) #,glbal_config.year) # it will output weather.dat in the weather fold as the input of the weather federate
 weathercsv(f"fed_weather/tesp_weather/AZ-Tucson_International_Ap.tmy3", 'weather.dat', global_config.start_time,
-               global_config.end_time,
+               global_config.stop_time,
                global_config.start_time.year)
 
 """3. generate configuration files for gridlabd, substation, pypower, and weather"""
