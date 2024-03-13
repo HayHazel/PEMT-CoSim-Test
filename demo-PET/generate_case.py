@@ -57,6 +57,7 @@ stop_time  = '2013-07-03 00:00:00'
 tmy_file_name = 'AZ-Tucson_International_Ap.tmy3' # choose a .tmy3 file to specify the weather in a specific location
 tmy_file_dir = os.getenv('TESP_INSTALL') + '/share/support/weather/'
 tmy_file = tmy_file_dir + tmy_file_name
+tesp.weathercsv (tmy_file, 'weather.dat', glbal_config.start_time, glbal_config.stop_time, glbal_config.year) # it will output weather.dat in the weather fold as the input of the weather federate
 #tesp.weathercsv (tmy_file, 'weather.dat', start_time, stop_time, year) # it will output weather.dat in the weather fold as the input of the weather federate
 #tesp.weathercsv(tmy_file, 'weather.dat', start_time,
    #            end_time,
@@ -79,4 +80,5 @@ base_idf = os.getenv('TESP_INSTALL') + '/share/support/energyplus/SchoolDualCont
 """4. genereate configuration files for energyplus"""
 #base_idf = './fed_energyplus/SchoolBase.idf'
 ems_idf = './fed_energyplus/emsSchoolBaseH.idf'
-tesp.merge_idf (base_idf, ems_idf, start_time, stop_time, './fed_energyplus/MergedH.idf', 12)
+#tesp.merge_idf (base_idf, ems_idf, start_time, stop_time, './fed_energyplus/MergedH.idf', 12)
+tesp.merge_idf (base_idf, ems_idf, glbal_config.start_time, glbal_config.stop_time, './fed_energyplus/MergedH.idf', 12)
