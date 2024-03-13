@@ -21,8 +21,8 @@ class GLOBAL_Configuration:
    #  start_time = datetime.datetime(2013, 7, 1, 0, 0, 0)
     # stop_time = datetime.datetime(2013, 7, 5, 0, 0, 0)
     year = 2013
-    start_time = '2013-07-01' #00:00:00'
-    stop_time  = '2013-07-05' #00:00:00'
+    start_time = '2013-07-01 00:00:00'
+    stop_time  = '2013-07-05 00:00:00'
     duration = 4 * 24 * 3600 # unit: seconds
     minimum_timestep = 1 # simulation time step
     market_period = 300  # market running period
@@ -52,7 +52,7 @@ glm.generate_glm()
 tmy_file_name = 'AZ-Tucson_International_Ap.tmy3' # choose a .tmy3 file to specify the weather in a specific location
 tmy_file_dir = os.getenv('TESP_INSTALL') + '/share/support/weather/'
 tmy_file = tmy_file_dir + tmy_file_name
-tesp.weathercsv (tmy_file, 'weather.dat', glbal_config.start_time, glbal_config.stop_time) #,glbal_config.year) # it will output weather.dat in the weather fold as the input of the weather federate
+tesp.weathercsv (tmy_file, 'weather.dat',  '2013-07-01 00:00:00', '2013-07-05 00:00:00', 2013 ) #,glbal_config.year) # it will output weather.dat in the weather fold as the input of the weather federate
 
 """3. generate configuration files for gridlabd, substation, pypower, and weather"""
 tesp.glm_dict ('TE_Challenge',te30=True)
