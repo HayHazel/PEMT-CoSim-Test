@@ -52,7 +52,7 @@ glm.generate_glm()
 tmy_file_name = 'AZ-Tucson_International_Ap.tmy3' # choose a .tmy3 file to specify the weather in a specific location
 tmy_file_dir = os.getenv('TESP_INSTALL') + '/share/support/weather/'
 tmy_file = tmy_file_dir + tmy_file_name
-tesp.weathercsv (tmy_file, 'weather.dat', glbal_config.start_time, glbal_config.stop_time, glbal_config.year) # it will output weather.dat in the weather fold as the input of the weather federate
+tesp.weathercsv (tmy_file, 'weather.dat', glbal_config.start_time, glbal_config.stop_time) #,glbal_config.year) # it will output weather.dat in the weather fold as the input of the weather federate
 
 """3. generate configuration files for gridlabd, substation, pypower, and weather"""
 tesp.glm_dict ('TE_Challenge',te30=True)
