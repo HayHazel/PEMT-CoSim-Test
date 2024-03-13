@@ -12,7 +12,7 @@ import pickle
 from datetime import datetime
 
 from fed_weather.TMY3toCSV import weathercsv
-from glmhelper import GlmGenerator
+from glmtesthelper import GlmGenerator
 from helics_config_helper import HelicsConfigHelper
 from scenario import PETScenario
 
