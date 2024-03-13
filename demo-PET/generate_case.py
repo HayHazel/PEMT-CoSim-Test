@@ -21,10 +21,17 @@ from datetime import datetime
 class GLOBAL_Configuration:
     """ a class which defines the configurations of the glm for GridLAB-D
     """
-
+    year = 2013
+    start_time = '2013-07-01 00:00:00'
+    stop_time  = '2013-07-05 00:00:00'
+    duration = 4 * 24 * 3600 # unit: seconds
     minimum_timestep = 1 # simulation time step
     market_period = 300  # market running period
     helics_connected = True
+
+    #minimum_timestep = 1 # simulation time step
+    #market_period = 300  # market running period
+    #helics_connected = True
 
     num_VPPs = 1 # number of VPPs, each VPP manages a number of houses
     VPP_phase_list = ['A'] # the phase managed by a VPP
