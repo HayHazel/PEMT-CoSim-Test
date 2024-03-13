@@ -18,7 +18,7 @@ import random
 import psutil
 import subprocess
 import pickle
-from PET_Prosumer2 import HOUSE, VPP        # import user-defined my_hvac class for hvac controllers
+from PET_Prosumer import HOUSE, VPP        # import user-defined my_hvac class for hvac controllers
 from datetime import datetime
 from datetime import timedelta
 from my_auction import AUCTION  # import user-defined my_auction class for market
