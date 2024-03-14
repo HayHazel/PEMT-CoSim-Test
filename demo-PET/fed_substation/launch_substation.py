@@ -13,7 +13,7 @@ sys.path.append('..')
 import time
 import os
 import json
-import helics
+import helics as helics
 import random
 import psutil
 import subprocess
