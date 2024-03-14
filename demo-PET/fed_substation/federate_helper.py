@@ -16,7 +16,7 @@ class FEDERATE_HELPER:
 
         self.configfile = configfile
         self.helicsConfig = helicsConfig
-        print("helcisconfig:", self.helicsConfig)
+   #     print("helcisconfig:", self.helicsConfig)
         with open(configfile, encoding='utf-8') as f:
             self.agents_dict = json.loads(f.read()) # federate_config is the dict data structure
             f.close()
@@ -132,7 +132,7 @@ class FEDERATE_HELPER:
 
     def create_federate(self):
         self.hFed = helics.helicsCreateValueFederateFromConfig("TE_Challenge_HELICS_substation.json")  #(self.helicsConfig) #(self.helics_config)  #(self.helicsConfig) # the helics period is 15 seconds
-        print("self.hfed:", self.hFed)
+        #print("self.hfed:", self.hFed)
 
     def register_pubssubs(self):
         self.pubCount = helics.helicsFederateGetPublicationCount(self.hFed)
