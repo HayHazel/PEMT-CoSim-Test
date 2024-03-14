@@ -174,7 +174,6 @@ class FEDERATE_HELPER:
             self.pubsThermostatState[house_name] = helics.helicsFederateGetPublication (self.hFed, hvacPubTopic + '/thermostat_mode') # new added by Yuanliang
 
             if val['PV'] != None:
-                print("val Pv is not none")
                 solar_meter_name = self.agents_dict['inverters'][val['PV']]['parent']
                 solar_array_name = self.agents_dict['inverters'][val['PV']]['resource_name']
                 pvMeterSubTopic = self.gldName + '/' + solar_meter_name
@@ -216,7 +215,6 @@ class FEDERATE_HELPER:
         agent_pubs = {}
 
         if category == 'house': # the key is the house name
-            print("categroy == house")
             # for HVAC
             agent_subs['subTemp'] = self.subsTemp[key]
             agent_subs['subState'] = self.subsState[key]
@@ -237,7 +235,6 @@ class FEDERATE_HELPER:
             agent_subs['subHouseLoad'] = self.subsHouseLoad[key]
             if info['PV'] != None:
                 agent_subs['subSolarPower'] = self.subsSolarPower[key]
-                print("subsSolarPower = ", agent_subs['subSolarPower'])
                 agent_subs['subSolarVout'] = self.subsSolarVout[key]
                 agent_subs['subSolarIout'] = self.subsSolarIout[key]
                 agent_pubs['pubPVPout'] = self.pubsPVPout[key]
@@ -599,7 +596,6 @@ class CURVES_TO_PLOT:
         self.house_load_min.append(min(house_load_list))
 
         self.system_PV.append(sum(pv_power_list))
-        print("system Pv sum of pv power list:", self.system_PV)
         self.house_PV_mean.append(sum(pv_power_list)/len(pv_power_list))
         self.house_PV_max.append(max(pv_power_list))
         self.house_PV_min.append(min(pv_power_list))
