@@ -132,6 +132,7 @@ class FEDERATE_HELPER:
 
     def create_federate(self):
         self.hFed = helics.helicsCreateValueFederateFromConfig('TE_Challenge_HELICS_substation.json')  #(self.helicsConfig) #(self.helics_config)  #(self.helicsConfig) # the helics period is 15 seconds
+        print("self.hfed":, self.hFed)
 
     def register_pubssubs(self):
         self.pubCount = helics.helicsFederateGetPublicationCount(self.hFed)
