@@ -131,7 +131,7 @@ class FEDERATE_HELPER:
         print("HELICS broker created!")
 
     def create_federate(self):
-        self.hFed = helics.helicsCreateValueFederateFromConfig(self.helicsConfig) #(self.helics_config)  #(self.helicsConfig) # the helics period is 15 seconds
+        self.hFed = helics.helicsCreateValueFederateFromConfig('TE_Challenge_HELICS_substation.json')  #(self.helicsConfig) #(self.helics_config)  #(self.helicsConfig) # the helics period is 15 seconds
 
     def register_pubssubs(self):
         self.pubCount = helics.helicsFederateGetPublicationCount(self.hFed)
