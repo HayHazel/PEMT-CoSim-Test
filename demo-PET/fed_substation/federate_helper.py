@@ -16,6 +16,7 @@ class FEDERATE_HELPER:
 
         self.configfile = configfile
         self.helicsConfig = helicsConfig
+        print("helcisconfig:", self.helicsConfig)
         with open(configfile, encoding='utf-8') as f:
             self.agents_dict = json.loads(f.read()) # federate_config is the dict data structure
             f.close()
